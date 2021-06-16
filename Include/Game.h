@@ -15,6 +15,7 @@ public:
 
 private:
     void render();
+    void processEvents();
 
     std::shared_ptr<sf::RenderWindow> Window;
 };
