@@ -6,7 +6,7 @@
 #define GAME_GAME_H
 
 #include <memory>
-#include <SFML/Graphics.hpp>
+#include "World.h"
 
 class Game {
 public:

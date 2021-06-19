@@ -14,9 +14,8 @@ Tile::Tile(std::string textureName, float x, float y, bool walkable, bool exit) 
 }
 
 bool Tile::setUpSprite(std::string textureName) {
-    if (!texture.loadFromFile(textureName)) {
+    if (!texture.loadFromFile(textureName))
         return false;
-    }
     sprite.setTexture(texture);
     sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     return true;

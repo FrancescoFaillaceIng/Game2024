@@ -4,7 +4,7 @@
 
 #include "../Include/Game.h"
 
-Game::Game() : Window(new sf::RenderWindow(sf::VideoMode(1500, 850), "Berto's Adventure", sf::Style::Default)) {
+Game::Game() : Window(new sf::RenderWindow(sf::VideoMode(400, 250), "Berto's Adventure", sf::Style::Default)) {
 
     //sets the icon
     sf::Image icon;
@@ -26,6 +26,7 @@ void Game::render() {
 
 void  Game::processEvents() {
     sf::Event event;
+    World world = World();
     while (Window->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::Closed:
@@ -33,5 +34,14 @@ void  Game::processEvents() {
             default:
                 break;
         }
+        Window->clear();
+        Window->display();
+        /*for (int i = 0; i < world.gridLength; i++){
+            for(int j = 0; j < world.gridLength; j++){
+                Window->draw(world.tiles[i][j]->sprite);
+            }
+        }*/ //TODO capire perchè crasha
+
+
     }
 }
