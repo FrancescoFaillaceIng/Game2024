@@ -20,13 +20,19 @@ void Game::play() {
 }
 
 void Game::render() {
+    World world = World();
     Window->clear();
+    for (int i = 0; i < world.gridLength; i++){
+        for(int j = 0; j < world.gridLength; j++){
+            Window->draw(world.tiles[i][j]->sprite);
+        }
+    }
 
 }
 
 void  Game::processEvents() {
     sf::Event event;
-    World world = World();
+
     while (Window->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::Closed:
@@ -34,7 +40,8 @@ void  Game::processEvents() {
             default:
                 break;
         }
-        Window->clear();
+        Game::render();
+
         Window->display();
         /*for (int i = 0; i < world.gridLength; i++){
             for(int j = 0; j < world.gridLength; j++){
