@@ -5,14 +5,10 @@
 #include <memory>
 #include "../Include/World.h"
 
-World::World(): hero(new Hero(Hero::HeroType::StRanged)){
+World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): hero(new Hero(Hero::HeroType::StRanged, textures)){
     hero->rect.setPosition(64,64);
    /* gridLength = 8;
     setUpInitialState();*/
-}
-
-void World::drawPlayer() {
-        window->draw(hero->getSprite());
 }
 
 void World::setUpInitialState() {
@@ -27,6 +23,14 @@ void World::setUpEnemyPositions() {
     enemyPositions.emplace_back(0, 2);
     enemyPositions.emplace_back(6, 0);
     enemyPositions.emplace_back(2, 7);*/
+}
+
+void World::draw() {
+    drawHero();
+}
+
+void World::drawHero() {
+    window->draw(hero->getSprite());
 }
 
 void World::setUpTiles() {

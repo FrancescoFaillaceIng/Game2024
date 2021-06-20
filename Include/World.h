@@ -11,7 +11,7 @@
 
 class World {
 public:
-    World();
+    World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures);
 
     std::vector<std::vector<Tile *>> tiles;
 
@@ -23,10 +23,11 @@ public:
     std::shared_ptr<Hero> hero;
     std::shared_ptr<sf::RenderWindow> window;
 
-    void drawPlayer();
     void setUpInitialState();
     void setUpEnemyPositions();
     void setUpTiles();
+    void draw();
+    void drawHero();
 
 
 };

@@ -7,6 +7,8 @@
 
 #include <SFML\System.hpp>
 #include "..\Entity.h"
+#include "..\ResourceHolder.h"
+#include "..\ResourceIdentifier.h"
 
 class Characters: public Entity{
 public:
@@ -18,7 +20,7 @@ public:
 
     Characters();
     virtual void UpdateMovement();
-    virtual const sf::Sprite &getSprite() override;
+
 };
 
 

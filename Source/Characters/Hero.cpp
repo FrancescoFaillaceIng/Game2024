@@ -4,7 +4,18 @@
 
 #include "../../Include/Characters/Hero.h"
 
-Hero::Hero(HeroType heroType) {
+Textures::ID toTextureID(Hero::HeroType heroType) {
+    switch(heroType) {
+        case Hero::HeroType::Melee:
+            return Textures::MeleeHero;
+        case Hero::HeroType::StRanged:
+            return Textures::StHero;
+        case Hero::HeroType::AoeRanged:
+            return Textures::AoeRanged;
+    }
+}
+
+Hero::Hero(HeroType heroType, const TextureHolder& textures) {
     sf::Texture textureHero;
     textureHero.loadFromFile(R"(Resources/HeroSprite.png)");
     sprite.setTexture(textureHero);
@@ -14,7 +25,8 @@ Hero::Hero(HeroType heroType) {
     sprite.setTextureRect(sf::IntRect(0,0,32,32));
     rect.setFillColor(sf::Color::Transparent);
 
-    this->heroType = heroType;
+    texture = textures.get(toTextureID(heroType));
+    sprite.setTexture(texture);
 
     switch(heroType) {
         case Hero::HeroType::Melee:
@@ -41,5 +53,5 @@ Hero::Hero(HeroType heroType) {
 }
 
 const sf::Sprite &Hero::getSprite() {
-    return Characters::getSprite();
+    return Entity::getSprite();
 }

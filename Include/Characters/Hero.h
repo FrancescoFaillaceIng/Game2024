@@ -15,9 +15,9 @@ public:
         StRanged,
         AoeRanged,
     };
-    Hero(HeroType heroType);
-    const sf::Sprite & getSprite();
+    Hero(HeroType heroType, const TextureHolder& textures);
 
+    virtual const sf::Sprite &getSprite() override;
     HeroType heroType;
 };
 

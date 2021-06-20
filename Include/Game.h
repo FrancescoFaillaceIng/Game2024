@@ -16,8 +16,10 @@ public:
 private:
     void render();
     void processEvents();
+    void loadTextures();
 
-    std::shared_ptr<sf::RenderWindow> Window;
+    TextureHolder textureHolder;
+    std::shared_ptr<sf::RenderWindow> mWindow;
     std::shared_ptr<World> world;
     static const sf::Time TimePerFrame;
 };

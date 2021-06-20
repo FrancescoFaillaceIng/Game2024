@@ -7,3 +7,5 @@
 const sf::Sprite &Entity::getSprite() {
     return sprite;
 }
+
+Entity::~Entity() {}
