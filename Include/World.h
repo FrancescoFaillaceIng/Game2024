@@ -9,7 +9,6 @@
 #include "Characters/Hero.h"
 #include <vector>
 
-//TODO mettere World.h e World.cpp in Include e Source
 class World {
 public:
     World();
@@ -17,6 +16,7 @@ public:
     std::vector<std::vector<Tile *>> tiles;
 
     int gridLength;
+
 
     sf::Vector2i exitPos;
     sf::Vector2i HeroPos;

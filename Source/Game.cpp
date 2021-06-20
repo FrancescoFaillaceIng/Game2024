@@ -46,15 +46,5 @@ void  Game::processEvents() {
             default:
                 break;
         }
-        Game::render();
-
-        Window->display();
-        /*for (int i = 0; i < world.gridLength; i++){
-            for(int j = 0; j < world.gridLength; j++){
-                Window->draw(world.tiles[i][j]->sprite);
-            }
-        }*/ //TODO capire perchè crasha
-
-
     }
 }
