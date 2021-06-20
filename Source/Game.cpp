@@ -6,7 +6,7 @@
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
 
-Game::Game() : Window(new sf::RenderWindow(sf::VideoMode(400, 250), "Berto's Adventure", sf::Style::Default)) {
+Game::Game() : Window(new sf::RenderWindow(sf::VideoMode(400, 250), "Berto's Adventure", sf::Style::Default)), world(new World()) {
 
     //sets the icon
     sf::Image icon;

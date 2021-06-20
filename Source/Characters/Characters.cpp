@@ -32,3 +32,6 @@ void Characters::UpdateMovement() {
 
 }
 
+const sf::Sprite &Characters::getSprite() {
+    return Entity::getSprite();
+}

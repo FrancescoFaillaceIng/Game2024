@@ -16,7 +16,6 @@ Hero::Hero(HeroType heroType) {
 
     this->heroType = heroType;
 
-
     switch(heroType) {
         case Hero::HeroType::Melee:
             speedBasic = 5;
@@ -39,4 +38,8 @@ Hero::Hero(HeroType heroType) {
             attackDamage = 0;
             break;
     }
+}
+
+const sf::Sprite &Hero::getSprite() {
+    return Characters::getSprite();
 }

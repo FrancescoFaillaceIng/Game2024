@@ -16,6 +16,7 @@ public:
         AoeRanged,
     };
     Hero(HeroType heroType);
+    const sf::Sprite & getSprite();
 
     HeroType heroType;
 };

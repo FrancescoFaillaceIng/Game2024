@@ -17,7 +17,6 @@ public:
 
     int gridLength;
 
-
     sf::Vector2i exitPos;
     sf::Vector2i HeroPos;
     std::vector<sf::Vector2i> enemyPositions;

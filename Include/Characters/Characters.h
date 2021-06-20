@@ -18,6 +18,7 @@ public:
 
     Characters();
     virtual void UpdateMovement();
+    virtual const sf::Sprite &getSprite() override;
 };
 
 

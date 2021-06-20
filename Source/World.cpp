@@ -5,9 +5,8 @@
 #include <memory>
 #include "../Include/World.h"
 
-World::World() {
-    std::shared_ptr<Hero> hero;
-    hero->rect.setPosition(64+16,64+16);
+World::World(): hero(new Hero(Hero::HeroType::StRanged)){
+    hero->rect.setPosition(64,64);
    /* gridLength = 8;
     setUpInitialState();*/
 }
