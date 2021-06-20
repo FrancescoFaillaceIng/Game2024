@@ -2,11 +2,16 @@
 // Created by Francesco on 18/06/2021.
 //
 
+#include <memory>
 #include "../Include/World.h"
 
 World::World() {
     gridLength = 8;
     setUpInitialState();
+}
+
+void World::drawPlayer() {
+        window->draw(hero->getSprite());
 }
 
 void World::setUpInitialState() {

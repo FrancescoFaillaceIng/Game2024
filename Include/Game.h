@@ -18,5 +18,7 @@ private:
     void processEvents();
 
     std::shared_ptr<sf::RenderWindow> Window;
+    std::shared_ptr<World> world;
+    static const sf::Time TimePerFrame;
 };
 #endif //GAME_GAME_H

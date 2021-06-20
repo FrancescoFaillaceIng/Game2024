@@ -7,8 +7,6 @@
 
 #include <SFML\System.hpp>
 #include "..\Entity.h"
-#include "..\Textures\ResourceHolder.h"
-#include "..\Textures\ResourceIdentifier.h"
 
 class Characters: public Entity{
 public:
@@ -16,6 +14,10 @@ public:
     int hpMax;
     int attackDamage;
     int speedBasic;
+    int counterWalking = 0;
+
+    Characters();
+    virtual void UpdateMovement();
 };
 
 

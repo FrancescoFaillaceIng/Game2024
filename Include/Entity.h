@@ -17,7 +17,7 @@ public:
     };
 
     virtual const sf::Sprite &getSprite();
-    virtual ~Entity() = 0;
+    //virtual ~Entity() = 0;
 
     sf::RectangleShape rect;
     sf::Texture texture;

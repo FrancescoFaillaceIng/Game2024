@@ -4,6 +4,8 @@
 
 #include "../Include/Game.h"
 
+const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
+
 Game::Game() : Window(new sf::RenderWindow(sf::VideoMode(400, 250), "Berto's Adventure", sf::Style::Default)) {
 
     //sets the icon
@@ -14,20 +16,24 @@ Game::Game() : Window(new sf::RenderWindow(sf::VideoMode(400, 250), "Berto's Adv
 }
 
 void Game::play() {
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (Window->isOpen()) {
-        processEvents();
+
+        sf::Time elapsedTime = clock.restart();
+        timeSinceLastUpdate += elapsedTime;
+        while (timeSinceLastUpdate > TimePerFrame) {
+            timeSinceLastUpdate -= TimePerFrame;
+            processEvents();
+        }
+        render();
     }
 }
 
 void Game::render() {
-    World world = World();
     Window->clear();
-    for (int i = 0; i < world.gridLength; i++){
-        for(int j = 0; j < world.gridLength; j++){
-            Window->draw(world.tiles[i][j]->sprite);
-        }
-    }
-
+    world->drawPlayer();
+    Window->display();
 }
 
 void  Game::processEvents() {

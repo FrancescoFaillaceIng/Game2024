@@ -4,20 +4,10 @@
 
 #include "../../Include/Characters/Hero.h"
 
-Textures::ID toTextureID(Hero::HeroType heroType) {
-    switch(heroType) {
-        /*case Hero::HeroType::close:
-            return Textures::???;*/
-        case Hero::HeroType::StRanged:
-            return Textures::stHero;
-        case Hero::HeroType::AoeRanged:
-            return Textures::aoeHero;
-    }
-}
-
-/*Hero::Hero(HeroType heroType, float x, float y) {
-    this->heroType = heroType;
-
+Hero::Hero(HeroType heroType) {
+    sf::Texture textureHero;
+    textureHero.loadFromFile(R"(Resources/HeroSprite.png)");
+    sprite.setTexture(textureHero);
     rect.setOrigin(32 / 2, 32 / 2);
     sprite.setOrigin(32 / 2, 32 / 2);
     sprite.setTextureRect(sf::IntRect(0,0,32,32));

@@ -6,6 +6,7 @@
 #define GAME_WORLD_H
 
 #include "Map/Tile.h"
+#include "Characters/Hero.h"
 #include <vector>
 
 //TODO mettere World.h e World.cpp in Include e Source
@@ -20,9 +21,15 @@ public:
     sf::Vector2i exitPos;
     sf::Vector2i HeroPos;
     std::vector<sf::Vector2i> enemyPositions;
+    std::shared_ptr<Hero> hero;
+    std::shared_ptr<sf::RenderWindow> window;
+
+    void drawPlayer();
     void setUpInitialState();
     void setUpEnemyPositions();
     void setUpTiles();
+
+
 };
 
 

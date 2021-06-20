@@ -15,7 +15,7 @@ public:
         StRanged,
         AoeRanged,
     };
-    Hero(HeroType heroType, float x, float y);
+    Hero(HeroType heroType);
 
     HeroType heroType;
 };
