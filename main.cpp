@@ -3,6 +3,10 @@
 #include "Include/Game.h"
 
 int main() {
-    Game game;
-    game.play();
+    try {
+        Game game;
+        game.play();
+    } catch (std::exception& ex) {
+        std::cout << "\nEXCEPTION: " << ex.what() << std::endl;
+    }
 }

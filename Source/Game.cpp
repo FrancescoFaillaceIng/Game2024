@@ -6,7 +6,11 @@
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
 
-Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(400, 250), "Berto's Adventure", sf::Style::Default)) {
+Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
+                                            "Berto's Adventure", sf::Style::Default)) {
+
+    loadTextures();
+    world = std::make_shared<World>(mWindow, textureHolder);
 
     //sets the icon
     sf::Image icon;
@@ -32,7 +36,7 @@ void Game::play() {
 
 void Game::render() {
     mWindow->clear();
-    //world->draw(); //TODO risolvere crash con world->draw()
+    world->draw();
     mWindow->display();
 }
 
@@ -50,5 +54,5 @@ void  Game::processEvents() {
 }
 
 void Game::loadTextures() {
-    textureHolder.load(Textures::StHero, "Resources/HeroSprite.png");
+    textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
 }

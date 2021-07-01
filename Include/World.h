@@ -7,21 +7,21 @@
 
 #include "Map/Tile.h"
 #include "Characters/Hero.h"
-#include <vector>
 
 class World {
 public:
     World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures);
 
-    std::vector<std::vector<Tile *>> tiles;
-
+    //things related to tiles
     int gridLength;
-
+    std::vector<std::vector<Tile *>> tiles;
     sf::Vector2i exitPos;
     sf::Vector2i HeroPos;
     std::vector<sf::Vector2i> enemyPositions;
+
     std::shared_ptr<Hero> hero;
     std::shared_ptr<sf::RenderWindow> window;
+    const TextureHolder& textures;
 
     void setUpInitialState();
     void setUpEnemyPositions();

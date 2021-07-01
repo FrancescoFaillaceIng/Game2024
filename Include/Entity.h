@@ -22,7 +22,6 @@ public:
     sf::RectangleShape rect;
     sf::Texture texture;
     sf::Sprite sprite;
-    sf::Text text;
 
     Direction direction;
 };

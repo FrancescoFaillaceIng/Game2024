@@ -5,8 +5,10 @@
 #include <memory>
 #include "../Include/World.h"
 
-World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): hero(new Hero(Hero::HeroType::StRanged, textures)){
-    hero->rect.setPosition(64,64);
+World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
+        textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)){
+
+    hero->rect.setPosition(32,32);
    /* gridLength = 8;
     setUpInitialState();*/
 }

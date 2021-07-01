@@ -19,6 +19,9 @@ public:
 
     virtual const sf::Sprite &getSprite() override;
     HeroType heroType;
+
+    sf::Vector2u windowSize;
+    const TextureHolder& textures;
 };
 
 
