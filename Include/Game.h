@@ -16,7 +16,9 @@ public:
 private:
     void render();
     void processEvents();
+    void Update();
     void loadTextures();
+
 
     TextureHolder textureHolder;
     std::shared_ptr<sf::RenderWindow> mWindow;

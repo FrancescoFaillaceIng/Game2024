@@ -8,7 +8,6 @@
 World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
         textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)){
 
-    hero->rect.setPosition(32,32);
    /* gridLength = 8;
     setUpInitialState();*/
 }
@@ -31,8 +30,33 @@ void World::draw() {
     drawHero();
 }
 
+void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
+    if (key == sf::Keyboard::W){
+        hero->direction = Entity::up;
+        hero->isMovingUp = isPressed;
+    }
+    else if (key == sf::Keyboard::S){
+        hero->direction = Entity::down;
+        hero->isMovingDown = isPressed;
+    }
+    else if (key == sf::Keyboard::A){
+        hero->direction = Entity::left;
+        hero->isMovingLeft = isPressed;
+    }
+    else if (key == sf::Keyboard::D){
+        hero->direction = Entity::right;
+        hero->isMovingRight = isPressed;
+    }
+    else if (key == sf::Keyboard::Escape && isPressed)
+        window->close();
+}
+
 void World::drawHero() {
     window->draw(hero->getSprite());
+}
+
+void World::Update() {
+    hero->Update();
 }
 
 void World::setUpTiles() {

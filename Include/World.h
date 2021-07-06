@@ -12,6 +12,17 @@ class World {
 public:
     World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures);
 
+    void Update();
+    void draw();
+    void PlayerInput(sf::Keyboard::Key key, bool isPressed);
+
+    void drawHero();
+
+    void setUpInitialState();
+    void setUpEnemyPositions();
+    void setUpTiles();
+
+
     //things related to tiles
     int gridLength;
     std::vector<std::vector<Tile *>> tiles;
@@ -23,11 +34,7 @@ public:
     std::shared_ptr<sf::RenderWindow> window;
     const TextureHolder& textures;
 
-    void setUpInitialState();
-    void setUpEnemyPositions();
-    void setUpTiles();
-    void draw();
-    void drawHero();
+
 
 
 };

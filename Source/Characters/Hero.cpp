@@ -18,11 +18,11 @@ Textures::ID toTextureID(Hero::HeroType heroType) {
 Hero::Hero(HeroType heroType, const TextureHolder& textures): textures(textures) {
     this->heroType = heroType;
 
-    rect.setPosition(windowSize.x/2.f,windowSize.y/2.f);
+    rect.setPosition(32, 32);
+    rect.setSize(sf::Vector2f(31.7, 31.7));
 
-    rect.setOrigin(32 / 2, 32 / 2);
-    sprite.setOrigin(32 / 2, 32 / 2);
-    sprite.setTextureRect(sf::IntRect(0,0,32,32));
+    sprite.setTextureRect(sf::IntRect(0, 0, 31.7, 31.7));
+    sprite.setPosition(rect.getPosition());
 
     switch(heroType) {
         case Hero::HeroType::Melee:
@@ -33,7 +33,7 @@ Hero::Hero(HeroType heroType, const TextureHolder& textures): textures(textures)
             texture = textures.get(toTextureID(Melee));
             break;
         case Hero::HeroType::StRanged:
-            speedBasic = 2;
+            speedBasic = 4;
             hp = 200;
             hpMax = hp;
             attackDamage = 0;

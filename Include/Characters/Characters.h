@@ -17,9 +17,10 @@ public:
     int attackDamage;
     int speedBasic;
     int counterWalking = 0;
+    bool isMovingUp, isMovingDown, isMovingLeft, isMovingRight;
 
     Characters();
-    virtual void UpdateMovement();
+    virtual void Update();
 
 };
 

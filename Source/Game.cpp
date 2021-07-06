@@ -29,6 +29,7 @@ void Game::play() {
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
             processEvents();
+            Update();
         }
         render();
     }
@@ -47,10 +48,21 @@ void  Game::processEvents() {
         switch (event.type) {
             case sf::Event::Closed:
                 mWindow->close();
+                break;
+            case sf::Event::KeyPressed:
+                world->PlayerInput(event.key.code, true);
+                break;
+            case sf::Event::KeyReleased:
+                world->PlayerInput(event.key.code, false);
+                break;
             default:
                 break;
         }
     }
+}
+
+void Game::Update() {
+    world->Update();
 }
 
 void Game::loadTextures() {
