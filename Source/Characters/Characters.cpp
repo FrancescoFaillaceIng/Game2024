@@ -15,19 +15,19 @@ void Characters::Update() {
         sprite.setPosition(x,y);
         switch (direction) {
             case up:
-                rect.setPosition(x, y-speedBasic);
+                rect.move(0, -speedBasic);
                 sprite.setTextureRect(sf::IntRect(counterWalking * 32, 32*3, 32, 32));
                 break;
             case down:
-                rect.setPosition(x, y+speedBasic);
+                rect.move(0, +speedBasic);
                 sprite.setTextureRect(sf::IntRect(counterWalking * 32, 0, 32, 32));
                 break;
             case left:
-                rect.setPosition(x-speedBasic, y);
+                rect.move(-speedBasic, 0);
                 sprite.setTextureRect(sf::IntRect(counterWalking * 32, 32, 32, 32));
                 break;
             case right:
-                rect.setPosition(x+speedBasic, y);
+                rect.move(+speedBasic, 0);
                 sprite.setTextureRect(sf::IntRect(counterWalking * 32, 32*2, 32, 32));
                 break;
             default:
@@ -38,8 +38,6 @@ void Characters::Update() {
         if (counterWalking == 2)
             counterWalking = 0;
     }
-
-
 }
 
 
