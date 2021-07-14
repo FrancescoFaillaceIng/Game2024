@@ -11,7 +11,7 @@ Textures::ID toTextureID(Hero::HeroType heroType) {
         case Hero::HeroType::StRanged:
             return Textures::StHero;
         case Hero::HeroType::AoeRanged:
-            return Textures::AoeRanged;
+            return Textures::AoeHero;
     }
 }
 

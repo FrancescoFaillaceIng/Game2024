@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Game main.cpp Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp Include/Map/Tile.h Source/Map/Tile.cpp
         Include/World.h Source/World.cpp Source/Entity.cpp Include/Entity.h Source/Characters/Characters.cpp Include/Characters/Characters.h
-        Source/Characters/Hero.cpp Include/Characters/Hero.h Include/ResourceHolder.h Include/ResourceIdentifier.h)
+        Source/Characters/Hero.cpp Include/Characters/Hero.h Include/ResourceHolder.h Include/ResourceIdentifier.h Include/Projectile.h Source/Projectile.cpp Include/Objects/Object.h Source/Objects/Object.cpp Include/Objects/Weapon.h Source/Objects/Weapon.cpp Include/Objects/RangedWeapon.h Source/Objects/RangedWeapon.cpp Include/Objects/ObjectFactory.h Source/Objects/ObjectFactory.cpp Include/Random.h Source/Random.cpp)
 
 find_package(SFML 2 COMPONENTS network audio graphics window system REQUIRED)
 

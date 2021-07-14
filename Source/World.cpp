@@ -10,12 +10,20 @@ World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &text
 
    /* gridLength = 8;
     setUpInitialState();*/
+
+   createObjects();
 }
 
 void World::setUpInitialState() {
     exitPos = sf::Vector2i(1, 0);
     HeroPos = sf::Vector2i(gridLength-1, gridLength-1);
     setUpEnemyPositions();
+}
+
+void World::createObjects() {
+    std::shared_ptr<Object> weapon = objectFactory.createObject(Object::ObjectType::rangedWeapon, textures);
+    weapon->setPosition(sf::Vector2f(200, 200));
+    collectableObject.emplace_back(weapon);
 }
 
 void World::setUpEnemyPositions() {
@@ -28,6 +36,8 @@ void World::setUpEnemyPositions() {
 
 void World::draw() {
     drawHero();
+    drawProjectiles();
+    drawObjects();
 }
 
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -55,8 +65,64 @@ void World::drawHero() {
     window->draw(hero->getSprite());
 }
 
+void World::drawProjectiles() {
+        int counter = 0;
+        for ( auto iter = projectilePlayerArray.begin(); iter != projectilePlayerArray.end(); iter++ ) {
+            window->draw(projectilePlayerArray[ counter ]->getSprite());
+            counter++;
+        }
+}
+
+void World::drawObjects() {
+    if(!collectableObject.empty()) {
+        int counter = 0;
+        for ( auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
+            if(!collectableObject[counter]->equipped && collectableObject[counter]->active)
+                window->draw(collectableObject[ counter ]->getSprite());
+            counter++;
+        }
+    }
+}
+
 void World::Update() {
     hero->Update();
+    updateObjects();
+    updateProjectiles();
+}
+
+void World::updateObjects() {
+    if(!collectableObject.empty()) {
+        int counter = 0;
+        int deleted = -1;
+        for ( auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
+            collectableObject[ counter ]->update();
+
+            if ( collectableObject[ counter ]->counterLifeTime <= 0 ) {
+                deleted = counter;
+            }
+            counter++;
+        }
+        if(deleted>=0)
+            collectableObject.erase(collectableObject.begin() + deleted);
+    }
+}
+
+void World::updateProjectiles() {
+    //friendly projectiles
+    if(!projectilePlayerArray.empty()) {
+        int counter = 0;
+        int deleted = -1;
+        for ( auto iter = projectilePlayerArray.begin(); iter != projectilePlayerArray.end(); iter++ ) {
+            projectilePlayerArray[ counter ]->update();
+
+            if ( !projectilePlayerArray[ counter ]->active ) {
+                deleted = counter;
+            }
+            counter++;
+        }
+        if(deleted>=0)
+            projectilePlayerArray.erase(projectilePlayerArray.begin() + deleted);
+    }
 }
 
 void World::setUpTiles() {

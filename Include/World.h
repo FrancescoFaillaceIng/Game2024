@@ -7,6 +7,8 @@
 
 #include "Map/Tile.h"
 #include "Characters/Hero.h"
+#include "Projectile.h"
+#include "Objects/ObjectFactory.h"
 
 class World {
 public:
@@ -16,7 +18,14 @@ public:
     void draw();
     void PlayerInput(sf::Keyboard::Key key, bool isPressed);
 
+    void createObjects();
+
     void drawHero();
+    void drawProjectiles();
+    void drawObjects();
+
+    void updateObjects();
+    void updateProjectiles();
 
     void setUpInitialState();
     void setUpEnemyPositions();
@@ -33,10 +42,9 @@ public:
     std::shared_ptr<Hero> hero;
     std::shared_ptr<sf::RenderWindow> window;
     const TextureHolder& textures;
-
-
-
-
+    ObjectFactory objectFactory;
+    std::vector<std::shared_ptr<Projectile>> projectilePlayerArray;
+    std::vector<std::shared_ptr<Object>> collectableObject;
 };
 
 

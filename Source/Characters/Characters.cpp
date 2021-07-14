@@ -9,7 +9,7 @@ Characters::Characters() {
 }
 
 void Characters::Update() {
-    if(isMovingRight || isMovingLeft || isMovingDown || isMovingUp){
+    if (isMovingRight || isMovingLeft || isMovingDown || isMovingUp){
         float x = rect.getPosition().x;
         float y = rect.getPosition().y;
         sprite.setPosition(x,y);
