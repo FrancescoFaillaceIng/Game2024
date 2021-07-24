@@ -67,4 +67,5 @@ void Game::Update() {
 
 void Game::loadTextures() {
     textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
+    textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
 }

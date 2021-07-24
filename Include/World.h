@@ -7,6 +7,7 @@
 
 #include "Map/Tile.h"
 #include "Characters/Hero.h"
+#include "Objects/StWeapon.h"
 
 class World {
 public:
@@ -17,6 +18,7 @@ public:
     void PlayerInput(sf::Keyboard::Key key, bool isPressed);
 
     void drawHero();
+    void drawWeapon();
 
     void setUpInitialState();
     void setUpEnemyPositions();
@@ -30,6 +32,7 @@ public:
     std::vector<sf::Vector2i> enemyPositions;
 
     std::shared_ptr<Hero> hero;
+    std::shared_ptr<StWeapon> stweapon;
     std::shared_ptr<sf::RenderWindow> window;
     const TextureHolder& textures;
 };

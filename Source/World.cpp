@@ -27,7 +27,16 @@ void World::setUpEnemyPositions() {
 }
 
 void World::draw() {
+    drawWeapon();
     drawHero();
+}
+
+void World::drawHero() {
+    window->draw(hero->getSprite());
+}
+
+void World::drawWeapon() {
+    window->draw(stweapon->getSprite());
 }
 
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -51,9 +60,7 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
         window->close();
 }
 
-void World::drawHero() {
-    window->draw(hero->getSprite());
-}
+
 
 void World::Update() {
     hero->Update();

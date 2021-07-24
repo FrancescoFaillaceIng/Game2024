@@ -15,7 +15,9 @@ namespace Textures {
     enum ID {
         MeleeHero,
         StHero,
-        AoeHero
+        AoeHero,
+
+        StWeapon
     };
 }
 
