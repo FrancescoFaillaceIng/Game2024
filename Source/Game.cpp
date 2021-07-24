@@ -67,8 +67,4 @@ void Game::Update() {
 
 void Game::loadTextures() {
     textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
-    textureHolder.load(Textures::AoeProjectile, "../Resources/AoeProjectile.png");
-    textureHolder.load(Textures::StProjectile, "../Resources/StProjectile.png");
-    textureHolder.load(Textures::AoeWeapon, "../Resources/StProjectile.png");
-    textureHolder.load(Textures::StWeapon, "../Resources/StProjectile.png");
 }
