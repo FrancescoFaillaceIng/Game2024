@@ -6,7 +6,7 @@
 #include "../Include/World.h"
 
 World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
-        textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)){
+        textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)), stweapon(new StWeapon(textures)){
 
    /* gridLength = 8;
     setUpInitialState();*/
