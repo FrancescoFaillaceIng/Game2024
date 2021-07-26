@@ -19,9 +19,9 @@ Hero::Hero(HeroType heroType, const TextureHolder& textures): textures(textures)
     this->heroType = heroType;
 
     rect.setPosition(32, 32);
-    rect.setSize(sf::Vector2f(31.7, 31.7));
+    rect.setSize(sf::Vector2f(32, 32));
 
-    sprite.setTextureRect(sf::IntRect(0, 0, 31.7, 31.7));
+    sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     sprite.setPosition(rect.getPosition());
 
     switch(heroType) {
