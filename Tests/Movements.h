@@ -34,6 +34,7 @@ TEST(MovementTest, Movement) {
 
 //test movimento right
     Hero.isMovingRight = true;
+    Hero.direction = Hero.right;
     Hero.Update();
 
     //eroe
@@ -43,6 +44,7 @@ TEST(MovementTest, Movement) {
 
 //test movimento down
     Hero.isMovingDown = true;
+    Hero.direction = Hero.down;
     Hero.Update();
 
     //eroe
@@ -52,6 +54,7 @@ TEST(MovementTest, Movement) {
 
 //test movimento left
     Hero.isMovingLeft = true;
+    Hero.direction = Hero.left;
     Hero.Update();
 
     //eroe
@@ -61,6 +64,7 @@ TEST(MovementTest, Movement) {
 
 //test movimento up
     Hero.isMovingUp = true;
+    Hero.direction = Hero.up;
     Hero.Update();
 
     //eroe
