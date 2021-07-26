@@ -9,7 +9,7 @@ add_subdirectory(googletest/)
 set(gtest_DIR, googletest/)
 include_directories(${gtest_DIR}/include ${gtest_DIR})
 
-set(SOURCES_TESTS mainTest.cpp)
+set(SOURCES_TESTS mainTest.cpp Movements.h)
 
 add_executable(test ${SOURCES_TESTS})
 find_package(SFML 2 COMPONENTS network audio graphics window system REQUIRED)
