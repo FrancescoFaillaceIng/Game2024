@@ -50,6 +50,20 @@ Hero::Hero(HeroType heroType, const TextureHolder& textures): textures(textures)
     sprite.setTexture(texture);
 }
 
+bool Hero::PickUpObject(std::shared_ptr<Object> object) {
+    std::shared_ptr<Weapon> newWeapon = std::dynamic_pointer_cast<Weapon>(object);
+    if(newWeapon != nullptr) {
+        ChangeWeapon(newWeapon);
+    }
+    return true;
+}
+
+void Hero::ChangeWeapon(std::shared_ptr<Weapon> newWeapon) {
+    if(this->weapon != nullptr) {
+        this->weapon = newWeapon;
+    }
+}
+
 const sf::Sprite &Hero::getSprite() {
     return Entity::getSprite();
 }

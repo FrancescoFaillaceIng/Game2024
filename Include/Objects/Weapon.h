@@ -9,12 +9,7 @@
 
 class Weapon: public Object {
 public:
-    enum WeaponType {
-        stWeapon
-    };
 
     Weapon();
-
-    WeaponType weaponType;
 };
 #endif //MAIN_CPP_WEAPON_H

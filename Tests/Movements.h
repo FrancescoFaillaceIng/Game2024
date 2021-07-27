@@ -31,46 +31,38 @@ TEST(MovementTest, Movement) {
     EXPECT_EQ(StWeapon.rect.getPosition().y, 64);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//test movimento right
     Hero.isMovingRight = true;
+//test movimento right
     Hero.direction = Hero.right;
     Hero.Update();
 
     //eroe
     EXPECT_EQ(Hero.rect.getPosition().x, 36);
     EXPECT_EQ(Hero.rect.getPosition().y, 32);
-    Hero.isMovingRight = false;
 
 //test movimento down
-    Hero.isMovingDown = true;
     Hero.direction = Hero.down;
     Hero.Update();
 
     //eroe
     EXPECT_EQ(Hero.rect.getPosition().x, 36);
     EXPECT_EQ(Hero.rect.getPosition().y, 36);
-    Hero.isMovingDown = false;
 
 //test movimento left
-    Hero.isMovingLeft = true;
     Hero.direction = Hero.left;
     Hero.Update();
 
     //eroe
     EXPECT_EQ(Hero.rect.getPosition().x, 32);
     EXPECT_EQ(Hero.rect.getPosition().y, 36);
-    Hero.isMovingLeft = false;
 
 //test movimento up
-    Hero.isMovingUp = true;
     Hero.direction = Hero.up;
     Hero.Update();
 
     //eroe
     EXPECT_EQ(Hero.rect.getPosition().x, 32);
     EXPECT_EQ(Hero.rect.getPosition().y, 32);
-    Hero.isMovingUp = false;
 
 }
 #endif //MAIN_CPP_MOVEMENTS_H

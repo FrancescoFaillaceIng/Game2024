@@ -56,6 +56,8 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
         hero->direction = Entity::right;
         hero->isMovingRight = isPressed;
     }
+    else if (key == sf::Keyboard::E)
+        collectObjects();
     else if (key == sf::Keyboard::Escape && isPressed)
         window->close();
 }

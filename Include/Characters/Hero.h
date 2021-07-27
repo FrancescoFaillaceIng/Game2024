@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Characters.h"
+#include "../Objects/StWeapon.h"
 
 class Hero: public Characters{
 public:
@@ -18,6 +19,9 @@ public:
     Hero(HeroType heroType, const TextureHolder& textures);
 
     virtual const sf::Sprite &getSprite() override;
+    bool PickUpObject(std::shared_ptr<Object> object);
+    void ChangeWeapon(std::shared_ptr<Weapon> newWeapon);
+
     HeroType heroType;
 
     sf::Vector2u windowSize;

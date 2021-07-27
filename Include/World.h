@@ -24,7 +24,7 @@ public:
     void setUpEnemyPositions();
     void setUpTiles();
 
-    //things related to tiles
+    //things related to tiles(video)
     int gridLength;
     std::vector<std::vector<Tile *>> tiles;
     sf::Vector2i exitPos;
@@ -33,6 +33,7 @@ public:
 
     std::shared_ptr<Hero> hero;
     std::shared_ptr<StWeapon> stweapon;
+    std::vector<std::shared_ptr<Object>> collectableObject;
     std::shared_ptr<sf::RenderWindow> window;
     const TextureHolder& textures;
 };

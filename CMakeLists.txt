@@ -11,7 +11,7 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
         Include/ResourceIdentifier.h Include/Objects/Object.h Source/Objects/Object.cpp Include/Objects/Weapon.h
         Source/Objects/Weapon.cpp Include/Objects/StWeapon.h Source/Objects/StWeapon.cpp)
 
-add_executable(Game main.cpp ${Classi})
+add_executable(Game main.cpp ${Classi} Source/Objects/ObjectFactory.cpp ObjectFactory.h)
 
 add_library(Game_Tests ${Classi})
 

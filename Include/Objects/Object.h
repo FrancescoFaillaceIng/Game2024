@@ -11,6 +11,13 @@
 
 class Object: public Entity {
 public:
+    enum ObjectType {
+        stWeapon
+    };
+
+    Object();
+
+    ObjectType objectType;
 };
 
 #endif //MAIN_CPP_OBJECT_H
