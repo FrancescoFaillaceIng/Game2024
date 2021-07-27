@@ -3,3 +3,7 @@
 //
 
 #include "../../Include/Objects/Object.h"
+
+Object::Object() {
+
+}

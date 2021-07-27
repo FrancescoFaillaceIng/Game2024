@@ -10,6 +10,8 @@ World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &text
 
    /* gridLength = 8;
     setUpInitialState();*/
+
+   createObjects();
 }
 
 void World::setUpInitialState() {
@@ -62,7 +64,25 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
         window->close();
 }
 
+void World::createObjects() {
+    //create a weapon
+    std::shared_ptr<Object> weapon = objectFactory.createObject(Object::ObjectType::stWeapon, textures);
 
+    collectableObject.emplace_back(weapon);
+}
+
+void World::collectObjects() {
+    if(!collectableObject.empty()) {
+        int counterObject = 0;
+        for (  auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
+            if ( collectableObject[ counterObject ]->rect.getGlobalBounds().intersects(hero->rect.getGlobalBounds())) {
+                hero->PickUpObject(collectableObject[ counterObject ]);
+
+            }
+            counterObject++;
+        }
+    }
+}
 
 void World::Update() {
     hero->Update();

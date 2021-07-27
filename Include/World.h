@@ -8,6 +8,7 @@
 #include "Map/Tile.h"
 #include "Characters/Hero.h"
 #include "Objects/StWeapon.h"
+#include "Objects/ObjectFactory.h"
 
 class World {
 public:
@@ -19,6 +20,10 @@ public:
 
     void drawHero();
     void drawWeapon();
+
+    void createObjects();
+
+    void collectObjects();
 
     void setUpInitialState();
     void setUpEnemyPositions();
@@ -36,6 +41,7 @@ public:
     std::vector<std::shared_ptr<Object>> collectableObject;
     std::shared_ptr<sf::RenderWindow> window;
     const TextureHolder& textures;
+    ObjectFactory objectFactory;
 };
 
 

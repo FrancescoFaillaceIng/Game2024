@@ -23,6 +23,7 @@ public:
     void ChangeWeapon(std::shared_ptr<Weapon> newWeapon);
 
     HeroType heroType;
+    std::shared_ptr<Weapon> weapon;
 
     sf::Vector2u windowSize;
     const TextureHolder& textures;
