@@ -73,13 +73,16 @@ void World::createObjects() {
 
 void World::collectObjects() {
     if(!collectableObject.empty()) {
-        int counterObject = 0;
         for (  auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
-            if ( collectableObject[ counterObject ]->rect.getGlobalBounds().intersects(hero->rect.getGlobalBounds())) {
-                hero->PickUpObject(collectableObject[ counterObject ]);
-
+            if ( (*iter)->rect.getGlobalBounds().intersects(hero->rect.getGlobalBounds())) {
+                hero->PickUpObject(*iter);
+                std::cout << "collecting object" << std::endl;
+                iter = collectableObject.erase(iter);
+                if (iter == collectableObject.end()) {
+                    std::cout << "did it" << std::endl;
+                    break;
+                }
             }
-            counterObject++;
         }
     }
 }
