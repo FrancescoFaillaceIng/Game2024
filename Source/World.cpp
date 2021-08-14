@@ -29,7 +29,7 @@ void World::setUpEnemyPositions() {
 }
 
 void World::draw() {
-    drawWeapon();
+    drawObject();
     drawHero();
 }
 
@@ -37,8 +37,14 @@ void World::drawHero() {
     window->draw(hero->getSprite());
 }
 
-void World::drawWeapon() {
-    window->draw(stweapon->getSprite());
+void World::drawObject() {
+    if (!collectableObject.empty()){
+        for (auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++){
+            if ((*iter) -> active)
+                window->draw((*iter)->getSprite());
+        }
+    }
+
 }
 
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -78,10 +84,8 @@ void World::collectObjects() {
                 hero->PickUpObject(*iter);
                 std::cout << "collecting object" << std::endl;
                 iter = collectableObject.erase(iter);
-                if (iter == collectableObject.end()) {
-                    std::cout << "did it" << std::endl;
+                if (iter == collectableObject.end())
                     break;
-                }
             }
         }
     }

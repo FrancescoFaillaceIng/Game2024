@@ -19,7 +19,7 @@ public:
     void PlayerInput(sf::Keyboard::Key key, bool isPressed);
 
     void drawHero();
-    void drawWeapon();
+    void drawObject();
 
     void createObjects();
 

@@ -18,6 +18,8 @@ public:
     Object();
 
     ObjectType objectType;
+
+    bool active = true;
 };
 
 #endif //MAIN_CPP_OBJECT_H
