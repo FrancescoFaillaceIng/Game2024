@@ -9,9 +9,10 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
         Include/World.h Source/World.cpp Source/Entity.cpp Include/Entity.h Source/Characters/Characters.cpp
         Include/Characters/Characters.h Source/Characters/Hero.cpp Include/Characters/Hero.h Include/ResourceHolder.h
         Include/ResourceIdentifier.h Include/Objects/Object.h Source/Objects/Object.cpp Include/Objects/Weapon.h
-        Source/Objects/Weapon.cpp Include/Objects/StWeapon.h Source/Objects/StWeapon.cpp)
+        Source/Objects/Weapon.cpp Include/Objects/StWeapon.h Source/Objects/StWeapon.cpp
+        Source/Objects/ObjectFactory.cpp Include/Objects/ObjectFactory.h)
 
-add_executable(Game main.cpp ${Classi} Source/Objects/ObjectFactory.cpp ObjectFactory.h)
+add_executable(Game main.cpp ${Classi})
 
 add_library(Game_Tests ${Classi})
 
