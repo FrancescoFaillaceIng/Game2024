@@ -22,6 +22,8 @@ public:
     bool PickUpObject(std::shared_ptr<Object> object);
     void ChangeWeapon(std::shared_ptr<Weapon> newWeapon);
 
+    bool Shoot();
+
     HeroType heroType;
     std::shared_ptr<Weapon> weapon;
 

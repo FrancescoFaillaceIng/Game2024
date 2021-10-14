@@ -25,16 +25,11 @@ public:
 
     void collectObjects();
 
-    void setUpInitialState();
-    void setUpEnemyPositions();
+    void Shoot();
+
     void setUpTiles();
 
-    //things related to tiles(video)
-    int gridLength;
     std::vector<std::vector<Tile *>> tiles;
-    sf::Vector2i exitPos;
-    sf::Vector2i HeroPos;
-    std::vector<sf::Vector2i> enemyPositions;
 
     std::shared_ptr<Hero> hero;
     std::shared_ptr<StWeapon> stweapon;

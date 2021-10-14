@@ -20,6 +20,7 @@ public:
     ObjectType objectType;
 
     bool active = true;
+    bool equipped;
 };
 
 #endif //MAIN_CPP_OBJECT_H

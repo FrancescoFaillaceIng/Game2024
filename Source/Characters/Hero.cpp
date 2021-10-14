@@ -64,6 +64,10 @@ void Hero::ChangeWeapon(std::shared_ptr<Weapon> newWeapon) {
     }
 }
 
+bool Hero::Shoot() {
+    return true;
+}
+
 const sf::Sprite &Hero::getSprite() {
     return Entity::getSprite();
 }

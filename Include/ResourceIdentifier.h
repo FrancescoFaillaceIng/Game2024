@@ -17,7 +17,10 @@ namespace Textures {
         StHero,
         AoeHero,
 
-        StWeapon
+        StWeapon,
+
+        StBullet,
+        AoeBullet
     };
 }
 

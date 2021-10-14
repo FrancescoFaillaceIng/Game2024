@@ -4,7 +4,7 @@
 
 #include "../../Include/Objects/Object.h"
 
-Object::Object() {
+Object::Object(): equipped(false) {
 
 }
 

@@ -6,26 +6,13 @@
 #include "../Include/World.h"
 
 World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
-        textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)), stweapon(new StWeapon(textures)){
+    textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)), stweapon(new StWeapon(textures)){
 
-   /* gridLength = 8;
-    setUpInitialState();*/
-
-   createObjects();
+    createObjects();
 }
 
-void World::setUpInitialState() {
-    exitPos = sf::Vector2i(1, 0);
-    HeroPos = sf::Vector2i(gridLength-1, gridLength-1);
-    setUpEnemyPositions();
-}
-
-void World::setUpEnemyPositions() {
-    /*enemyPositions.clear();
-    //TODO meglio emplace_back o push_back (es: enemyPositions.push_back(sf::Vector2i(x, y)) )?
-    enemyPositions.emplace_back(0, 2);
-    enemyPositions.emplace_back(6, 0);
-    enemyPositions.emplace_back(2, 7);*/
+void World::Update() {
+    hero->Update();
 }
 
 void World::draw() {
@@ -40,11 +27,10 @@ void World::drawHero() {
 void World::drawObject() {
     if (!collectableObject.empty()){
         for (auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++){
-            if ((*iter) -> active)
+            if ((*iter) -> active && !(*iter)->equipped)
                 window->draw((*iter)->getSprite());
         }
     }
-
 }
 
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -66,6 +52,9 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
     }
     else if (key == sf::Keyboard::E)
         collectObjects();
+    else if (key == sf::Keyboard::Space){
+        Shoot();
+    }
     else if (key == sf::Keyboard::Escape && isPressed)
         window->close();
 }
@@ -82,17 +71,21 @@ void World::collectObjects() {
         for (  auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
             if ( (*iter)->rect.getGlobalBounds().intersects(hero->rect.getGlobalBounds())) {
                 hero->PickUpObject(*iter);
-                std::cout << "collecting object" << std::endl;
+                (*iter)->equipped = true;
                 iter = collectableObject.erase(iter);
                 if (iter == collectableObject.end())
                     break;
+
             }
         }
     }
 }
 
-void World::Update() {
-    hero->Update();
+void World::Shoot() {
+    if(hero->Shoot()){
+        std::shared_ptr<Weapon> mWeapon = std::dynamic_pointer_cast<Weapon>(hero->weapon);
+        //TODO proiettili
+    }
 }
 
 void World::setUpTiles() {
