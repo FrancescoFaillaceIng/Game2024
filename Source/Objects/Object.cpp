@@ -8,3 +8,7 @@ Object::Object(): equipped(false) {
 
 }
 
+bool Object::use() {
+    return true;
+}
+

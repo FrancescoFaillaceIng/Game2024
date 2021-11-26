@@ -7,11 +7,13 @@
 
 #include "Weapon.h"
 
-class StWeapon:public Weapon {
+class StWeapon: public Weapon {
 public:
     StWeapon(const TextureHolder& textures);
-    virtual const sf::Sprite &getSprite() override;
 
+    bool use();
+
+private:
     const TextureHolder& textures;
 };
 

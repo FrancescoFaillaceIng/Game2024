@@ -5,7 +5,7 @@
 #ifndef MAIN_CPP_OBJECT_H
 #define MAIN_CPP_OBJECT_H
 
-#include "../Entity.h"
+#include "..\Entity.h"
 #include "..\ResourceHolder.h"
 #include "..\ResourceIdentifier.h"
 
@@ -16,6 +16,8 @@ public:
     };
 
     Object();
+
+    virtual bool use();
 
     ObjectType objectType;
 

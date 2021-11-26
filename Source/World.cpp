@@ -5,19 +5,22 @@
 #include <memory>
 #include "../Include/World.h"
 
-World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
-    textures(textures), hero(new Hero(Hero::HeroType::StRanged, textures)), stweapon(new StWeapon(textures)){
+World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window), map(),
+            textures(textures){
 
+    createCharacter();
     createObjects();
 }
 
 void World::Update() {
     hero->Update();
+    UpdateEnemies();
 }
 
 void World::draw() {
     drawObject();
     drawHero();
+    drawEnemies();
 }
 
 void World::drawHero() {
@@ -33,25 +36,55 @@ void World::drawObject() {
     }
 }
 
+void World::drawEnemies(){
+    if(!enemyArray.empty()) {
+        int counter = 0;
+        for (auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++ ) {
+            window->draw((*iter)->getSprite());
+        }
+    }
+}
+
+void World::UpdateEnemies() {
+    if(!enemyArray.empty()) {
+        int counter = 0;
+        int deleted = -1;
+        for ( auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++ ) {
+
+            //set hero position to the strategy
+            auto seekStrategy = std::dynamic_pointer_cast<SeekStrategy>((*iter)->strategy);
+            if(seekStrategy != nullptr) {
+                seekStrategy->heroPosition = hero->getPosition();
+            }
+            (*iter)->Update();
+
+            if ( !(*iter)->active ) {
+                //enemyArray.erase(iter);
+            }
+        }
+    }
+}
+
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::W){
-        hero->direction = Entity::up;
-        hero->isMovingUp = isPressed;
+        hero->setDirection(Entity::up) ;
+        hero->setIsMovingUp(isPressed);
     }
     else if (key == sf::Keyboard::S){
-        hero->direction = Entity::down;
-        hero->isMovingDown = isPressed;
+        hero->setDirection(Entity::down);
+        hero->setIsMovingDown(isPressed);
     }
     else if (key == sf::Keyboard::A){
-        hero->direction = Entity::left;
-        hero->isMovingLeft = isPressed;
+        hero->setDirection(Entity::left);
+        hero->setIsMovingLeft(isPressed);
     }
     else if (key == sf::Keyboard::D){
-        hero->direction = Entity::right;
-        hero->isMovingRight = isPressed;
+        hero->setDirection(Entity::right);
+        hero->setIsMovingRight(isPressed);
     }
     else if (key == sf::Keyboard::E)
         collectObjects();
+
     else if (key == sf::Keyboard::Space){
         Shoot();
     }
@@ -60,88 +93,44 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed) {
 }
 
 void World::createObjects() {
-    //create a weapon
+    //create a weapon with objectfactory
     std::shared_ptr<Object> weapon = objectFactory.createObject(Object::ObjectType::stWeapon, textures);
 
     collectableObject.emplace_back(weapon);
 }
 
+void World::createCharacter() {
+
+    //create the hero
+    this->hero = characterFactory.createHero(Characters::goodboy, Hero::StRanged, textures);
+
+    //create enemies
+    for(int i = 0; i <= 10; i++){
+        std::shared_ptr<Enemy> fighter = characterFactory.createEnemy(Characters::badguy,Enemy::meleeEnemy,
+                                                                      window->getSize(), textures);
+
+        enemyArray.emplace_back(fighter);
+    }
+
+}
+
 void World::collectObjects() {
     if(!collectableObject.empty()) {
-        for (  auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
-            if ( (*iter)->rect.getGlobalBounds().intersects(hero->rect.getGlobalBounds())) {
+        for (auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
+            if ( (*iter)->getRect().getGlobalBounds().intersects(hero->getRect().getGlobalBounds())) {
                 hero->PickUpObject(*iter);
                 (*iter)->equipped = true;
                 iter = collectableObject.erase(iter);
                 if (iter == collectableObject.end())
                     break;
-
-            }
+            } else std::cout<<"nothing to pick up"<<std::endl;
         }
     }
 }
 
 void World::Shoot() {
     if(hero->Shoot()){
-        std::shared_ptr<Weapon> mWeapon = std::dynamic_pointer_cast<Weapon>(hero->weapon);
-        //TODO proiettili
+        std::cout<<"shoot"<<std::endl;
+        std::shared_ptr<Weapon> mWeapon = std::dynamic_pointer_cast<Weapon>(hero->getWeapon());
     }
-}
-
-void World::setUpTiles() {
-    tiles.clear();
-    std::vector<Tile *> firstRow;
-    firstRow.push_back(new Tile("???", 0, 0, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 32, 0, true, true)); //exit tile
-    firstRow.push_back(new Tile("???", 64, 0, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 96, 0, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 128, 0, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 160, 0, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 192, 0, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 224, 0, false, false)); //wall tile
-    tiles.push_back(firstRow);
-
-    std::vector<Tile *> secondRow;
-    firstRow.push_back(new Tile("???", 0, 32, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 32, 32, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 64, 32, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 96, 32, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 128, 32, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 160, 32, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 192, 32, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 224, 32, false, false)); //wall tile
-    tiles.push_back(secondRow);
-
-    std::vector<Tile *> thirdRow;
-    firstRow.push_back(new Tile("???", 0, 64, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 32, 64, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 64, 64, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 96, 64, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 128, 64, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 160, 64, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 192, 64, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 224, 64, false, false)); //wall tile
-    tiles.push_back(thirdRow);
-
-    std::vector<Tile *> fourthRow;
-    firstRow.push_back(new Tile("???", 0, 96, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 32, 96, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 64, 96, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 96, 96, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 128, 96, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 160, 96, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 192, 96, true, false)); //ground tile
-    firstRow.push_back(new Tile("???", 224, 96, false, false)); //wall tile
-    tiles.push_back(fourthRow);
-
-    std::vector<Tile *> fifthRow;
-    firstRow.push_back(new Tile("???", 0, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 32, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 64, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 96, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 200, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 160, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 192, 128, false, false)); //wall tile
-    firstRow.push_back(new Tile("???", 224, 128, false, false)); //wall tile
-    tiles.push_back(fifthRow);
 }

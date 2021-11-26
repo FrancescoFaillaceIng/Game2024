@@ -17,6 +17,6 @@ StWeapon::StWeapon(const TextureHolder& textures): textures(textures){
     sprite.setTexture(texture);
 }
 
-const sf::Sprite &StWeapon::getSprite() {
-    return Entity::getSprite();
+bool StWeapon::use() {
+    return true;
 }

@@ -18,7 +18,6 @@
 template <typename Resource, typename Identifier>
 class ResourceHolder {
 public:
-    //
     Resource& get(Identifier id) {
         auto found = mResourceMap.find(id);
         assert(found != mResourceMap.end());

@@ -7,3 +7,7 @@
 Weapon::Weapon() {
 
 }
+
+bool Weapon::use() {
+    return false;
+}

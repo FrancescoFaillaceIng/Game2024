@@ -9,7 +9,8 @@
 
 class Weapon: public Object {
 public:
-
     Weapon();
+
+    bool use() override;
 };
 #endif //MAIN_CPP_WEAPON_H

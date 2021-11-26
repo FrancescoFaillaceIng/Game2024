@@ -17,10 +17,16 @@ namespace Textures {
         StHero,
         AoeHero,
 
+        fighter,
+        shooter,
+
         StWeapon,
 
         StBullet,
-        AoeBullet
+        AoeBullet,
+
+        WallText,
+        FloorText,
     };
 }
 

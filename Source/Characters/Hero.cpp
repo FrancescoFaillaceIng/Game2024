@@ -2,6 +2,7 @@
 // Created by Francesco on 18/06/2021.
 //
 
+#include <memory>
 #include "../../Include/Characters/Hero.h"
 
 Textures::ID toTextureID(Hero::HeroType heroType) {
@@ -15,8 +16,7 @@ Textures::ID toTextureID(Hero::HeroType heroType) {
     }
 }
 
-Hero::Hero(HeroType heroType, const TextureHolder& textures): textures(textures) {
-    this->heroType = heroType;
+Hero::Hero(Hero::HeroType heroType, const TextureHolder& textures): textures(textures) {
 
     rect.setPosition(32, 32);
     rect.setSize(sf::Vector2f(32, 32));
@@ -51,23 +51,64 @@ Hero::Hero(HeroType heroType, const TextureHolder& textures): textures(textures)
 }
 
 bool Hero::PickUpObject(std::shared_ptr<Object> object) {
-    std::shared_ptr<Weapon> newWeapon = std::dynamic_pointer_cast<Weapon>(object);
-    if(newWeapon != nullptr) {
-        ChangeWeapon(newWeapon);
+    std::shared_ptr<Weapon> WeaponPicked = std::dynamic_pointer_cast<Weapon>(object);
+    if(WeaponPicked != nullptr) {
+        ChangeWeapon(WeaponPicked);
     }
     return true;
 }
 
 void Hero::ChangeWeapon(std::shared_ptr<Weapon> newWeapon) {
-    if(this->weapon != nullptr) {
-        this->weapon = newWeapon;
+    if(newWeapon != nullptr) {
+        if(inventory.addItem(this->weapon)) {
+            this->weapon = newWeapon;
+            this->weapon->equipped = true;
+            std::cout<<"new weapon equipped"<<std::endl;
+        }
+    }
+}
+
+void Hero::SearchForWeapon() {
+    std::shared_ptr<Object> obj = inventory.getElement(Object::stWeapon);
+    std::shared_ptr<StWeapon> newWeapon = std::dynamic_pointer_cast<StWeapon>(obj);
+    if(newWeapon != nullptr) {
+        ChangeWeapon(newWeapon);
     }
 }
 
 bool Hero::Shoot() {
-    return true;
+    if(weapon == nullptr) {
+        std::cout<<"you don't have a weapon"<<std::endl;
+        return false;
+    }else return true;
 }
 
-const sf::Sprite &Hero::getSprite() {
-    return Entity::getSprite();
+const std::shared_ptr<Weapon> &Hero::getWeapon() const {
+    return weapon;
 }
+
+void Hero::setWeapon(const std::shared_ptr<Weapon> &weapon) {
+    Hero::weapon = weapon;
+}
+
+const sf::Vector2u &Hero::getWindowSize() const {
+    return windowSize;
+}
+
+void Hero::setWindowSize(const sf::Vector2u &windowSize) {
+    Hero::windowSize = windowSize;
+}
+
+const TextureHolder &Hero::getTextures() const {
+    return textures;
+}
+
+Hero::HeroType Hero::getHeroType() const {
+    return heroType;
+}
+
+void Hero::setHeroType(Hero::HeroType heroType) {
+    Hero::heroType = heroType;
+}
+
+

@@ -9,17 +9,29 @@
 #include <iostream>
 #include <vector>
 
+#include "../ResourceHolder.h"
+#include "../ResourceIdentifier.h"
+
 class Tile{
 public:
-    Tile(std::string textureName, float x, float y, bool walkable, bool exit);
+    enum TileType{
+        wall,
+        floor,
+    };
 
-    sf::Vector2f pos;
-    sf::Texture texture;
-    sf::Sprite sprite;
+    Tile(const TextureHolder& textures);
+    virtual ~Tile();
 
-    bool isWalkable;
-    bool isExit;
-    bool setUpSprite(std::string textureName);
+    bool isWalkable() const;
+
+    void setWalkable(bool walkable);
+
+private:
+    TileType tileType;
+    bool walkable;
+    const TextureHolder& textures;
+public:
+    const TextureHolder &getTextures() const;
 };
 
 #endif //GAME_TILE_H

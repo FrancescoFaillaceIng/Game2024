@@ -12,7 +12,7 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
         Source/Objects/ObjectFactory.cpp Include/Objects/Weapon.h Source/Objects/Weapon.cpp Include/Objects/StWeapon.h
         Source/Objects/StWeapon.cpp)
 
-add_executable(Game main.cpp ${Classi})
+add_executable(Game main.cpp ${Classi} Include/Characters/Enemy.h Source/Characters/Enemy.cpp Source/Characters/MeleeEnemy.cpp Include/Characters/MeleeEnemy.h Source/Random.cpp Include/Random.h Source/Characters/CharacterFactory.cpp Include/Characters/CharacterFactory.h Source/Inventory.cpp Include/Inventory.h Source/Strategy/Strategy.cpp Include/Strategy/Strategy.h Source/Strategy/PatrolStrategy.cpp Include/Strategy/PatrolStrategy.h Source/Strategy/SeekStrategy.cpp Include/Strategy/SeekStrategy.h)
 
 add_library(Game_Tests ${Classi})
 

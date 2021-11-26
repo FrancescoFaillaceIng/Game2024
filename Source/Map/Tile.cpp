@@ -4,19 +4,31 @@
 
 #include "../../Include/Map/Tile.h"
 
-Tile::Tile(std::string textureName, float x, float y, bool walkable, bool exit) {
-    pos = sf::Vector2f (x, y);
-    sprite.setPosition(pos);
-    isWalkable = walkable;
-    isExit = exit;
-    if (!setUpSprite(textureName))
-        return;
+Textures::ID toTextureID(Tile::TileType tileType) {
+    switch (tileType) {
+        case Tile::wall:
+            return Textures::WallText;
+        case Tile::floor:
+            return Textures::FloorText;
+    }
 }
 
-bool Tile::setUpSprite(std::string textureName) {
-    if (!texture.loadFromFile(textureName))
-        return false;
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-    return true;
+Tile::Tile(const TextureHolder& textures): textures(textures) {
+
+}
+
+Tile::~Tile() {
+
+}
+
+bool Tile::isWalkable() const {
+    return walkable;
+}
+
+void Tile::setWalkable(bool walkable) {
+    Tile::walkable = walkable;
+}
+
+const TextureHolder &Tile::getTextures() const {
+    return textures;
 }
