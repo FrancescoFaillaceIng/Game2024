@@ -21,14 +21,16 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
 
 void Game::play() {
     sf::Clock clock;
+    sf::Clock shootingClock;
+    sf::Time shootingTime = shootingClock.restart();
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    while (mWindow->isOpen()) {
 
+    while (mWindow->isOpen()) {
         sf::Time elapsedTime = clock.restart();
         timeSinceLastUpdate += elapsedTime;
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
-            processEvents();
+            processEvents(shootingClock);
             Update();
         }
         render();
@@ -41,7 +43,7 @@ void Game::render() {
     mWindow->display();
 }
 
-void  Game::processEvents() {
+void  Game::processEvents(sf::Clock &shootingClock) {
     sf::Event event;
 
     while (mWindow->pollEvent(event)) {
@@ -50,10 +52,10 @@ void  Game::processEvents() {
                 mWindow->close();
                 break;
             case sf::Event::KeyPressed:
-                world->PlayerInput(event.key.code, true);
+                world->PlayerInput(event.key.code, true, shootingClock);
                 break;
             case sf::Event::KeyReleased:
-                world->PlayerInput(event.key.code, false);
+                world->PlayerInput(event.key.code, false, shootingClock);
                 break;
             default:
                 break;
@@ -63,11 +65,17 @@ void  Game::processEvents() {
 
 void Game::Update() {
     world->Update();
+    world->CheckGlobalBounds();
+    //view->setCenter(world->hero->getPosition());
+    //view->setSize(sf::Vector2f(mWindow->getSize().x / 2, mWindow->getSize().y / 2));
 }
 
 void Game::loadTextures() {
-    textureHolder.load(Textures::FloorText, "../Resources/Floor.jpg");
+    //characters
     textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
+    textureHolder.load(Textures::fighter,"../Resources/minotaur.png");
+
+    //objects
     textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
-    textureHolder.load(Textures::fighter,"../Resources/HeroSprite.png");
+    textureHolder.load(Textures::StProjectile,"../Resources/StProjectile.png");
 }

@@ -26,10 +26,9 @@ public:
     void die() override;
 
     std::shared_ptr<Strategy> strategy;
+
 protected:
     sf::Vector2f windowSize;
-
-
 
     int counterWalk;
     bool delayMoreWalk;

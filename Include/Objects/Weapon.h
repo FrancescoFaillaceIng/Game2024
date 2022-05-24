@@ -12,5 +12,7 @@ public:
     Weapon();
 
     bool use() override;
+
+    int range, power;
 };
 #endif //MAIN_CPP_WEAPON_H

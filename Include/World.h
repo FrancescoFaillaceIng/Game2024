@@ -8,9 +8,14 @@
 #include "Map/Map.h"
 #include "Characters/Hero.h"
 #include "Characters/MeleeEnemy.h"
+
 #include "Objects/StWeapon.h"
-#include "Objects/ObjectFactory.h"
+#include "Projectiles/StProjectile.h"
+
 #include "Characters/CharacterFactory.h"
+#include "Objects/ObjectFactory.h"
+#include "Projectiles/ProjectileFactory.h"
+
 #include "Random.h"
 
 class World {
@@ -19,16 +24,23 @@ public:
 
     void Update();
     void draw();
-    void PlayerInput(sf::Keyboard::Key key, bool isPressed);
+    void PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shootingClock);
+    void CheckGlobalBounds();
 
     void createObjects();
-    void createCharacter();
+    void createCharacters();
 
     void drawHero();
-    void drawObject();
     void drawEnemies();
+    void drawObject();
+    void drawProjectiles();
 
+    void CollisionsHeroEnemies();
+    void CollisionsProjectilesEnemies();
+
+    void UpdateHero();
     void UpdateEnemies();
+    void UpdateProjectiles();
 
     void collectObjects();
 
@@ -40,11 +52,13 @@ public:
 
     std::vector<std::shared_ptr<Object>> collectableObject;
     std::vector<std::shared_ptr<Enemy>> enemyArray;
+    std::vector<std::shared_ptr<Projectile>> projectilePlayerArray;
 
     const TextureHolder& textures;
 
-    ObjectFactory objectFactory;
     CharacterFactory characterFactory;
+    ObjectFactory objectFactory;
+    ProjectileFactory projectileFactory;
 };
 
 

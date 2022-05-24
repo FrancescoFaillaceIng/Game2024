@@ -8,8 +8,9 @@ std::shared_ptr<Object> ObjectFactory::createObject(Object::ObjectType type, con
 
     std::shared_ptr<Object> object;
 
-    if ( type == Object::ObjectType::stWeapon ) {
-        object = std::make_shared<StWeapon>(textures);
+    switch (type) {
+        case Object::stWeapon:
+            object = std::make_shared<StWeapon>(textures);
     }
 
     return object;

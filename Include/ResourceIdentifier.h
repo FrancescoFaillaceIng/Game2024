@@ -22,8 +22,8 @@ namespace Textures {
 
         StWeapon,
 
-        StBullet,
-        AoeBullet,
+        StProjectile,
+        AoeProjectile,
 
         WallText,
         FloorText,

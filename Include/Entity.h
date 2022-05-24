@@ -16,7 +16,7 @@ public:
         right
     };
 
-    const sf::Sprite &getSprite();
+    virtual const sf::Sprite &getSprite();
     virtual ~Entity() = 0;
 
     Direction getDirection() const;
@@ -29,10 +29,10 @@ public:
     const sf::RectangleShape &getRect() const;
     const sf::Texture &getTexture() const;
 
+    sf::RectangleShape rect;
 protected:
     Direction direction;
 
-    sf::RectangleShape rect;
     sf::Texture texture;
     sf::Sprite sprite;
 };

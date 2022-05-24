@@ -15,7 +15,7 @@ public:
 
 private:
     void render();
-    void processEvents();
+    void processEvents(sf::Clock& shootingClock);
     void Update();
     void loadTextures();
 
@@ -23,6 +23,7 @@ private:
     TextureHolder textureHolder;
     std::shared_ptr<sf::RenderWindow> mWindow;
     std::shared_ptr<World> world;
+    //std::shared_ptr<sf::View> view;
     static const sf::Time TimePerFrame;
 };
 #endif //GAME_GAME_H

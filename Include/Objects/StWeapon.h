@@ -9,12 +9,13 @@
 
 class StWeapon: public Weapon {
 public:
-    StWeapon(const TextureHolder& textures);
+    StWeapon(const TextureHolder &textures);
 
     bool use();
 
 private:
-    const TextureHolder& textures;
+    const TextureHolder &textures;
+
 };
 
 #endif //MAIN_CPP_STWEAPON_H

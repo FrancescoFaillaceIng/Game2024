@@ -8,7 +8,10 @@ std::shared_ptr<Hero> CharacterFactory::createHero(Characters::CharacterType cha
                                                    const TextureHolder&textures) {
     std::shared_ptr<Hero> herof;
     if (characterType == Characters::goodboy){
-        herof = std::make_shared<Hero>(Hero::HeroType::StRanged, textures);
+        switch (heroType) {
+            case Hero::StRanged:
+                herof = std::make_shared<Hero>(Hero::HeroType::StRanged, textures);
+        }
     }
 
     return herof;
@@ -19,7 +22,10 @@ std::shared_ptr<Enemy> CharacterFactory::createEnemy(Characters::CharacterType c
     std::shared_ptr<Enemy> enemyf;
     std::shared_ptr<Strategy> strategy = std::make_shared<PatrolStrategy>(windowSize);
     if (characterType == Characters::badguy){
-        enemyf = std::make_shared<MeleeEnemy>(Enemy::EnemyType::meleeEnemy, windowSize, textures, strategy);
+        switch (enemyType) {
+            case Enemy::meleeEnemy:
+                enemyf = std::make_shared<MeleeEnemy>(Enemy::EnemyType::meleeEnemy, windowSize, textures, strategy);
+        }
     }
 
     return enemyf;
