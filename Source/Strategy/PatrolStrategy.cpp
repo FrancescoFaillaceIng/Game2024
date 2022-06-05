@@ -5,7 +5,7 @@
 #include "../../Include/Strategy/PatrolStrategy.h"
 
 PatrolStrategy::PatrolStrategy(sf::Vector2u windowSize) {
-    speed = 1;
+    speed = 0;
     this->windowSize = windowSize;
     type = patrol;
 }

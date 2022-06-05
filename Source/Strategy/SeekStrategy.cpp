@@ -5,7 +5,7 @@
 #include "../../Include/Strategy/SeekStrategy.h"
 
 SeekStrategy::SeekStrategy(sf::Vector2u windowSize) {
-    speed = 10;
+    speed = 0.5;
     this->windowSize = windowSize;
     type = seek;
 }
@@ -15,8 +15,8 @@ void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLe
 
     sf::Vector2f movements(0.f,0.f);
     sf::Vector2f enemyPos(rect.getPosition());
-    //hero is down right
-    double modulo = sqrt(pow(heroPosition.x, 2) + pow(enemyPos.y,2));
+    //hero is up right
+    double modulo = sqrt(pow(heroPosition.x, 2) + pow(heroPosition.y, 2));
     if(heroPosition.x >= enemyPos.x && heroPosition.y >= enemyPos.y) {
         movements = sf::Vector2f(abs(((heroPosition.x-enemyPos.x)/modulo)*speed), abs(((heroPosition.y-enemyPos.y)
         /modulo)*speed));
@@ -29,7 +29,7 @@ void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLe
         }
         isMovingUp = false;
         isMovingLeft = false;
-        //hero is down left
+        //hero is up left
     } else if(heroPosition.x <= enemyPos.x && heroPosition.y >= enemyPos.y) {
         movements = sf::Vector2f(-abs(((heroPosition.x-enemyPos.x)/modulo)*speed), abs(((heroPosition.y-enemyPos.y)
         /modulo)*speed));
@@ -42,7 +42,7 @@ void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLe
         }
         isMovingUp = false;
         isMovingRight = false;
-        //hero is up right
+        //hero is down right
     } else if(heroPosition.x >= enemyPos.x && heroPosition.y <= enemyPos.y) {
         movements = sf::Vector2f(abs(((heroPosition.x-enemyPos.x)/modulo)*speed), -abs(((heroPosition.y-enemyPos.y)
         /modulo)*speed));
@@ -55,7 +55,7 @@ void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLe
         }
         isMovingLeft = false;
         isMovingDown = false;
-        //hero is up left
+        //hero is down left
     } else if(heroPosition.x <= enemyPos.x && heroPosition.y <= enemyPos.y) {
         movements = sf::Vector2f(-abs(((heroPosition.x-enemyPos.x)/modulo)*speed), -abs(((heroPosition.y-enemyPos.y)
         /modulo)*speed));

@@ -26,7 +26,7 @@ MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, cons
     isMovingRight = false;
     isMovingUp = false;
 
-    speedBasic = 0;
+    speedBasic = 1;
     hp = 20;
     hpMax = hp;
     attackDamage = 20;
