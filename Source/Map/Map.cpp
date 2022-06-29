@@ -4,18 +4,42 @@
 
 #include "../../Include/Map/Map.h"
 
-Map::Map() {
-    this->maxSize.x = 500;
-    this->maxSize.y = 500;
+Map::Map(const TextureHolder& textures) {
+    //TODO togliere create map
+    createMap(textures);
+}
 
-    for (size_t x = 0; x <= this->maxSize.x; x++){
-        this->map.emplace_back(std::vector<Tile>());
-        for (size_t y = 0; y <= this->maxSize.y ; y++) {
-            this->map[x].emplace_back(Tile(tile->getTextures()));
+void Map::createMap(const TextureHolder& textures) {
+    createMatrix();
+    y = 0;
+    for (auto i = stringmap.begin(); i != stringmap.end(); i++){
+        if ((*i).size() != line.size()){
+            std::cout << "errore, le colonne non hanno la stessa lunghezza \n";
+            break;
         }
+        x = 0;
+        for (auto j = (*i).begin(); j != (*i).end(); j++){
+            //create a tile up to stringmap elements
+            if ((*j) == '1'){
+                tile = std::make_shared<Tile>(x, y, Tile::TileType::wall, textures);
+            } else if ((*j) == '0'){
+                tile = std::make_shared<Tile>(x, y, Tile::TileType::floor, textures);
+            } else {
+                std::cout << "carattere non riconosciuto";
+            }
+            tileArray.emplace_back(tile);
+            x = x + 64;
+        }
+        y = y + 64;
     }
 }
 
-Map::~Map() {
+void Map::createMatrix() {
+    std::ifstream ReadFile("../Resources/Map.txt");
 
+    while (getline(ReadFile, line)){
+        stringmap.emplace_back(line);
+    }
+    ReadFile.close();
 }
+

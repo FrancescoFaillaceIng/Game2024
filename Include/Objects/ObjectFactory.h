@@ -11,7 +11,7 @@
 
 class ObjectFactory: public Object{
 public:
-    std::shared_ptr<Object> createObject(Object::ObjectType type, const TextureHolder&textures);
+    std::shared_ptr<Object> createObject(Object::ObjectType type, const TextureHolder &textures);
 
 };
 

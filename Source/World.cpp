@@ -5,9 +5,10 @@
 #include <memory>
 #include "../Include/World.h"
 
-World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window), map(),
-            textures(textures){
+World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
+                                                                                       textures(textures){
 
+    createMap();
     createCharacters();
     createObjects();
 }
@@ -79,9 +80,16 @@ void World::CollisionsProjectilesEnemies() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //updates
 void World::Update() {
+    UpdateMap();
     UpdateHero();
     UpdateEnemies();
     UpdateProjectiles();
+}
+
+void World::UpdateMap() {
+    for(auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
+        (*i)->UpdateTile();
+    }
 }
 
 void World::UpdateHero() {
@@ -93,14 +101,13 @@ void World::UpdateHero() {
 
 void World::UpdateEnemies() {
     if(!enemyArray.empty()) {
-        int counter = 0;
-        int deleted = -1;
         for ( auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++ ) {
 
             //set hero position to the strategy
             auto seekStrategy = std::dynamic_pointer_cast<SeekStrategy>((*iter)->strategy);
             if(seekStrategy != nullptr) {
                 seekStrategy->heroPosition = hero->rect.getPosition();
+                seekStrategy->enemyPos = (*iter)->rect.getPosition();
             }
             (*iter)->Update();
             if ((*iter)->getHp()<=0){
@@ -124,11 +131,21 @@ void World::UpdateProjectiles() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //draws
 void World::draw() {
+    drawMap();
+
     drawHero();
     drawEnemies();
 
     drawObject();
     drawProjectiles();
+}
+
+void World::drawMap() {
+    if(!map->tileArray.empty()){
+        for(auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
+            window->draw((*i)->getSprite());
+        }
+    }
 }
 
 void World::drawHero() {
@@ -137,7 +154,6 @@ void World::drawHero() {
 
 void World::drawEnemies(){
     if(!enemyArray.empty()) {
-        int counter = 0;
         for (auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++ ) {
             window->draw((*iter)->getSprite());
         }
@@ -163,6 +179,11 @@ void World::drawProjectiles() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creations
+void World::createMap() {
+    //create the map
+    map = std::make_shared<Map>(textures);
+}
+
 void World::createObjects() {
     //create a weapon
     std::shared_ptr<Object> weapon = objectFactory.createObject(Object::ObjectType::stWeapon, textures);
@@ -173,7 +194,7 @@ void World::createObjects() {
 void World::createCharacters() {
 
     //create the hero
-    this->hero = characterFactory.createHero(Characters::goodboy, Hero::StRanged, textures);
+    hero = characterFactory.createHero(Characters::goodboy, Hero::StRanged, textures);
 
     //create enemies
     for(int i = 0; i <= 10; i++){

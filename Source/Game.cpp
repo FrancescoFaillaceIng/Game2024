@@ -34,6 +34,7 @@ void Game::play() {
             Update();
         }
         render();
+
     }
 }
 
@@ -78,4 +79,8 @@ void Game::loadTextures() {
     //objects
     textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
     textureHolder.load(Textures::StProjectile,"../Resources/StProjectile.png");
+
+    //map
+    textureHolder.load(Textures::FloorText, "../Resources/Floor.png");
+    textureHolder.load(Textures::WallText, "../Resources/Wall.png");
 }

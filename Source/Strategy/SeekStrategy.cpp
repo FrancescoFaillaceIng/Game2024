@@ -5,7 +5,7 @@
 #include "../../Include/Strategy/SeekStrategy.h"
 
 SeekStrategy::SeekStrategy(sf::Vector2u windowSize) {
-    speed = 0.5;
+    speed = 1;
     this->windowSize = windowSize;
     type = seek;
 }
@@ -13,65 +13,49 @@ SeekStrategy::SeekStrategy(sf::Vector2u windowSize) {
 void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,
                           sf::RectangleShape &rect) {
 
-    sf::Vector2f movements(0.f,0.f);
-    sf::Vector2f enemyPos(rect.getPosition());
-    //hero is up right
-    double modulo = sqrt(pow(heroPosition.x, 2) + pow(heroPosition.y, 2));
-    if(heroPosition.x >= enemyPos.x && heroPosition.y >= enemyPos.y) {
-        movements = sf::Vector2f(abs(((heroPosition.x-enemyPos.x)/modulo)*speed), abs(((heroPosition.y-enemyPos.y)
-        /modulo)*speed));
-        if(movements.x > movements.y) {
-            isMovingRight = true;
-            isMovingDown = false;
-        } else {
-            isMovingRight = false;
-            isMovingDown = true;
-        }
-        isMovingUp = false;
-        isMovingLeft = false;
-        //hero is up left
-    } else if(heroPosition.x <= enemyPos.x && heroPosition.y >= enemyPos.y) {
-        movements = sf::Vector2f(-abs(((heroPosition.x-enemyPos.x)/modulo)*speed), abs(((heroPosition.y-enemyPos.y)
-        /modulo)*speed));
-        if(-movements.x > movements.y) {
-            isMovingLeft = true;
-            isMovingDown = false;
-        } else {
-            isMovingLeft = false;
-            isMovingDown = true;
-        }
-        isMovingUp = false;
-        isMovingRight = false;
-        //hero is down right
-    } else if(heroPosition.x >= enemyPos.x && heroPosition.y <= enemyPos.y) {
-        movements = sf::Vector2f(abs(((heroPosition.x-enemyPos.x)/modulo)*speed), -abs(((heroPosition.y-enemyPos.y)
-        /modulo)*speed));
-        if(movements.x > -movements.y) {
-            isMovingRight = true;
-            isMovingUp = false;
-        } else {
-            isMovingRight = false;
-            isMovingUp = true;
-        }
-        isMovingLeft = false;
-        isMovingDown = false;
-        //hero is down left
-    } else if(heroPosition.x <= enemyPos.x && heroPosition.y <= enemyPos.y) {
-        movements = sf::Vector2f(-abs(((heroPosition.x-enemyPos.x)/modulo)*speed), -abs(((heroPosition.y-enemyPos.y)
-        /modulo)*speed));
-        if(-movements.x > -movements.y) {
-            isMovingLeft = true;
-            isMovingUp = false;
-        } else {
-            isMovingLeft = false;
-            isMovingUp = true;
-        }
+    sf::Vector2f target(heroPosition.x - enemyPos.x, heroPosition.y - enemyPos.y);
+    sf::Vector2f movement;
 
-        isMovingRight = false;
+    double modulo = sqrt(pow(target.x, 2)+ pow(target.y, 2));
+
+    movement = sf::Vector2f ((target.x/modulo)*speed, (target.y/modulo)*speed);
+
+    //hero is up right
+    if (target.x > 0 && target.y < 0){
+        isMovingUp = true;
         isMovingDown = false;
+
+        isMovingRight = true;
+        isMovingLeft = false;
     }
 
-    rect.move(movements);
+    //hero is down right
+    else if (target.x > 0 && target.y > 0){
+        isMovingUp = false;
+        isMovingDown = true;
+
+        isMovingRight = true;
+        isMovingLeft = false;
+    }
+
+    //hero is down left
+    else if (target.x < 0 && target.y > 0){
+        isMovingUp = false;
+        isMovingDown = true;
+
+        isMovingRight = false;
+        isMovingLeft = true;
+    }
+
+    //hero is up left
+    else if (target.x < 0 && target.y < 0){
+        isMovingUp = true;
+        isMovingDown = false;
+
+        isMovingRight = false;
+        isMovingLeft = true;
+    }
+    rect.move(movement);
 }
 
 void SeekStrategy::animation(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, bool &delayWalk,

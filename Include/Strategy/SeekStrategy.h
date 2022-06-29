@@ -26,6 +26,7 @@ public:
     Direction direction;
     Type type;
     sf::Vector2f heroPosition;
+    sf::Vector2f enemyPos;
 
 private:
     float speed;

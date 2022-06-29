@@ -19,19 +19,23 @@ public:
         floor,
     };
 
-    Tile(const TextureHolder& textures);
-    virtual ~Tile();
-
-    bool isWalkable() const;
+    Tile(int x, int y, TileType tileType, const TextureHolder& textures);
 
     void setWalkable(bool walkable);
+    void setTileType(TileType tileType);
 
-private:
+    const sf::Sprite &getSprite();
+    const sf::RectangleShape &getRect();
+
+    void UpdateTile();
+
     TileType tileType;
-    bool walkable;
-    const TextureHolder& textures;
-public:
-    const TextureHolder &getTextures() const;
+
+protected:
+    sf::Sprite sprite;
+    sf::RectangleShape rect;
+
+    bool walkable = false;
 };
 
 #endif //GAME_TILE_H

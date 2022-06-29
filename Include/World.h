@@ -6,6 +6,7 @@
 #define GAME_WORLD_H
 
 #include "Map/Map.h"
+
 #include "Characters/Hero.h"
 #include "Characters/MeleeEnemy.h"
 
@@ -27,9 +28,11 @@ public:
     void PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shootingClock);
     void CheckGlobalBounds();
 
+    void createMap();
     void createObjects();
     void createCharacters();
 
+    void drawMap();
     void drawHero();
     void drawEnemies();
     void drawObject();
@@ -38,6 +41,7 @@ public:
     void CollisionsHeroEnemies();
     void CollisionsProjectilesEnemies();
 
+    void UpdateMap();
     void UpdateHero();
     void UpdateEnemies();
     void UpdateProjectiles();
@@ -46,9 +50,9 @@ public:
 
     void Shoot();
 
+    std::shared_ptr<sf::RenderWindow> window;
     std::shared_ptr<Map> map;
     std::shared_ptr<Hero> hero;
-    std::shared_ptr<sf::RenderWindow> window;
 
     std::vector<std::shared_ptr<Object>> collectableObject;
     std::vector<std::shared_ptr<Enemy>> enemyArray;
@@ -59,6 +63,7 @@ public:
     CharacterFactory characterFactory;
     ObjectFactory objectFactory;
     ProjectileFactory projectileFactory;
+
 };
 
 

@@ -7,14 +7,22 @@
 
 #include "Tile.h"
 
+#include <fstream>
+#include <string>
+#include <sstream>
+
 class Map{
 public:
-    Map();
-    virtual ~Map();
+    Map(const TextureHolder& textures);
 
-private:
-    sf::Vector2u maxSize;
+    std::vector<std::shared_ptr<Tile>> tileArray;
     std::shared_ptr<Tile> tile;
-    std::vector< std::vector<Tile>> map;
+protected:
+    int x, y;
+    std::vector<std::string> stringmap;
+    std::string line;
+
+    void createMap(const TextureHolder& textures);
+    void createMatrix(/*filemap?*/);
 };
 #endif //GAME_MAP_H

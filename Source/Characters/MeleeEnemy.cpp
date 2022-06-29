@@ -4,13 +4,6 @@
 
 #include "../../Include/Characters/MeleeEnemy.h"
 
-Textures::ID toTextureID(Enemy::EnemyType enemyType) {
-    switch (enemyType) {
-        case Enemy::EnemyType::meleeEnemy:
-            return Textures::fighter;
-    }
-}
-
 MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, const TextureHolder &textures,
                        std::shared_ptr<Strategy> strategy): textures(textures) {
 
@@ -19,7 +12,7 @@ MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, cons
     else
         std::cout <<"errore sulla conversione della strategia"<< std::endl;
 
-    texture = textures.get(toTextureID(meleeEnemy));
+    texture = textures.get(Textures::fighter);
 
     isMovingDown = false;
     isMovingLeft = false;
