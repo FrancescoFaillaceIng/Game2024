@@ -49,3 +49,11 @@ void Tile::UpdateTile() {
     sprite.setPosition(rect.getPosition());
 }
 
+bool Tile::isWalkable() const {
+    return walkable;
+}
+
+const sf::Vector2f &Tile::getPosition() const {
+    return position;
+}
+

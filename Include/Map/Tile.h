@@ -23,17 +23,20 @@ public:
 
     void setWalkable(bool walkable);
     void setTileType(TileType tileType);
+    void UpdateTile();
 
     const sf::Sprite &getSprite();
     const sf::RectangleShape &getRect();
+    const sf::Vector2f &getPosition() const;
 
-    void UpdateTile();
+    bool isWalkable() const;
 
     TileType tileType;
-
+    sf::RectangleShape rect;
 protected:
     sf::Sprite sprite;
-    sf::RectangleShape rect;
+
+    sf::Vector2f position;
 
     bool walkable = false;
 };

@@ -11,7 +11,7 @@ StProjectile::StProjectile(const TextureHolder &textures, sf::Vector2f vector): 
     power = 4;
 
     rect.setPosition(vector);
-    rect.setSize(sf::Vector2f(15, 15));
+    rect.setSize(sf::Vector2f(10, 10));
 
     sprite.setTextureRect(sf::IntRect(0, 0, 15, 15));
     sprite.setPosition(rect.getPosition());

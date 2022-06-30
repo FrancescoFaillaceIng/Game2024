@@ -13,21 +13,20 @@ World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &text
     createObjects();
 }
 
-
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shootingClock) {
-    if (key == sf::Keyboard::W){
+    if (key == sf::Keyboard::W && !isTouchingWalls){
         hero->setDirection(Entity::up) ;
         hero->setIsMovingUp(isPressed);
     }
-    else if (key == sf::Keyboard::S){
+    else if (key == sf::Keyboard::S && !isTouchingWalls){
         hero->setDirection(Entity::down);
         hero->setIsMovingDown(isPressed);
     }
-    else if (key == sf::Keyboard::A){
+    else if (key == sf::Keyboard::A && !isTouchingWalls){
         hero->setDirection(Entity::left);
         hero->setIsMovingLeft(isPressed);
     }
-    else if (key == sf::Keyboard::D){
+    else if (key == sf::Keyboard::D && !isTouchingWalls){
         hero->setDirection(Entity::right);
         hero->setIsMovingRight(isPressed);
     }
@@ -48,9 +47,9 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shooti
 void World::CheckGlobalBounds() {
     CollisionsHeroEnemies();
     CollisionsProjectilesEnemies();
-    //TODO check hero touches walls
+    CollisionsHeroMap();
+    CollisionsProjectilesMap();
     //TODO check enemies touch walls
-    //TODO check projectiles touch walls
 }
 
 void World::CollisionsHeroEnemies() {
@@ -77,6 +76,51 @@ void World::CollisionsProjectilesEnemies() {
         }
     }
 }
+
+void World::CollisionsHeroMap() {
+    sf::Vector2f new_position;
+    for(auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
+        isTouchingWalls = false;
+        if(!((*i)->isWalkable())){
+            if(hero->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
+                isTouchingWalls = true;
+                switch (hero->getDirection()) {
+                    case Entity::up:
+                        new_position.x = hero->getPosition().x;
+                        new_position.y = hero->getPosition().y + hero->getSpeedBasic();
+                        hero->setIsMovingUp(false);
+                    case Entity::down:
+                        new_position.x = hero->getPosition().x;
+                        new_position.y = hero->getPosition().y - hero->getSpeedBasic();
+                        hero->setIsMovingDown(false);
+                    case Entity::left:
+                        new_position.x = hero->getPosition().x + hero->getSpeedBasic();
+                        new_position.y = hero->getPosition().y;
+                        hero->setIsMovingLeft(false);
+                    case Entity::right:
+                        new_position.x = hero->getPosition().x - hero->getSpeedBasic();
+                        new_position.y = hero->getPosition().y;
+                        hero->setIsMovingRight(false);
+                }
+                hero->setPosition(new_position);
+            }
+        }
+    }
+}
+
+void World::CollisionsProjectilesMap() {
+    for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
+        for (auto j = projectilePlayerArray.begin(); j != projectilePlayerArray.end(); j++){
+            if (!(*i)->isWalkable()){
+                if ((*i)->rect.getGlobalBounds().intersects((*j)->rect.getGlobalBounds())){
+                    j = projectilePlayerArray.erase(j);
+                    if (j == projectilePlayerArray.end())
+                        break;
+                }
+            }
+        }
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //updates
 void World::Update() {
@@ -95,7 +139,10 @@ void World::UpdateMap() {
 void World::UpdateHero() {
     hero->Update();
     if (hero->getHp() <= 0){
-        //TODO hero dies
+        hero->active = false;
+    }
+    if (!hero->active){
+        //free(&hero);
     }
 }
 
