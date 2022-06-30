@@ -24,11 +24,16 @@ MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, cons
     hpMax = hp;
     attackDamage = 20;
 
-    int x,y;
-    x = GenerateRandom(64*5);
-    y = GenerateRandom(64*5);
+    int a = GenerateRandom(3);
+    int b;
+    if (a == 1) b = 64*2;
+    if (a == 2) b = 64*8;
+    if (a == 3) b = 64*11;
+    position.x = b;
+    position.y = b;
 
-    rect.setPosition(x, y);
+
+    rect.setPosition(position);
     rect.setSize(sf::Vector2f(32, 32));
 
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));

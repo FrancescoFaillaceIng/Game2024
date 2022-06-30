@@ -62,6 +62,7 @@ protected:
     int attackDamage;
     int speedBasic;
     int counterWalking = 0;
+
     bool isMovingUp, isMovingDown, isMovingLeft, isMovingRight;
 
 };

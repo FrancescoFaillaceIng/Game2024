@@ -14,19 +14,19 @@ World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &text
 }
 
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shootingClock) {
-    if (key == sf::Keyboard::W && !isTouchingWalls){
-        hero->setDirection(Entity::up) ;
+    if (key == sf::Keyboard::W){
+        hero->setDirection(Entity::up);
         hero->setIsMovingUp(isPressed);
     }
-    else if (key == sf::Keyboard::S && !isTouchingWalls){
+    else if (key == sf::Keyboard::S){
         hero->setDirection(Entity::down);
         hero->setIsMovingDown(isPressed);
     }
-    else if (key == sf::Keyboard::A && !isTouchingWalls){
+    else if (key == sf::Keyboard::A){
         hero->setDirection(Entity::left);
         hero->setIsMovingLeft(isPressed);
     }
-    else if (key == sf::Keyboard::D && !isTouchingWalls){
+    else if (key == sf::Keyboard::D){
         hero->setDirection(Entity::right);
         hero->setIsMovingRight(isPressed);
     }
@@ -48,8 +48,8 @@ void World::CheckGlobalBounds() {
     CollisionsHeroEnemies();
     CollisionsProjectilesEnemies();
     CollisionsHeroMap();
+    CollisionsEnemiesMap();
     CollisionsProjectilesMap();
-    //TODO check enemies touch walls
 }
 
 void World::CollisionsHeroEnemies() {
@@ -78,31 +78,41 @@ void World::CollisionsProjectilesEnemies() {
 }
 
 void World::CollisionsHeroMap() {
-    sf::Vector2f new_position;
-    for(auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
-        isTouchingWalls = false;
-        if(!((*i)->isWalkable())){
-            if(hero->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
-                isTouchingWalls = true;
+    for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
+        if (hero->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
+            if (!((*i)->isWalkable())){
                 switch (hero->getDirection()) {
                     case Entity::up:
-                        new_position.x = hero->getPosition().x;
-                        new_position.y = hero->getPosition().y + hero->getSpeedBasic();
-                        hero->setIsMovingUp(false);
+                        hero->rect.move(0, hero->getSpeedBasic());
                     case Entity::down:
-                        new_position.x = hero->getPosition().x;
-                        new_position.y = hero->getPosition().y - hero->getSpeedBasic();
-                        hero->setIsMovingDown(false);
-                    case Entity::left:
-                        new_position.x = hero->getPosition().x + hero->getSpeedBasic();
-                        new_position.y = hero->getPosition().y;
-                        hero->setIsMovingLeft(false);
+                        hero->rect.move(0, -(hero->getSpeedBasic()));
                     case Entity::right:
-                        new_position.x = hero->getPosition().x - hero->getSpeedBasic();
-                        new_position.y = hero->getPosition().y;
-                        hero->setIsMovingRight(false);
+                        hero->rect.move(-hero->getSpeedBasic(), 0);
+                    case Entity::left:
+                        hero->rect.move(hero->getSpeedBasic(), 0);
                 }
-                hero->setPosition(new_position);
+            }
+        }
+    }
+}
+
+void World::CollisionsEnemiesMap() {
+    for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
+        for (auto j = enemyArray.begin(); j != enemyArray.end(); j++){
+            if ((*j)->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
+                if (!(*i)->isWalkable()){
+                    switch ((*j)->getDirection()) {
+                        case Entity::up:
+                            (*j)->rect.move(0, (*j)->getSpeedBasic());
+                        case Entity::down:
+                            (*j)->rect.move(0, -((*j)->getSpeedBasic()));
+                        case Entity::right:
+                            (*j)->rect.move(-((*j)->getSpeedBasic()), 0);
+                        case Entity::left:
+                            (*j)->rect.move((*j)->getSpeedBasic(), 0);
+                    }
+                    (*j)->changeDirection();
+                }
             }
         }
     }

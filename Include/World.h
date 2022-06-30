@@ -42,6 +42,7 @@ public:
     void CollisionsProjectilesEnemies();
     void CollisionsHeroMap();
     void CollisionsProjectilesMap();
+    void CollisionsEnemiesMap();
 
     void UpdateMap();
     void UpdateHero();
@@ -65,9 +66,6 @@ public:
     CharacterFactory characterFactory;
     ObjectFactory objectFactory;
     ProjectileFactory projectileFactory;
-
-    bool isTouchingWalls;
-
 };
 
 

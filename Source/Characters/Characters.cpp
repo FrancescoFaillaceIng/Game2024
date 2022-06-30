@@ -10,9 +10,9 @@ Characters::Characters() {
 
 void Characters::Update() {
     if (isMovingRight || isMovingLeft || isMovingDown || isMovingUp){
-        float x = rect.getPosition().x;
-        float y = rect.getPosition().y;
-        sprite.setPosition(x,y);
+        position.x = rect.getPosition().x;
+        position.y = rect.getPosition().y;
+        sprite.setPosition(position);
         switch (direction) {
             case up:
                 rect.move(0, -speedBasic);

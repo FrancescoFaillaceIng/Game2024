@@ -10,7 +10,11 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
                                             "Berto's Adventure", sf::Style::Default)) {
 
     loadTextures();
+
     world = std::make_shared<World>(mWindow, textureHolder);
+
+    view = std::make_shared<sf::View>(sf::Vector2f(world->hero->rect.getPosition()), sf::Vector2f(1000, 700));
+    mWindow->setView(*view);
 
     //sets the icon
     sf::Image icon;
@@ -40,6 +44,7 @@ void Game::play() {
 
 void Game::render() {
     mWindow->clear();
+    mWindow->setView(*view);
     world->draw();
     mWindow->display();
 }
@@ -67,7 +72,7 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 void Game::Update() {
     world->Update();
     world->CheckGlobalBounds();
-    //view->setCenter(world->hero->getPosition());
+    view->setCenter(world->hero->rect.getPosition());
     //view->setSize(sf::Vector2f(mWindow->getSize().x / 2, mWindow->getSize().y / 2));
 }
 
