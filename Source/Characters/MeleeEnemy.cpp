@@ -12,7 +12,11 @@ MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, cons
     else
         std::cout <<"errore sulla conversione della strategia"<< std::endl;
 
-    texture = textures.get(Textures::fighter);
+    //gives 3 different textures
+    int t = GenerateRandom(3);
+    if (t == 1) texture = textures.get(Textures::bull_fighter);
+    if (t == 2) texture = textures.get(Textures::flying_fighter);
+    if (t == 3) texture = textures.get(Textures::ghost_fighter);
 
     isMovingDown = false;
     isMovingLeft = false;
@@ -24,14 +28,20 @@ MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, cons
     hpMax = hp;
     attackDamage = 20;
 
-    int a = GenerateRandom(3);
-    int b;
-    if (a == 1) b = 64*2;
-    if (a == 2) b = 64*8;
-    if (a == 3) b = 64*11;
-    position.x = b;
-    position.y = b;
-
+    //makes 3 differents spawn points
+    int p = GenerateRandom(3);
+    if (p == 1) {
+        position.x = 64*2;
+        position.y = 64*2;
+    }
+    if (p == 2) {
+        position.x = 64*8;
+        position.y = 64*8;
+    }
+    if (p == 3) {
+        position.x = 64*11;
+        position.y = 64*11;
+    }
 
     rect.setPosition(position);
     rect.setSize(sf::Vector2f(32, 32));

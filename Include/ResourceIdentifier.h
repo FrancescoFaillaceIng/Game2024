@@ -17,7 +17,9 @@ namespace Textures {
         StHero,
         AoeHero,
 
-        fighter,
+        bull_fighter,
+        flying_fighter,
+        ghost_fighter,
         shooter,
 
         StWeapon,

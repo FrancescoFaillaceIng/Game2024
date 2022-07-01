@@ -7,10 +7,10 @@
 StWeapon::StWeapon(const TextureHolder& textures): textures(textures){
     this->objectType = stWeapon;
 
-    rect.setPosition(64, 64);
-    rect.setSize(sf::Vector2f(31.7, 31.7));
+    rect.setPosition(192, 192);
+    rect.setSize(sf::Vector2f(32, 18));
 
-    sprite.setTextureRect(sf::IntRect(0, 0, 31.7, 31.7));
+    sprite.setTextureRect(sf::IntRect(0, 0, rect.getSize().x, rect.getSize().y));
     sprite.setPosition(rect.getPosition());
 
     texture = textures.get(Textures::StWeapon);

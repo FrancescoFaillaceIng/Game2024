@@ -13,7 +13,8 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
 
     world = std::make_shared<World>(mWindow, textureHolder);
 
-    view = std::make_shared<sf::View>(sf::Vector2f(world->hero->rect.getPosition()), sf::Vector2f(1000, 700));
+    //sets the view
+    view = std::make_shared<sf::View>(sf::Vector2f(world->hero->rect.getPosition()), sf::Vector2f(1500, 850));
     mWindow->setView(*view);
 
     //sets the icon
@@ -73,13 +74,14 @@ void Game::Update() {
     world->Update();
     world->CheckGlobalBounds();
     view->setCenter(world->hero->rect.getPosition());
-    //view->setSize(sf::Vector2f(mWindow->getSize().x / 2, mWindow->getSize().y / 2));
 }
 
 void Game::loadTextures() {
     //characters
     textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
-    textureHolder.load(Textures::fighter,"../Resources/minotaur.png");
+    textureHolder.load(Textures::bull_fighter,"../Resources/minotaur.png");
+    textureHolder.load(Textures::flying_fighter,"C:\\Users\\franc\\CLionProjects\\Game\\Resources\\bat.png");
+    textureHolder.load(Textures::ghost_fighter,"C:\\Users\\franc\\CLionProjects\\Game\\Resources\\ghost.png");
 
     //objects
     textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
