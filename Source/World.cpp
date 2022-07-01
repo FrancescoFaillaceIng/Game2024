@@ -54,8 +54,9 @@ void World::CheckGlobalBounds() {
 
 void World::CollisionsHeroEnemies() {
     for (auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++){
+
+        // if an enemy touches the hero, hero's life decrease
         if (hero->rect.getGlobalBounds().intersects((*iter)->rect.getGlobalBounds())){
-            std::cout<<"touched"<<std::endl;
             hero->setHp(hero->getHp()-(*iter)->getAttackDamage());
         }
     }
@@ -65,8 +66,9 @@ void World::CollisionsProjectilesEnemies() {
     std::shared_ptr<Strategy> newStrategy = std::make_shared<SeekStrategy>(window->getSize());
     for (auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++){
         for (auto iter1 = projectilePlayerArray.begin(); iter1 != projectilePlayerArray.end(); iter1++){
+
+            // if a projectile touches an enemy, enemy's life decrease and the projectiles disappear
             if((*iter)->rect.getGlobalBounds().intersects((*iter1)->rect.getGlobalBounds())){
-                std::cout<<"hit"<<std::endl;
                 iter1 = projectilePlayerArray.erase(iter1);
                 (*iter)->setHp((*iter)->getHp()-(*iter1)->getPower());
                 (*iter)->strategy = newStrategy;
@@ -78,6 +80,7 @@ void World::CollisionsProjectilesEnemies() {
 }
 
 void World::CollisionsHeroMap() {
+    //TODO up and right broken
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         if (hero->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
             if (!((*i)->isWalkable())){
@@ -97,6 +100,7 @@ void World::CollisionsHeroMap() {
 }
 
 void World::CollisionsEnemiesMap() {
+    //TODO up and right broken
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         for (auto j = enemyArray.begin(); j != enemyArray.end(); j++){
             if ((*j)->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
@@ -121,6 +125,8 @@ void World::CollisionsEnemiesMap() {
 void World::CollisionsProjectilesMap() {
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         for (auto j = projectilePlayerArray.begin(); j != projectilePlayerArray.end(); j++){
+
+            // if a projectile touches a wall, the projectile disappear
             if (!(*i)->isWalkable()){
                 if ((*i)->rect.getGlobalBounds().intersects((*j)->rect.getGlobalBounds())){
                     j = projectilePlayerArray.erase(j);
@@ -267,6 +273,8 @@ void World::createCharacters() {
 void World::collectObjects() {
     if(!collectableObject.empty()) {
         for (auto iter = collectableObject.begin(); iter != collectableObject.end(); iter++ ) {
+
+            // if hero pick up an object, the object is added to hero's inventory and the object disappear from the map
             if ( (*iter)->getRect().getGlobalBounds().intersects(hero->getRect().getGlobalBounds())) {
                 hero->PickUpObject(*iter);
                 (*iter)->equipped = true;

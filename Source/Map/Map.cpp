@@ -5,7 +5,7 @@
 #include "../../Include/Map/Map.h"
 
 Map::Map(const TextureHolder& textures) {
-    //TODO togliere create map
+    //TODO togliere create map?
     createMap(textures);
 }
 
@@ -19,6 +19,7 @@ void Map::createMap(const TextureHolder& textures) {
         }
         x = 0;
         for (auto j = (*i).begin(); j != (*i).end(); j++){
+
             //create a tile up to stringmap elements
             if ((*j) == '1'){
                 tile = std::make_shared<Tile>(x, y, Tile::TileType::wall, textures);
@@ -27,6 +28,8 @@ void Map::createMap(const TextureHolder& textures) {
             } else {
                 std::cout << "carattere non riconosciuto";
             }
+
+            //put the tile in tileArray
             tileArray.emplace_back(tile);
             x = x + 64;
         }
@@ -37,6 +40,7 @@ void Map::createMap(const TextureHolder& textures) {
 void Map::createMatrix() {
     std::ifstream ReadFile("../Resources/Map.txt");
 
+    //read the file and make a vector of string
     while (getline(ReadFile, line)){
         stringmap.emplace_back(line);
     }

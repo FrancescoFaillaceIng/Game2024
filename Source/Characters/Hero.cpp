@@ -52,18 +52,19 @@ Hero::Hero(Hero::HeroType heroType, const TextureHolder& textures): textures(tex
 
 bool Hero::PickUpObject(std::shared_ptr<Object> object) {
     std::shared_ptr<Weapon> WeaponPicked = std::dynamic_pointer_cast<Weapon>(object);
-    if(WeaponPicked != nullptr) {
+    if(WeaponPicked) {
         ChangeWeapon(WeaponPicked);
+        return true;
+    } else {
+        return false;
     }
-    return true;
 }
 
 void Hero::ChangeWeapon(std::shared_ptr<Weapon> newWeapon) {
-    if(newWeapon != nullptr) {
+    if(newWeapon) {
         if(inventory.addItem(this->weapon)) {
             this->weapon = newWeapon;
             this->weapon->equipped = true;
-            std::cout<<"new weapon equipped"<<std::endl;
         }
     }
 }
