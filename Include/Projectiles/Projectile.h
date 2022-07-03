@@ -22,6 +22,7 @@ public:
 
     virtual void Update();
     int getPower();
+    virtual int getPspeed();
 
     ProjectileType projectileType;
 

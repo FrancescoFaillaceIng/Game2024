@@ -32,4 +32,8 @@ int Projectile::getPower() {
     return power;
 }
 
+int Projectile::getPspeed() {
+    return Pspeed;
+}
+
 

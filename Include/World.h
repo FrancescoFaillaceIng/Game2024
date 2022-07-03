@@ -66,6 +66,8 @@ public:
     CharacterFactory characterFactory;
     ObjectFactory objectFactory;
     ProjectileFactory projectileFactory;
+
+    //char *Map = "../Map.txt";
 };
 
 

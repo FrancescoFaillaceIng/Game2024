@@ -281,14 +281,15 @@ void World::collectObjects() {
                 iter = collectableObject.erase(iter);
                 if (iter == collectableObject.end())
                     break;
-            } else std::cout<<"nothing to pick up"<<std::endl;
+            }
         }
     }
 }
 
 void World::Shoot() {
+
+    //when hero shoot, create a projectile and put in projectilePLayerArray
     if(hero->Shoot()){
-        std::cout<<"shoot"<<std::endl;
         std::shared_ptr<Weapon> mWeapon = std::dynamic_pointer_cast<Weapon>(hero->getWeapon());
         if(mWeapon != nullptr) {
             std::shared_ptr<Projectile> worldProjectile = projectileFactory.createProjectile(Projectile::stProjectile,
@@ -296,8 +297,6 @@ void World::Shoot() {
             worldProjectile->active = true;
             worldProjectile->setDirection(hero->getDirection());
             projectilePlayerArray.emplace_back(worldProjectile);
-            std::cout<<"proj +1"<<std::endl;
         }
-    } else
-        std::cout<<"can't shoot"<<std::endl;
+    }
 }

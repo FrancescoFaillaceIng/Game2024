@@ -23,6 +23,6 @@ protected:
     std::string line;
 
     void createMap(const TextureHolder& textures);
-    void createMatrix(/*filemap?*/);
+    void createMatrix();
 };
 #endif //GAME_MAP_H

@@ -31,8 +31,8 @@ MeleeEnemy::MeleeEnemy(Enemy::EnemyType enemyType, sf::Vector2u windowSize, cons
     //makes 3 differents spawn points
     int p = GenerateRandom(3);
     if (p == 1) {
-        position.x = 64*2;
-        position.y = 64*2;
+        position.x = 64*3;
+        position.y = 64*3;
     }
     if (p == 2) {
         position.x = 64*8;
