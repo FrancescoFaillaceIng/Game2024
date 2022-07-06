@@ -8,7 +8,6 @@
 #include <string>
 #include <memory>
 #include "Characters.h"
-#include "..\Objects\StWeapon.h"
 #include "..\Inventory.h"
 
 class Hero: public Characters{
@@ -32,11 +31,10 @@ protected:
     HeroType heroType;
 
     std::shared_ptr<Weapon> weapon;
+    std::shared_ptr<Inventory> inventory;
 
     sf::Vector2u windowSize;
     const TextureHolder& textures;
-
-    Inventory inventory;
 };
 
 

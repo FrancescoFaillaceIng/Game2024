@@ -7,6 +7,8 @@
 
 #include "ResourceHolder.h"
 #include "Objects/Object.h"
+#include "Objects/StWeapon.h"
+
 #include <iostream>
 
 class Inventory {

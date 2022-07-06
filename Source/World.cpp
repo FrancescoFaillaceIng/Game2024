@@ -84,16 +84,24 @@ void World::CollisionsHeroMap() {
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         if (hero->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
             if (!((*i)->isWalkable())){
+                #ifdef DEBUG
+                #endif
+
                 switch (hero->getDirection()) {
                     case Entity::up:
                         hero->rect.move(0, hero->getSpeedBasic());
+                        break;
                     case Entity::down:
                         hero->rect.move(0, -(hero->getSpeedBasic()));
+                        break;
                     case Entity::right:
                         hero->rect.move(-hero->getSpeedBasic(), 0);
+                        break;
                     case Entity::left:
                         hero->rect.move(hero->getSpeedBasic(), 0);
+                        break;
                 }
+
             }
         }
     }
@@ -108,12 +116,16 @@ void World::CollisionsEnemiesMap() {
                     switch ((*j)->getDirection()) {
                         case Entity::up:
                             (*j)->rect.move(0, (*j)->getSpeedBasic());
+                            break;
                         case Entity::down:
                             (*j)->rect.move(0, -((*j)->getSpeedBasic()));
+                            break;
                         case Entity::right:
                             (*j)->rect.move(-((*j)->getSpeedBasic()), 0);
+                            break;
                         case Entity::left:
                             (*j)->rect.move((*j)->getSpeedBasic(), 0);
+                            break;
                     }
                     (*j)->changeDirection();
                 }
