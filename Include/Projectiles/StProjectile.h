@@ -11,6 +11,7 @@ class StProjectile: public Projectile{
 public:
     StProjectile(const TextureHolder &textures, sf::Vector2f vector);
 
+    int getPower() override;
     int getPspeed() override;
 
 private:

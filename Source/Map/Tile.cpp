@@ -13,7 +13,7 @@ Textures::ID toTextureID(Tile::TileType tileType) {
     }
 }
 
-Tile::Tile(int x, int y, TileType tileType, const TextureHolder& textures): tileType(tileType) {
+Tile::Tile(int x, int y, TileType tileType, const TextureHolder& textures){
 
     rect.setPosition(x, y);
     rect.setSize(sf::Vector2f(64, 64));
@@ -32,16 +32,8 @@ void Tile::setWalkable(bool walkable) {
     Tile::walkable = walkable;
 }
 
-void Tile::setTileType(TileType tileType) {
-    Tile::tileType = tileType;
-}
-
 const sf::Sprite &Tile::getSprite() {
     return sprite;
-}
-
-const sf::RectangleShape &Tile::getRect() {
-    return rect;
 }
 
 void Tile::UpdateTile() {

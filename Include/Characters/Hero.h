@@ -23,21 +23,10 @@ public:
 
     bool PickUpObject(std::shared_ptr<Object> object);
     void ChangeWeapon(std::shared_ptr<Weapon> newWeapon);
-    void SearchForWeapon();
 
     bool Shoot();
 
-    HeroType getHeroType() const;
-
     const std::shared_ptr<Weapon> &getWeapon() const;
-
-    void setHeroType(HeroType heroType);
-
-    void setWeapon(const std::shared_ptr<Weapon> &weapon);
-    void setWindowSize(const sf::Vector2u &windowSize);
-
-    const sf::Vector2u &getWindowSize() const;
-    const TextureHolder &getTextures() const;
 
 protected:
     HeroType heroType;

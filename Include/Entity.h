@@ -22,12 +22,9 @@ public:
     Direction getDirection() const;
 
     void setDirection(Direction direction);
-    void setRect(const sf::RectangleShape &rect);
     void setTexture(const sf::Texture &texture);
-    void setSprite(const sf::Sprite &sprite);
 
     const sf::RectangleShape &getRect() const;
-    const sf::Texture &getTexture() const;
 
     sf::RectangleShape rect;
 protected:

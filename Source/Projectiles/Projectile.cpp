@@ -36,4 +36,8 @@ int Projectile::getPspeed() {
     return Pspeed;
 }
 
+void Projectile::setProjectileType(Projectile::ProjectileType projectileType) {
+    Projectile::projectileType = projectileType;
+}
+
 

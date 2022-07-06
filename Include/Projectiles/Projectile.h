@@ -20,13 +20,17 @@ public:
 
     Projectile();
 
+    void setProjectileType(ProjectileType projectileType);
+
     virtual void Update();
-    int getPower();
+    virtual int getPower();
     virtual int getPspeed();
 
+    bool active = true;
+
+protected:
     ProjectileType projectileType;
 
-    bool active = true;
     int Pspeed, power;
 };
 

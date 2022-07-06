@@ -5,7 +5,7 @@
 #include "../../Include/Projectiles/StProjectile.h"
 
 StProjectile::StProjectile(const TextureHolder &textures, sf::Vector2f vector): textures(textures) {
-    this->projectileType = stProjectile;
+    setProjectileType(stProjectile);
 
     Pspeed = 10;
     power = 4;
@@ -20,6 +20,9 @@ StProjectile::StProjectile(const TextureHolder &textures, sf::Vector2f vector): 
     sprite.setTexture(texture);
 }
 
+int StProjectile::getPower() {
+    return Pspeed;
+}
 int StProjectile::getPspeed() {
     return Pspeed;
 }

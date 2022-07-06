@@ -69,14 +69,6 @@ void Hero::ChangeWeapon(std::shared_ptr<Weapon> newWeapon) {
     }
 }
 
-void Hero::SearchForWeapon() {
-    std::shared_ptr<Object> obj = inventory.getElement(Object::stWeapon);
-    std::shared_ptr<StWeapon> newWeapon = std::dynamic_pointer_cast<StWeapon>(obj);
-    if(newWeapon != nullptr) {
-        ChangeWeapon(newWeapon);
-    }
-}
-
 bool Hero::Shoot() {
     if(weapon == nullptr) {
         std::cout<<"you don't have a weapon"<<std::endl;
@@ -87,29 +79,3 @@ bool Hero::Shoot() {
 const std::shared_ptr<Weapon> &Hero::getWeapon() const {
     return weapon;
 }
-
-void Hero::setWeapon(const std::shared_ptr<Weapon> &weapon) {
-    Hero::weapon = weapon;
-}
-
-const sf::Vector2u &Hero::getWindowSize() const {
-    return windowSize;
-}
-
-void Hero::setWindowSize(const sf::Vector2u &windowSize) {
-    Hero::windowSize = windowSize;
-}
-
-const TextureHolder &Hero::getTextures() const {
-    return textures;
-}
-
-Hero::HeroType Hero::getHeroType() const {
-    return heroType;
-}
-
-void Hero::setHeroType(Hero::HeroType heroType) {
-    Hero::heroType = heroType;
-}
-
-

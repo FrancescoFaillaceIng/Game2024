@@ -52,10 +52,6 @@ const sf::Vector2f &Characters::getPosition() const {
     return position;
 }
 
-void Characters::setPosition(const sf::Vector2f &position) {
-    Characters::position = position;
-}
-
 int Characters::getHp() const {
     return hp;
 }
@@ -88,53 +84,20 @@ void Characters::setSpeedBasic(int speedBasic) {
     Characters::speedBasic = speedBasic;
 }
 
-int Characters::getCounterWalking() const {
-    return counterWalking;
-}
-
-void Characters::setCounterWalking(int counterWalking) {
-    Characters::counterWalking = counterWalking;
-}
-
-bool Characters::isMovingUp1() const {
-    return isMovingUp;
-}
-
 void Characters::setIsMovingUp(bool isMovingUp) {
     Characters::isMovingUp = isMovingUp;
-}
-
-bool Characters::isMovingDown1() const {
-    return isMovingDown;
 }
 
 void Characters::setIsMovingDown(bool isMovingDown) {
     Characters::isMovingDown = isMovingDown;
 }
 
-bool Characters::isMovingLeft1() const {
-    return isMovingLeft;
-}
-
 void Characters::setIsMovingLeft(bool isMovingLeft) {
     Characters::isMovingLeft = isMovingLeft;
-}
-
-bool Characters::isMovingRight1() const {
-    return isMovingRight;
 }
 
 void Characters::setIsMovingRight(bool isMovingRight) {
     Characters::isMovingRight = isMovingRight;
 }
-
-Characters::CharacterType Characters::getCharacterType() const {
-    return characterType;
-}
-
-void Characters::setCharacterType(Characters::CharacterType characterType) {
-    Characters::characterType = characterType;
-}
-
 
 
