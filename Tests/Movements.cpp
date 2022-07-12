@@ -139,43 +139,54 @@ TEST_F(Movements, ProjectileMovement) {
 
     //costruttori
     Hero Hero(Hero::StRanged, textures);
-    StProjectile StProjectile(textures, Hero.rect.getPosition());
+    StProjectile StProjectile_right(textures, Hero.rect.getPosition());
+    StProjectile StProjectile_down(textures, Hero.rect.getPosition());
+    StProjectile StProjectile_left(textures, Hero.rect.getPosition());
+    StProjectile StProjectile_up(textures, Hero.rect.getPosition());
 
-    //test posizone iniziale
-    float x = StProjectile.rect.getPosition().x;
-    float y = StProjectile.rect.getPosition().y;
+    //test posizioni iniziali
+    EXPECT_EQ(StProjectile_right.rect.getPosition().x, 100);
+    EXPECT_EQ(StProjectile_right.rect.getPosition().y, 100);
 
-    EXPECT_EQ(x, Hero.rect.getPosition().x);
-    EXPECT_EQ(y, Hero.rect.getPosition().y);
+    EXPECT_EQ(StProjectile_down.rect.getPosition().x, 100);
+    EXPECT_EQ(StProjectile_down.rect.getPosition().y, 100);
+
+    EXPECT_EQ(StProjectile_left.rect.getPosition().x, 100);
+    EXPECT_EQ(StProjectile_left.rect.getPosition().y, 100);
+
+    EXPECT_EQ(StProjectile_up.rect.getPosition().x, 100);
+    EXPECT_EQ(StProjectile_up.rect.getPosition().y, 100);
 
     //test speed
-    EXPECT_EQ(StProjectile.getPspeed(), 10);
+    EXPECT_EQ(StProjectile_right.getPspeed(), 10);
+    EXPECT_EQ(StProjectile_down.getPspeed(), 10);
+    EXPECT_EQ(StProjectile_left.getPspeed(), 10);
+    EXPECT_EQ(StProjectile_up.getPspeed(), 10);
 
-    //test movimento right
-    StProjectile.setDirection(Entity::up);
-    StProjectile.Update();
+    //test movimento
+    StProjectile_right.setDirection(Entity::right);
+    StProjectile_down.setDirection(Entity::down);
+    StProjectile_left.setDirection(Entity::left);
+    StProjectile_up.setDirection(Entity::up);
 
-    EXPECT_EQ(StProjectile.rect.getPosition().x, x + 10);
-    EXPECT_EQ(StProjectile.rect.getPosition().y, y);
+    StProjectile_right.Update();
+    StProjectile_down.Update();
+    StProjectile_left.Update();
+    StProjectile_up.Update();
 
-    //test movimento down
-    StProjectile.setDirection(Entity::down);
-    StProjectile.Update();
+    //right
+    EXPECT_EQ(StProjectile_right.rect.getPosition().x, 110);
+    EXPECT_EQ(StProjectile_right.rect.getPosition().y, 100);
 
-    EXPECT_EQ(Hero.rect.getPosition().x, x);
-    EXPECT_EQ(Hero.rect.getPosition().y, y + 10);
+    //down
+    EXPECT_EQ(StProjectile_down.rect.getPosition().x, 100);
+    EXPECT_EQ(StProjectile_down.rect.getPosition().y, 110);
 
-    //test movimento left
-    StProjectile.setDirection(Entity::left);
-    StProjectile.Update();
+    //left
+    EXPECT_EQ(StProjectile_left.rect.getPosition().x, 90);
+    EXPECT_EQ(StProjectile_left.rect.getPosition().y, 100);
 
-    EXPECT_EQ(Hero.rect.getPosition().x, x - 10);
-    EXPECT_EQ(Hero.rect.getPosition().y, y);
-
-    //test movimento up
-    StProjectile.setDirection(Entity::up);
-    StProjectile.Update();
-
-    EXPECT_EQ(Hero.rect.getPosition().x, x);
-    EXPECT_EQ(Hero.rect.getPosition().y, y - 10);
+    //up
+    EXPECT_EQ(StProjectile_up.rect.getPosition().x, 100);
+    EXPECT_EQ(StProjectile_up.rect.getPosition().y, 90);
 }
