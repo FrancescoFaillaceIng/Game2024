@@ -25,13 +25,17 @@ TEST_F(Movements, HeroMovement) {
 //test posizone iniziale
     EXPECT_EQ(Hero.rect.getPosition().x, 100);
     EXPECT_EQ(Hero.rect.getPosition().y, 100);
+    Hero.setIsMovingRight(false);
+    Hero.setIsMovingLeft(false);
+    Hero.setIsMovingDown(false);
+    Hero.setIsMovingUp(false);
 
 //test speed
     EXPECT_EQ(Hero.getSpeedBasic(), 4);
 
 //test movimento right
     Hero.setIsMovingRight(true);
-    Hero.setDirection(Entity::up);
+    Hero.setDirection(Entity::right);
     Hero.Update();
 
     EXPECT_EQ(Hero.rect.getPosition().x, 104);
