@@ -48,6 +48,8 @@ Hero::Hero(Hero::HeroType heroType, const TextureHolder& textures): textures(tex
             break;
     }
     sprite.setTexture(texture);
+
+    inventory = std::make_shared<Inventory>();
 }
 
 bool Hero::PickUpObject(std::shared_ptr<Object> object) {

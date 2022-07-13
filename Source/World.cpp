@@ -2,7 +2,6 @@
 // Created by Francesco on 18/06/2021.
 //
 
-#include <memory>
 #include "../Include/World.h"
 
 World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
@@ -80,13 +79,9 @@ void World::CollisionsProjectilesEnemies() {
 }
 
 void World::CollisionsHeroMap() {
-    //TODO up and right broken
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         if (hero->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
             if (!((*i)->isWalkable())){
-                #ifdef DEBUG
-                #endif
-
                 switch (hero->getDirection()) {
                     case Entity::up:
                         hero->rect.move(0, hero->getSpeedBasic());
@@ -108,7 +103,6 @@ void World::CollisionsHeroMap() {
 }
 
 void World::CollisionsEnemiesMap() {
-    //TODO up and right broken
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         for (auto j = enemyArray.begin(); j != enemyArray.end(); j++){
             if ((*j)->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
@@ -149,6 +143,7 @@ void World::CollisionsProjectilesMap() {
         }
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //updates
 void World::Update() {
@@ -170,7 +165,7 @@ void World::UpdateHero() {
         hero->active = false;
     }
     if (!hero->active){
-        //free(&hero);
+       //free(&hero);
     }
 }
 
@@ -202,6 +197,10 @@ void World::UpdateProjectiles() {
         for ( auto iter = projectilePlayerArray.begin(); iter != projectilePlayerArray.end(); iter ++)
             (*iter)->Update();
     }
+}
+
+void World::UpdateLifeBars() {
+    //hero_lifebar->setBarPosition(hero->rect.getPosition().x - window->getSize().x/2, hero->rect.getPosition().y - window->getSize().y/2);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //draws
@@ -252,6 +251,11 @@ void World::drawProjectiles() {
         }
     }
 }
+
+void World::drawHeroLifeBar() {
+    //textHp->setString("HP " + std::to_string(hero->getHp()) + "/" + std::to_string(hero->getHpMax()));
+    //window.draw(hero_lifebar);
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creations
 void World::createMap() {
@@ -278,7 +282,11 @@ void World::createCharacters() {
         fighter->active = true;
         enemyArray.emplace_back(fighter);
     }
+}
 
+void World::createLifeBars() {
+    //hero_lifebar = std::make_shared<TextDisplay>();
+    //hero_lifebar->setBarPosition(hero->rect.getPosition().x - window->getSize().x/2, hero->rect.getPosition().y - window->getSize().y/2);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //actions

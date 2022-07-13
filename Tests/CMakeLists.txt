@@ -14,4 +14,4 @@ set(SOURCES_TESTS mainTest.cpp Movements.cpp Collision.cpp)
 add_executable(test ${SOURCES_TESTS})
 find_package(SFML 2 COMPONENTS network audio graphics window system REQUIRED)
 
-target_link_libraries(test gtest gtest_main Game_Tests sfml-graphics sfml-window sfml-system )
+target_link_libraries(test gtest gtest_main Game_Tests sfml-graphics sfml-window sfml-system)

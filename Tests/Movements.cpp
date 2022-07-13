@@ -82,51 +82,52 @@ TEST_F(Movements, EnemyMovement) {
     textures.load(Textures::flying_fighter, "../../Resources/bat.png");
 
     //costruttori
+    strategy = std::make_shared<PatrolStrategy>(windowSize);
     MeleeEnemy MeleeEnemy(Enemy::meleeEnemy, windowSize,  textures, strategy);
 
-    float x = MeleeEnemy.rect.getPosition().x;
-    float y = MeleeEnemy.rect.getPosition().y;
+    MeleeEnemy.setIsMovingRight(false);
+    MeleeEnemy.setIsMovingLeft(false);
+    MeleeEnemy.setIsMovingDown(false);
+    MeleeEnemy.setIsMovingUp(false);
 
     //test speed
     EXPECT_EQ(MeleeEnemy.getSpeedBasic(), 1);
 
     //test movimento right
+    MeleeEnemy.rect.setPosition(100, 100);
+
     MeleeEnemy.setIsMovingRight(true);
-    MeleeEnemy.Characters::setDirection(Entity::up);
     MeleeEnemy.Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, x + 1);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, y);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 101);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 100);
 
     MeleeEnemy.setIsMovingRight(false);
 
     //test movimento down
     MeleeEnemy.setIsMovingDown(true);
-    MeleeEnemy.Characters::setDirection(Entity::down);
     MeleeEnemy.Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, x + 1);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, y + 1);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 101);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 101);
 
     MeleeEnemy.setIsMovingDown(false);
 
     //test movimento left
     MeleeEnemy.setIsMovingLeft(true);
-    MeleeEnemy.Characters::setDirection(Entity::left);
     MeleeEnemy.Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, x);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, y + 1);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 100);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 101);
 
     MeleeEnemy.setIsMovingLeft(false);
 
     //test movimento up
     MeleeEnemy.setIsMovingUp(true);
-    MeleeEnemy.Characters::setDirection(Entity::up);
     MeleeEnemy.Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, x);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, y);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 100);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 100);
 
     MeleeEnemy.setIsMovingDown(false);
 }

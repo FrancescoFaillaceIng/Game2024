@@ -22,9 +22,9 @@ public:
 
     void setProjectileType(ProjectileType projectileType);
 
-    virtual void Update();
-    virtual int getPower();
-    virtual int getPspeed();
+    void Update();
+    int getPower();
+    int getPspeed();
 
     bool active = true;
 

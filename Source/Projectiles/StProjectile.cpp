@@ -19,10 +19,3 @@ StProjectile::StProjectile(const TextureHolder &textures, sf::Vector2f vector): 
     texture = textures.get(Textures::StProjectile);
     sprite.setTexture(texture);
 }
-
-int StProjectile::getPower() {
-    return Pspeed;
-}
-int StProjectile::getPspeed() {
-    return Pspeed;
-}

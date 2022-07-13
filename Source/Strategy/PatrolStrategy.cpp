@@ -6,7 +6,6 @@
 
 PatrolStrategy::PatrolStrategy(sf::Vector2u windowSize) {
     speed = 0;
-    this->windowSize = windowSize;
     type = patrol;
 }
 
