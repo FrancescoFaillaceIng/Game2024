@@ -93,34 +93,34 @@ TEST_F(Movements, EnemyMovement) {
     //test speed
     EXPECT_EQ(MeleeEnemy.getSpeedBasic(), 1);
 
-    //test movimento right
+    //test movimento left
     MeleeEnemy.rect.setPosition(100, 100);
 
-    MeleeEnemy.setIsMovingRight(true);
+    MeleeEnemy.setIsMovingLeft(true);
     MeleeEnemy.Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 101);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 99);
     EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 100);
 
-    MeleeEnemy.setIsMovingRight(false);
+    MeleeEnemy.setIsMovingLeft(false);
 
     //test movimento down
     MeleeEnemy.setIsMovingDown(true);
     MeleeEnemy.Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 101);
+    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 99);
     EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 101);
 
     MeleeEnemy.setIsMovingDown(false);
 
-    //test movimento left
-    MeleeEnemy.setIsMovingLeft(true);
+    //test movimento right
+    MeleeEnemy.setIsMovingRight(true);
     MeleeEnemy.Update();
 
     EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 100);
     EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 101);
 
-    MeleeEnemy.setIsMovingLeft(false);
+    MeleeEnemy.setIsMovingRight(false);
 
     //test movimento up
     MeleeEnemy.setIsMovingUp(true);
