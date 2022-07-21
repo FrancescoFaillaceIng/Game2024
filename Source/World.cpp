@@ -286,8 +286,18 @@ void World::collectObjects() {
 
             // if hero pick up an object, the object is added to hero's inventory and the object disappear from the map
             if ( (*iter)->getRect().getGlobalBounds().intersects(hero->getRect().getGlobalBounds())) {
-                hero->PickUpObject(*iter);
-                (*iter)->equipped = true;
+                switch ((*iter)->objectType) {
+                    case Object::stWeapon:
+                        hero->PickUpObject(*iter);
+                        (*iter)->equipped = true;
+                        break;
+                    case Object::coins:
+                        coins_counter++;
+                        break;
+                    case Object::potion:
+                        hero->setHp(hero->getHp() + 20);
+                        break;
+                }
                 iter = collectableObject.erase(iter);
                 if (iter == collectableObject.end())
                     break;
@@ -299,8 +309,11 @@ void World::collectObjects() {
 void World::Drop(float x, float y) {
     int t = GenerateRandom(3);
     std::shared_ptr<Object> ObjectDropped;
-    if (t == 1 || t == 2 || t ==3){
+    if (t == 1 || t == 2){
         ObjectDropped = objectFactory.createObject(Object::ObjectType::coins, x, y, textures);
+    }
+    if (t ==3){
+        ObjectDropped = objectFactory.createObject(Object::ObjectType::potion, x, y, textures);
     }
 
     collectableObject.emplace_back(ObjectDropped);

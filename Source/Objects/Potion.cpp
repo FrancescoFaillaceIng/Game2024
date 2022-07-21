@@ -2,10 +2,9 @@
 // Created by Francesco on 21/07/2022.
 //
 
-#include "../../Include/Objects/Coins.h"
-
-Coins::Coins(float x, float y, const TextureHolder &textures): textures(textures) {
-    this->objectType = coins;
+#include "../../Include/Objects/Potion.h"
+Potion::Potion(float x, float y, const TextureHolder &textures): textures(textures) {
+    this->objectType = potion;
 
     rect.setPosition(x, y);
     rect.setSize(sf::Vector2f(32, 32));
@@ -13,6 +12,6 @@ Coins::Coins(float x, float y, const TextureHolder &textures): textures(textures
     sprite.setTextureRect(sf::IntRect(0, 0, rect.getSize().x, rect.getSize().y));
     sprite.setPosition(rect.getPosition());
 
-    texture = textures.get(Textures::CoinText);
+    texture = textures.get(Textures::PotionText);
     sprite.setTexture(texture);
 }

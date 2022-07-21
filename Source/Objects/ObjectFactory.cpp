@@ -15,6 +15,8 @@ std::shared_ptr<Object> ObjectFactory::createObject(Object::ObjectType type, flo
         case Object::coins:
             object = std::make_shared<Coins>(x, y, textures);
             break;
+        case Object::potion:
+            object = std::make_shared<Potion>(x, y, textures);
     }
 
     return object;

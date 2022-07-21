@@ -86,6 +86,7 @@ void Game::loadTextures() {
     textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
     textureHolder.load(Textures::StProjectile,"../Resources/StProjectile.png");
     textureHolder.load(Textures::CoinText, "../Resources/Coins.png");
+    textureHolder.load(Textures::PotionText, "../Resources/Potion.png");
 
     //map
     textureHolder.load(Textures::FloorText, "../Resources/Floor.png");

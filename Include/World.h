@@ -72,6 +72,7 @@ public:
     ObjectFactory objectFactory;
     ProjectileFactory projectileFactory;
 
+    int coins_counter = 0;
 };
 
 

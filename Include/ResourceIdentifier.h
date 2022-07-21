@@ -30,7 +30,8 @@ namespace Textures {
         WallText,
         FloorText,
 
-        CoinText
+        CoinText,
+        PotionText
     };
 }
 

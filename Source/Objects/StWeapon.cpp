@@ -5,6 +5,7 @@
 #include "../../Include/Objects/StWeapon.h"
 
 StWeapon::StWeapon(float x, float y, const TextureHolder& textures): textures(textures){
+    this->objectType = stWeapon;
 
     rect.setPosition(x, y);
     rect.setSize(sf::Vector2f(32, 18));

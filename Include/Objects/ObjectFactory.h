@@ -7,6 +7,7 @@
 
 #include "StWeapon.h"
 #include "Coins.h"
+#include "Potion.h"
 #include "../ResourceHolder.h"
 #include "../ResourceIdentifier.h"
 
