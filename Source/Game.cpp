@@ -71,7 +71,6 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 
 void Game::Update() {
     world->Update();
-    world->CheckGlobalBounds();
     view->setCenter(world->hero->rect.getPosition());
 }
 

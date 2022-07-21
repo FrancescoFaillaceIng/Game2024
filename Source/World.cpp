@@ -58,6 +58,7 @@ void World::CollisionsHeroEnemies() {
         // if an enemy touches the hero, hero's life decrease
         if (hero->rect.getGlobalBounds().intersects((*iter)->rect.getGlobalBounds())){
             hero->setHp(hero->getHp()-(*iter)->getAttackDamage());
+            std::cout << "hero's life is:" << hero->getHp() << std::endl;
         }
     }
 }
@@ -152,6 +153,7 @@ void World::Update() {
     UpdateHero();
     UpdateEnemies();
     UpdateProjectiles();
+    CheckGlobalBounds();
 }
 
 void World::UpdateMap() {
@@ -295,7 +297,10 @@ void World::collectObjects() {
                         coins_counter++;
                         break;
                     case Object::potion:
-                        hero->setHp(hero->getHp() + 20);
+                        if(hero->getHp() <= hero->getHpMax()){
+                            hero->setHp(hero->getHp() + 20);
+                        }
+                        std::cout << "hero's life is:" << hero->getHp() << std::endl;
                         break;
                 }
                 iter = collectableObject.erase(iter);

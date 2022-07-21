@@ -29,7 +29,7 @@ public:
 
     void Update();
     void draw();
-    void PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shootingClock);
+    void PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock &shootingClock);
     void CheckGlobalBounds();
 
     void createMap();
