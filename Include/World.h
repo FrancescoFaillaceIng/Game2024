@@ -18,10 +18,10 @@
 #include "Projectiles/ProjectileFactory.h"
 
 #include "Random.h"
+#include "Observer/Subject.h"
 #include "TextDisplay.h"
 
 #include <memory>
-
 
 class World {
 public:
@@ -34,15 +34,14 @@ public:
 
     void createMap();
     void createObjects();
-    void createCharacters();
-    void createLifeBars();
+    void createHero();
+    void createEnemies();
 
     void drawMap();
     void drawHero();
     void drawEnemies();
     void drawObject();
     void drawProjectiles();
-    void drawHeroLifeBar();
 
     void CollisionsHeroEnemies();
     void CollisionsProjectilesEnemies();
@@ -54,16 +53,14 @@ public:
     void UpdateHero();
     void UpdateEnemies();
     void UpdateProjectiles();
-    void UpdateLifeBars();
 
     void collectObjects();
-
+    void Drop(float x, float y);
     void Shoot();
 
     std::shared_ptr<sf::RenderWindow> window;
     std::shared_ptr<Map> map;
     std::shared_ptr<Hero> hero;
-    std::shared_ptr<TextDisplay> hero_lifebar;
 
     std::vector<std::shared_ptr<Object>> collectableObject;
     std::vector<std::shared_ptr<Enemy>> enemyArray;
@@ -75,7 +72,6 @@ public:
     ObjectFactory objectFactory;
     ProjectileFactory projectileFactory;
 
-    //char *Map = "../Map.txt";
 };
 
 

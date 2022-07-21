@@ -46,4 +46,3 @@ void Map::createMatrix() {
     }
     ReadFile.close();
 }
-

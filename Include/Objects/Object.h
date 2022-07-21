@@ -12,7 +12,8 @@
 class Object: public Entity {
 public:
     enum ObjectType {
-        stWeapon
+        stWeapon,
+        coins
     };
 
     Object();

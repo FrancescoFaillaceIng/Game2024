@@ -4,10 +4,9 @@
 
 #include "../../Include/Objects/StWeapon.h"
 
-StWeapon::StWeapon(const TextureHolder& textures): textures(textures){
-    this->objectType = stWeapon;
+StWeapon::StWeapon(float x, float y, const TextureHolder& textures): textures(textures){
 
-    rect.setPosition(192, 192);
+    rect.setPosition(x, y);
     rect.setSize(sf::Vector2f(32, 18));
 
     sprite.setTextureRect(sf::IntRect(0, 0, rect.getSize().x, rect.getSize().y));

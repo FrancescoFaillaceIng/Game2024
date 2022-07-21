@@ -16,9 +16,9 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
         Include/Strategy/Strategy.h Source/Strategy/PatrolStrategy.cpp Include/Strategy/PatrolStrategy.h Source/Strategy/SeekStrategy.cpp
         Include/Strategy/SeekStrategy.h Source/Projectiles/Projectile.cpp Include/Projectiles/Projectile.h
         Source/Projectiles/StProjectile.cpp Include/Projectiles/StProjectile.h Source/Projectiles/ProjectileFactory.cpp
-        Include/Projectiles/ProjectileFactory.h Source/TextDisplay.cpp Include/TextDisplay.h)
+        Include/Projectiles/ProjectileFactory.h)
 
-add_executable(Game main.cpp ${Classi})
+add_executable(Game main.cpp ${Classi} Source/TextDisplay.cpp Include/TextDisplay.h Include/Observer/Observer.h Include/Observer/Subject.h Source/Observer/mObserver.cpp Include/Observer/mObserver.h Source/Objects/Coins.cpp Include/Objects/Coins.h)
 
 add_library(Game_Tests ${Classi})
 

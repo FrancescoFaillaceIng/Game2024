@@ -29,6 +29,8 @@ namespace Textures {
 
         WallText,
         FloorText,
+
+        CoinText
     };
 }
 

@@ -24,6 +24,8 @@ private:
     std::shared_ptr<sf::RenderWindow> mWindow;
     std::shared_ptr<World> world;
     std::shared_ptr<sf::View> view;
+    std::shared_ptr<Map> map;
     static const sf::Time TimePerFrame;
+
 };
 #endif //GAME_GAME_H

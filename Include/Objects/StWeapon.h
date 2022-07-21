@@ -9,7 +9,7 @@
 
 class StWeapon: public Weapon {
 public:
-    StWeapon(const TextureHolder &textures);
+    StWeapon(float x, float y, const TextureHolder &textures);
 
     bool use();
 

@@ -28,7 +28,7 @@ public:
     const Resource& get(Identifier id) const {
 
         auto found = mResourceMap.find(id);
-        assert(found != mResourceMap.end());
+        //assert(found != mResourceMap.end());
 
         return *found->second;
     }

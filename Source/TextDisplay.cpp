@@ -1,20 +1,18 @@
 //
-// Created by Francesco on 12/07/2022.
+// Created by Francesco on 15/07/2022.
 //
 
 #include "../Include/TextDisplay.h"
 
-TextDisplay::TextDisplay() {
-    rect.setSize(sf::Vector2f(32, 8));
-
-    sf::Text textHP("HP ", font, 20);
-
+TextDisplayClass::TextDisplayClass() {
     text.setFillColor(sf::Color::Red);
     text.setCharacterSize(15);
     text.setString(myString);
 }
 
-void TextDisplay::setBarPosition(float x, float y) {
-    bar_position.x = x;
-    bar_position.y = y;
+void TextDisplayClass::Update() {
+    text.move(0, -movementSpeed);
+    counter++;
+    if (counter >= lifeTime)
+        destroy = true;
 }

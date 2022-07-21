@@ -10,7 +10,6 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
                                             "Berto's Adventure", sf::Style::Default)) {
 
     loadTextures();
-
     world = std::make_shared<World>(mWindow, textureHolder);
 
     //sets the view
@@ -39,9 +38,9 @@ void Game::play() {
             Update();
         }
         render();
-
     }
 }
+
 
 void Game::render() {
     mWindow->clear();
@@ -86,6 +85,7 @@ void Game::loadTextures() {
     //objects
     textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
     textureHolder.load(Textures::StProjectile,"../Resources/StProjectile.png");
+    textureHolder.load(Textures::CoinText, "../Resources/Coins.png");
 
     //map
     textureHolder.load(Textures::FloorText, "../Resources/Floor.png");

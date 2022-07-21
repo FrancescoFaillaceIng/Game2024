@@ -10,6 +10,12 @@ protected:
     TextureHolder textures;
 
     std::shared_ptr<Strategy> strategy;
+    std::shared_ptr<Hero> tHero;
+    std::shared_ptr<Enemy> tEnemy;
+    std::shared_ptr<Projectile> tProjectile_up;
+    std::shared_ptr<Projectile> tProjectile_left;
+    std::shared_ptr<Projectile> tProjectile_down;
+    std::shared_ptr<Projectile> tProjectile_right;
 
     sf::Vector2u windowSize;
 };
@@ -20,58 +26,58 @@ TEST_F(Movements, HeroMovement) {
     textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
 
 //costruttori
-    Hero Hero(Hero::StRanged, textures);
+    tHero = std::make_shared<Hero>(Hero::StRanged, textures);
 
 //test posizone iniziale
-    EXPECT_EQ(Hero.rect.getPosition().x, 100);
-    EXPECT_EQ(Hero.rect.getPosition().y, 100);
-    Hero.setIsMovingRight(false);
-    Hero.setIsMovingLeft(false);
-    Hero.setIsMovingDown(false);
-    Hero.setIsMovingUp(false);
+    EXPECT_EQ(tHero->rect.getPosition().x, 100);
+    EXPECT_EQ(tHero->rect.getPosition().y, 100);
+    tHero->setIsMovingRight(false);
+    tHero->setIsMovingLeft(false);
+    tHero->setIsMovingDown(false);
+    tHero->setIsMovingUp(false);
 
 //test speed
-    EXPECT_EQ(Hero.getSpeedBasic(), 4);
+    EXPECT_EQ(tHero->getSpeedBasic(), 4);
 
 //test movimento right
-    Hero.setIsMovingRight(true);
-    Hero.setDirection(Entity::right);
-    Hero.Update();
+    tHero->setIsMovingRight(true);
+    tHero->setDirection(Entity::right);
+    tHero->Update();
 
-    EXPECT_EQ(Hero.rect.getPosition().x, 104);
-    EXPECT_EQ(Hero.rect.getPosition().y, 100);
+    EXPECT_EQ(tHero->rect.getPosition().x, 104);
+    EXPECT_EQ(tHero->rect.getPosition().y, 100);
 
-    Hero.setIsMovingRight(false);
+    tHero->setIsMovingRight(false);
 
 //test movimento down
-    Hero.setIsMovingDown(true);
-    Hero.setDirection(Entity::down);
-    Hero.Update();
+    tHero->setIsMovingDown(true);
+    tHero->setDirection(Entity::down);
+    tHero->Update();
 
-    EXPECT_EQ(Hero.rect.getPosition().x, 104);
-    EXPECT_EQ(Hero.rect.getPosition().y, 104);
+    EXPECT_EQ(tHero->rect.getPosition().x, 104);
+    EXPECT_EQ(tHero->rect.getPosition().y, 104);
 
-    Hero.setIsMovingDown(false);
+    tHero->setIsMovingDown(false);
 
 //test movimento left
-    Hero.setIsMovingLeft(true);
-    Hero.setDirection(Entity::left);
-    Hero.Update();
+    tHero->setIsMovingLeft(true);
+    tHero->setDirection(Entity::left);
+    tHero->Update();
 
-    EXPECT_EQ(Hero.rect.getPosition().x, 100);
-    EXPECT_EQ(Hero.rect.getPosition().y, 104);
+    EXPECT_EQ(tHero->rect.getPosition().x, 100);
+    EXPECT_EQ(tHero->rect.getPosition().y, 104);
 
-    Hero.setIsMovingLeft(false);
+    tHero->setIsMovingLeft(false);
 
 //test movimento up
-    Hero.setIsMovingUp(true);
-    Hero.setDirection(Entity::up);
-    Hero.Update();
+    tHero->setIsMovingUp(true);
+    tHero->setDirection(Entity::up);
+    tHero->Update();
 
-    EXPECT_EQ(Hero.rect.getPosition().x, 100);
-    EXPECT_EQ(Hero.rect.getPosition().y, 100);
+    EXPECT_EQ(tHero->rect.getPosition().x, 100);
+    EXPECT_EQ(tHero->rect.getPosition().y, 100);
 
-    Hero.setIsMovingDown(false);
+    tHero->setIsMovingDown(false);
 }
 
 TEST_F(Movements, EnemyMovement) {
@@ -83,111 +89,111 @@ TEST_F(Movements, EnemyMovement) {
 
     //costruttori
     strategy = std::make_shared<PatrolStrategy>(windowSize);
-    MeleeEnemy MeleeEnemy(Enemy::meleeEnemy, windowSize,  textures, strategy);
+    tEnemy = std::make_shared<MeleeEnemy>(Enemy::meleeEnemy, windowSize,  textures, strategy);
 
-    MeleeEnemy.setIsMovingRight(false);
-    MeleeEnemy.setIsMovingLeft(false);
-    MeleeEnemy.setIsMovingDown(false);
-    MeleeEnemy.setIsMovingUp(false);
+    tEnemy->setIsMovingRight(false);
+    tEnemy->setIsMovingLeft(false);
+    tEnemy->setIsMovingDown(false);
+    tEnemy->setIsMovingUp(false);
 
     //test speed
-    EXPECT_EQ(MeleeEnemy.getSpeedBasic(), 1);
+    EXPECT_EQ(tEnemy->getSpeedBasic(), 1);
 
     //test movimento left
-    MeleeEnemy.rect.setPosition(100, 100);
+    tEnemy->rect.setPosition(100, 100);
 
-    MeleeEnemy.setIsMovingLeft(true);
-    MeleeEnemy.Update();
+    tEnemy->setIsMovingLeft(true);
+    tEnemy->Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 99);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 100);
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 99);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 100);
 
-    MeleeEnemy.setIsMovingLeft(false);
+    tEnemy->setIsMovingLeft(false);
 
     //test movimento down
-    MeleeEnemy.setIsMovingDown(true);
-    MeleeEnemy.Update();
+    tEnemy->setIsMovingDown(true);
+    tEnemy->Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 99);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 101);
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 99);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 101);
 
-    MeleeEnemy.setIsMovingDown(false);
+    tEnemy->setIsMovingDown(false);
 
     //test movimento right
-    MeleeEnemy.setIsMovingRight(true);
-    MeleeEnemy.Update();
+    tEnemy->setIsMovingRight(true);
+    tEnemy->Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 100);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 101);
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 100);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 101);
 
-    MeleeEnemy.setIsMovingRight(false);
+    tEnemy->setIsMovingRight(false);
 
     //test movimento up
-    MeleeEnemy.setIsMovingUp(true);
-    MeleeEnemy.Update();
+    tEnemy->setIsMovingUp(true);
+    tEnemy->Update();
 
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().x, 100);
-    EXPECT_EQ(MeleeEnemy.rect.getPosition().y, 100);
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 100);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 100);
 
-    MeleeEnemy.setIsMovingDown(false);
+    tEnemy->setIsMovingDown(false);
 }
 
 TEST_F(Movements, ProjectileMovement) {
 
     //load textures
     textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
-    textures.load(Textures::StProjectile, "../../Resources/StProjectile.png");
+    textures.load(Textures::StProjectile, "../../Resources/tProjectile.png");
 
     //costruttori
-    Hero Hero(Hero::StRanged, textures);
-    StProjectile StProjectile_right(textures, Hero.rect.getPosition());
-    StProjectile StProjectile_down(textures, Hero.rect.getPosition());
-    StProjectile StProjectile_left(textures, Hero.rect.getPosition());
-    StProjectile StProjectile_up(textures, Hero.rect.getPosition());
+    tHero = std::make_shared<Hero>(Hero::StRanged, textures);
+    tProjectile_up = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());
+    tProjectile_right = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());
+    tProjectile_down = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());
+    tProjectile_left = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());
 
     //test posizioni iniziali
-    EXPECT_EQ(StProjectile_right.rect.getPosition().x, 100);
-    EXPECT_EQ(StProjectile_right.rect.getPosition().y, 100);
+    EXPECT_EQ(tProjectile_right->rect.getPosition().x, 100);
+    EXPECT_EQ(tProjectile_right->rect.getPosition().y, 100);
 
-    EXPECT_EQ(StProjectile_down.rect.getPosition().x, 100);
-    EXPECT_EQ(StProjectile_down.rect.getPosition().y, 100);
+    EXPECT_EQ(tProjectile_down->rect.getPosition().x, 100);
+    EXPECT_EQ(tProjectile_down->rect.getPosition().y, 100);
 
-    EXPECT_EQ(StProjectile_left.rect.getPosition().x, 100);
-    EXPECT_EQ(StProjectile_left.rect.getPosition().y, 100);
+    EXPECT_EQ(tProjectile_left->rect.getPosition().x, 100);
+    EXPECT_EQ(tProjectile_left->rect.getPosition().y, 100);
 
-    EXPECT_EQ(StProjectile_up.rect.getPosition().x, 100);
-    EXPECT_EQ(StProjectile_up.rect.getPosition().y, 100);
+    EXPECT_EQ(tProjectile_up->rect.getPosition().x, 100);
+    EXPECT_EQ(tProjectile_up->rect.getPosition().y, 100);
 
     //test speed
-    EXPECT_EQ(StProjectile_right.getPspeed(), 10);
-    EXPECT_EQ(StProjectile_down.getPspeed(), 10);
-    EXPECT_EQ(StProjectile_left.getPspeed(), 10);
-    EXPECT_EQ(StProjectile_up.getPspeed(), 10);
+    EXPECT_EQ(tProjectile_right->getPspeed(), 10);
+    EXPECT_EQ(tProjectile_down->getPspeed(), 10);
+    EXPECT_EQ(tProjectile_left->getPspeed(), 10);
+    EXPECT_EQ(tProjectile_up->getPspeed(), 10);
 
     //test movimento
-    StProjectile_right.setDirection(Entity::right);
-    StProjectile_down.setDirection(Entity::down);
-    StProjectile_left.setDirection(Entity::left);
-    StProjectile_up.setDirection(Entity::up);
+    tProjectile_right->setDirection(Entity::right);
+    tProjectile_down->setDirection(Entity::down);
+    tProjectile_left->setDirection(Entity::left);
+    tProjectile_up->setDirection(Entity::up);
 
-    StProjectile_right.Update();
-    StProjectile_down.Update();
-    StProjectile_left.Update();
-    StProjectile_up.Update();
+    tProjectile_right->Update();
+    tProjectile_down->Update();
+    tProjectile_left->Update();
+    tProjectile_up->Update();
 
     //right
-    EXPECT_EQ(StProjectile_right.rect.getPosition().x, 110);
-    EXPECT_EQ(StProjectile_right.rect.getPosition().y, 100);
+    EXPECT_EQ(tProjectile_right->rect.getPosition().x, 110);
+    EXPECT_EQ(tProjectile_right->rect.getPosition().y, 100);
 
     //down
-    EXPECT_EQ(StProjectile_down.rect.getPosition().x, 100);
-    EXPECT_EQ(StProjectile_down.rect.getPosition().y, 110);
+    EXPECT_EQ(tProjectile_down->rect.getPosition().x, 100);
+    EXPECT_EQ(tProjectile_down->rect.getPosition().y, 110);
 
     //left
-    EXPECT_EQ(StProjectile_left.rect.getPosition().x, 90);
-    EXPECT_EQ(StProjectile_left.rect.getPosition().y, 100);
+    EXPECT_EQ(tProjectile_left->rect.getPosition().x, 90);
+    EXPECT_EQ(tProjectile_left->rect.getPosition().y, 100);
 
     //up
-    EXPECT_EQ(StProjectile_up.rect.getPosition().x, 100);
-    EXPECT_EQ(StProjectile_up.rect.getPosition().y, 90);
+    EXPECT_EQ(tProjectile_up->rect.getPosition().x, 100);
+    EXPECT_EQ(tProjectile_up->rect.getPosition().y, 90);
 }

@@ -19,8 +19,8 @@ public:
     std::shared_ptr<Tile> tile;
 protected:
     int x, y;
-    std::vector<std::string> stringmap;
     std::string line;
+    std::vector<std::string> stringmap;
 
     void createMap(const TextureHolder& textures);
     void createMatrix();

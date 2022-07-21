@@ -1,5 +1,5 @@
 //
-// Created by Francesco on 12/07/2022.
+// Created by Francesco on 15/07/2022.
 //
 
 #ifndef GAME_TEXTDISPLAY_H
@@ -7,20 +7,19 @@
 
 #include "SFML/Graphics.hpp"
 
-class TextDisplay {
+class TextDisplayClass {
 public:
-    TextDisplay();
-
-    void setBarPosition(float x, float y);
-
     sf::RectangleShape rect;
     sf::Sprite sprite;
     sf::Text text;
-
-    sf::Font font;
-
     std::string myString;
-    sf::Vector2f bar_position;
+    int counter = 0;
+    int lifeTime = 100;
+    int movementSpeed = 1;
+    bool destroy = false;
+
+    TextDisplayClass();
+    void Update();
 };
 
 

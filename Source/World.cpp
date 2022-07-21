@@ -8,7 +8,8 @@ World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &text
                                                                                        textures(textures){
 
     createMap();
-    createCharacters();
+    createHero();
+    createEnemies();
     createObjects();
 }
 
@@ -181,12 +182,13 @@ void World::UpdateEnemies() {
             }
             (*iter)->Update();
             if ((*iter)->getHp()<=0){
+                Drop((*iter)->rect.getPosition().x, (*iter)->rect.getPosition().y);
                 (*iter)->active = false;
             }
             if ( !(*iter)->active ) {
                 iter = enemyArray.erase(iter);
                 if( iter == enemyArray.end())
-                    break;
+                    createEnemies();
             }
         }
     }
@@ -197,10 +199,6 @@ void World::UpdateProjectiles() {
         for ( auto iter = projectilePlayerArray.begin(); iter != projectilePlayerArray.end(); iter ++)
             (*iter)->Update();
     }
-}
-
-void World::UpdateLifeBars() {
-    //hero_lifebar->setBarPosition(hero->rect.getPosition().x - window->getSize().x/2, hero->rect.getPosition().y - window->getSize().y/2);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //draws
@@ -251,11 +249,6 @@ void World::drawProjectiles() {
         }
     }
 }
-
-void World::drawHeroLifeBar() {
-    //textHp->setString("HP " + std::to_string(hero->getHp()) + "/" + std::to_string(hero->getHpMax()));
-    //window.draw(hero_lifebar);
-}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creations
 void World::createMap() {
@@ -265,16 +258,18 @@ void World::createMap() {
 
 void World::createObjects() {
     //create a weapon
-    std::shared_ptr<Object> weapon = objectFactory.createObject(Object::ObjectType::stWeapon, textures);
+    std::shared_ptr<Object> weapon = objectFactory.createObject(Object::ObjectType::stWeapon, 192, 192, textures);
 
     collectableObject.emplace_back(weapon);
 }
 
-void World::createCharacters() {
+void World::createHero() {
 
     //create the hero
     hero = characterFactory.createHero(Characters::goodboy, Hero::StRanged, textures);
+}
 
+void World::createEnemies() {
     //create enemies
     for(int i = 0; i <= 10; i++){
         std::shared_ptr<Enemy> fighter = characterFactory.createEnemy(Characters::badguy,Enemy::meleeEnemy,
@@ -282,11 +277,6 @@ void World::createCharacters() {
         fighter->active = true;
         enemyArray.emplace_back(fighter);
     }
-}
-
-void World::createLifeBars() {
-    //hero_lifebar = std::make_shared<TextDisplay>();
-    //hero_lifebar->setBarPosition(hero->rect.getPosition().x - window->getSize().x/2, hero->rect.getPosition().y - window->getSize().y/2);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //actions
@@ -306,17 +296,25 @@ void World::collectObjects() {
     }
 }
 
+void World::Drop(float x, float y) {
+    int t = GenerateRandom(3);
+    std::shared_ptr<Object> ObjectDropped;
+    if (t == 1 || t == 2 || t ==3){
+        ObjectDropped = objectFactory.createObject(Object::ObjectType::coins, x, y, textures);
+    }
+
+    collectableObject.emplace_back(ObjectDropped);
+}
+
 void World::Shoot() {
 
     //when hero shoot, create a projectile and put in projectilePLayerArray
     if(hero->Shoot()){
-        std::shared_ptr<Weapon> mWeapon = std::dynamic_pointer_cast<Weapon>(hero->getWeapon());
-        if(mWeapon != nullptr) {
-            std::shared_ptr<Projectile> worldProjectile = projectileFactory.createProjectile(Projectile::stProjectile,
-                                                                                             textures, hero->rect.getPosition());
-            worldProjectile->active = true;
-            worldProjectile->setDirection(hero->getDirection());
-            projectilePlayerArray.emplace_back(worldProjectile);
-        }
+        std::shared_ptr<Projectile> worldProjectile = projectileFactory.createProjectile(Projectile::stProjectile,
+                                                                                         textures, hero->rect.getPosition());
+        worldProjectile->active = true;
+        worldProjectile->setDirection(hero->getDirection());
+        projectilePlayerArray.emplace_back(worldProjectile);
+
     }
 }
