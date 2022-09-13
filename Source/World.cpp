@@ -74,7 +74,7 @@ void World::CollisionsProjectilesEnemies() {
             // if a projectile touches an enemy, enemy's life decrease and the projectiles disappear
             if((*iter)->rect.getGlobalBounds().intersects((*iter1)->rect.getGlobalBounds())){
                 iter1 = projectilePlayerArray.erase(iter1);
-                (*iter)->setHp((*iter)->getHp()-(*iter1)->getPower());
+                (*iter)->setHp((*iter)->getHp()-(*iter1)->getPower()-hero->getAttackDamage());
                 (*iter)->strategy = newStrategy;
                 if (iter1 == projectilePlayerArray.end())
                     break;
@@ -299,9 +299,10 @@ void World::collectObjects() {
                         break;
                     case Object::coins:
                         coins_counter++;
-                        if (coins_counter >= 3){
+                        if (coins_counter >= 2){
                             notify();
                             coins_counter = 0;
+                            std::cout << hero->getAttackDamage();
                         }
                         break;
                     case Object::potion:
