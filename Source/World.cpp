@@ -11,6 +11,9 @@ World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &text
     createHero();
     createEnemies();
     createObjects();
+
+    _mObserver = std::make_shared<mObserver>();
+    addObserver(_mObserver);
 }
 
 void World::PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shootingClock) {
@@ -202,6 +205,7 @@ void World::UpdateProjectiles() {
             (*iter)->Update();
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //draws
 void World::draw() {
@@ -251,6 +255,7 @@ void World::drawProjectiles() {
         }
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creations
 void World::createMap() {
@@ -266,7 +271,6 @@ void World::createObjects() {
 }
 
 void World::createHero() {
-
     //create the hero
     hero = characterFactory.createHero(Characters::goodboy, Hero::StRanged, textures);
 }
@@ -295,9 +299,13 @@ void World::collectObjects() {
                         break;
                     case Object::coins:
                         coins_counter++;
+                        if (coins_counter >= 3){
+                            notify();
+                            coins_counter = 0;
+                        }
                         break;
                     case Object::potion:
-                        if(hero->getHp() <= hero->getHpMax()){
+                        if(hero->getHp() < hero->getHpMax()){
                             hero->setHp(hero->getHp() + 20);
                         }
                         std::cout << "hero's life is:" << hero->getHp() << std::endl;
@@ -334,5 +342,19 @@ void World::Shoot() {
         worldProjectile->setDirection(hero->getDirection());
         projectilePlayerArray.emplace_back(worldProjectile);
 
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void World::addObserver(std::shared_ptr<mObserver> observer) {
+    coin_observer.emplace_back(observer);
+}
+
+void World::removeObserver(std::shared_ptr<mObserver> observer) {
+}
+
+void World::notify() {
+    for(auto iter = coin_observer.begin(); iter != coin_observer.end(); iter++){
+        (*iter)->update(this->hero);
     }
 }

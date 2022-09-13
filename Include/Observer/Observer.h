@@ -5,13 +5,12 @@
 #ifndef GAME_OBSERVER_H
 #define GAME_OBSERVER_H
 
+#include "../Characters/Hero.h"
 
 class Observer {
 public:
-    /*
-    virtual void update() = 0;
-    virtual ~Observer() {}
-    */
+    virtual ~Observer() {};
+    virtual void update(std::shared_ptr<Hero> hero) = 0;
 };
 
 

@@ -27,9 +27,6 @@ public:
 
     const std::shared_ptr<Weapon> &getWeapon() const;
 
-    //sf::Text textHero_HP("HP ", font, 20);
-    //textHero_HP.setFillColor(sf::Color::Green);
-
 protected:
     HeroType heroType;
 

@@ -31,7 +31,9 @@ namespace Textures {
         FloorText,
 
         CoinText,
-        PotionText
+        PotionText,
+
+        LifeBarText
     };
 }
 

@@ -7,15 +7,16 @@
 
 #include "Observer.h"
 
+
 class Subject {
 public:
-    /*
-    virtual void addObserver(std::shared_ptr<Observer> observer) = 0;
-    virtual void removeObserver(std::shared_ptr<Observer> observer) = 0;
+    virtual void addObserver(std::shared_ptr<Observer> observer) {};
+    virtual void removeObserver(std::shared_ptr<Observer> observer) {};
     virtual void notify() = 0;
 
-    virtual ~Subject() {}
-     */
+protected:
+    virtual ~Subject() {};
+
 };
 
 #endif //GAME_SUBJECT_H

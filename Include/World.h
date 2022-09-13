@@ -7,9 +7,6 @@
 
 #include "Map/Map.h"
 
-#include "Characters/Hero.h"
-#include "Characters/MeleeEnemy.h"
-
 #include "Objects/StWeapon.h"
 #include "Projectiles/StProjectile.h"
 
@@ -19,11 +16,13 @@
 
 #include "Random.h"
 #include "Observer/Subject.h"
+#include "Observer/mObserver.h"
 #include "TextDisplay.h"
 
 #include <memory>
+#include <list>
 
-class World {
+class World: public Subject{
 public:
     World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures);
 
@@ -54,6 +53,10 @@ public:
     void UpdateEnemies();
     void UpdateProjectiles();
 
+    void addObserver(std::shared_ptr<mObserver> observer);
+    void removeObserver(std::shared_ptr<mObserver> observer);
+    void notify() override;
+
     void collectObjects();
     void Drop(float x, float y);
     void Shoot();
@@ -65,6 +68,9 @@ public:
     std::vector<std::shared_ptr<Object>> collectableObject;
     std::vector<std::shared_ptr<Enemy>> enemyArray;
     std::vector<std::shared_ptr<Projectile>> projectilePlayerArray;
+
+    std::vector<std::shared_ptr<mObserver>> coin_observer;
+    std::shared_ptr<mObserver> _mObserver;
 
     const TextureHolder& textures;
 

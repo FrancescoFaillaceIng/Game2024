@@ -34,7 +34,7 @@ Hero::Hero(Hero::HeroType heroType, const TextureHolder& textures): textures(tex
             break;
         case Hero::HeroType::StRanged:
             speedBasic = 4;
-            hp = 200;
+            hp = 100;
             hpMax = hp;
             attackDamage = 0;
             texture = textures.get(toTextureID(StRanged));

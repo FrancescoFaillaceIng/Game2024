@@ -3,3 +3,11 @@
 //
 
 #include "../../Include/Observer/mObserver.h"
+
+mObserver::mObserver() {
+
+}
+
+void mObserver::update(std::shared_ptr<Hero> hero) {
+    hero->setAttackDamage((hero->getAttackDamage()) + 5);
+}

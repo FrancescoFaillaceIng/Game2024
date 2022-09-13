@@ -5,11 +5,15 @@
 #ifndef GAME_MOBSERVER_H
 #define GAME_MOBSERVER_H
 
-#include "Subject.h"
+#include "Observer.h"
+
 #include <memory>
 
 class mObserver: public Observer{
+public:
+    mObserver();
 
+    void update(std::shared_ptr<Hero> hero);
 };
 
 
