@@ -29,7 +29,9 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
 void Game::play() {
     sf::Clock clock;
     sf::Clock shootingClock;
+    sf::Clock damageClock;
     sf::Time shootingTime = shootingClock.restart();
+    sf::Time damageTime = damageClock.restart();
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
     while (mWindow->isOpen()) {
@@ -38,7 +40,7 @@ void Game::play() {
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
             processEvents(shootingClock);
-            Update();
+            Update(damageClock);
         }
         render();
     }
@@ -73,8 +75,8 @@ void  Game::processEvents(sf::Clock &shootingClock) {
     }
 }
 
-void Game::Update() {
-    world->Update();
+void Game::Update(sf::Clock &damageClock) {
+    world->Update(damageClock);
     view->setCenter(world->hero->rect.getPosition());
     hero_lifebar->update(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - (view->getSize().y)/2, world->hero->getHp());
 }

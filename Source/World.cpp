@@ -47,21 +47,24 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shooti
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //collisions
-void World::CheckGlobalBounds() {
-    CollisionsHeroEnemies();
+void World::CheckGlobalBounds(sf::Clock &damageClock) {
+    CollisionsHeroEnemies(damageClock);
     CollisionsProjectilesEnemies();
     CollisionsHeroMap();
     CollisionsEnemiesMap();
     CollisionsProjectilesMap();
 }
 
-void World::CollisionsHeroEnemies() {
+void World::CollisionsHeroEnemies(sf::Clock &damageClock) {
     for (auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++){
 
         // if an enemy touches the hero, hero's life decrease
-        if (hero->rect.getGlobalBounds().intersects((*iter)->rect.getGlobalBounds())){
-            hero->setHp(hero->getHp()-(*iter)->getAttackDamage());
-            std::cout << "hero's life is:" << hero->getHp() << std::endl;
+        if(damageClock.getElapsedTime().asSeconds() >= 3){
+            if (hero->rect.getGlobalBounds().intersects((*iter)->rect.getGlobalBounds())){
+                hero->setHp(hero->getHp()-(*iter)->getAttackDamage());
+                std::cout << "hero's life is:" << hero->getHp() << std::endl;
+                damageClock.restart();
+            }
         }
     }
 }
@@ -151,12 +154,12 @@ void World::CollisionsProjectilesMap() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //updates
-void World::Update() {
+void World::Update(sf::Clock &damageClock) {
     UpdateMap();
     UpdateHero();
     UpdateEnemies();
     UpdateProjectiles();
-    CheckGlobalBounds();
+    CheckGlobalBounds(damageClock);
 }
 
 void World::UpdateMap() {

@@ -17,7 +17,7 @@ public:
 private:
     void render();
     void processEvents(sf::Clock &shootingClock);
-    void Update();
+    void Update(sf::Clock &damageClock);
     void loadTextures();
 
 

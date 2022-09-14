@@ -26,10 +26,10 @@ class World: public Subject{
 public:
     World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures);
 
-    void Update();
+    void Update(sf::Clock &damageClock);
     void draw();
     void PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock &shootingClock);
-    void CheckGlobalBounds();
+    void CheckGlobalBounds(sf::Clock &damageClock);
 
     void createMap();
     void createObjects();
@@ -42,7 +42,7 @@ public:
     void drawObject();
     void drawProjectiles();
 
-    void CollisionsHeroEnemies();
+    void CollisionsHeroEnemies(sf::Clock &damgeClock);
     void CollisionsProjectilesEnemies();
     void CollisionsHeroMap();
     void CollisionsProjectilesMap();
