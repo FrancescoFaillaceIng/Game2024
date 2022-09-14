@@ -7,7 +7,7 @@
 LifeBars::LifeBars(float x, float y, const TextureHolder &textures): textures(textures) {
 
     rect.setPosition(x, y);
-    rect.setSize(sf::Vector2f(500, 125));
+    rect.setSize(sf::Vector2f(500, 100));
 
     sprite.setTextureRect(sf::IntRect(0, 0, 500, 100));
     sprite.setPosition(rect.getPosition());
