@@ -7,7 +7,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
 
 Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
-                                            "Berto's Adventure", sf::Style::Default)) {
+                                            "Typical journey", sf::Style::Default)) {
 
     loadTextures();
     world = std::make_shared<World>(mWindow, textureHolder);

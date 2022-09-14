@@ -15,6 +15,7 @@ protected:
     std::shared_ptr<Enemy> tEnemy;
 
     sf::Vector2u windowSize;
+    sf::Clock damageClock;
 };
 
 TEST_F(Collision, Hero_Enemy){
@@ -27,7 +28,7 @@ TEST_F(Collision, Hero_Enemy){
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
-                                                 "Berto's Adventure", sf::Style::Default);
+                                                 "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
 
@@ -36,7 +37,7 @@ TEST_F(Collision, Hero_Enemy){
 
     //collisione
     tWorld->enemyArray.front()->rect.setPosition(100, 100);
-    tWorld->CollisionsHeroEnemies();
+    tWorld->CollisionsHeroEnemies(damageClock);
 
     //vita eroe dopo collisione
     EXPECT_EQ(tWorld->hero->getHp(), 180);
@@ -51,7 +52,7 @@ TEST_F(Collision, Hero_Map){
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
-                                                 "Berto's Adventure", sf::Style::Default);
+                                                 "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
 
@@ -79,7 +80,7 @@ TEST_F(Collision, Enemy_Map){
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
-                                                 "Berto's Adventure", sf::Style::Default);
+                                                 "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
     tEnemy = tWorld->enemyArray.front();
@@ -109,7 +110,7 @@ TEST_F(Collision, Projectile_Enemy){
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
-                                                 "Berto's Adventure", sf::Style::Default);
+                                                 "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
     tEnemy = tWorld->enemyArray.front();
@@ -139,7 +140,7 @@ TEST_F(Collision, Projectile_Map){
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
-                                                 "Berto's Adventure", sf::Style::Default);
+                                                 "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
 
