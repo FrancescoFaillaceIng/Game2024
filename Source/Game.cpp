@@ -22,7 +22,8 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
         throw std::runtime_error("icon not loaded");
     mWindow->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-    //hero_lifebar = barsFactory.createBars(view->getCenter().x - view->getSize().x/2, view->getCenter().y - view->getSize().y);
+    hero_lifebar = barsFactory.createBars(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y -
+                                                                                (view->getSize().y)/2, world->textures);
 }
 
 void Game::play() {
@@ -48,7 +49,7 @@ void Game::render() {
     mWindow->clear();
     mWindow->setView(*view);
     world->draw();
-    //mWindow->draw(hero_lifebar->getSprite());
+    mWindow->draw(hero_lifebar->getSprite());
     mWindow->display();
 }
 
@@ -75,7 +76,7 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 void Game::Update() {
     world->Update();
     view->setCenter(world->hero->rect.getPosition());
-    //hero_lifebar->update(view->getCenter().x - view->getSize().x/2, view->getCenter().y - view->getSize().y, world->hero->getHp());
+    hero_lifebar->update(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - (view->getSize().y)/2, world->hero->getHp());
 }
 
 void Game::loadTextures() {
@@ -96,5 +97,5 @@ void Game::loadTextures() {
     textureHolder.load(Textures::WallText, "../Resources/Wall.png");
 
     //lifebar
-    //textureHolder.load(Textures::LifeBarText, "../Resources/LifeBar.png");
+    textureHolder.load(Textures::LifeBarText, "../Resources/LifeBar.png");
 }

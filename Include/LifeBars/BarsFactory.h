@@ -11,7 +11,7 @@
 
 class BarsFactory {
 public:
-    std::shared_ptr<LifeBars> createBars(float x, float y);
+    std::shared_ptr<LifeBars> createBars(float x, float y,const TextureHolder &textures);
 };
 
 

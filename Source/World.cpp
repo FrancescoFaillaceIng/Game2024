@@ -323,11 +323,15 @@ void World::collectObjects() {
 void World::Drop(float x, float y) {
     int t = GenerateRandom(3);
     std::shared_ptr<Object> ObjectDropped;
-    if (t == 1 || t == 2){
-        ObjectDropped = objectFactory.createObject(Object::ObjectType::coins, x, y, textures);
-    }
-    if (t ==3){
-        ObjectDropped = objectFactory.createObject(Object::ObjectType::potion, x, y, textures);
+    switch (t) {
+        case 1 || 2:
+            ObjectDropped = objectFactory.createObject(Object::ObjectType::coins, x, y, textures);
+            break;
+        case 3:
+            ObjectDropped = objectFactory.createObject(Object::ObjectType::potion, x, y, textures);
+            break;
+        default:
+            break;
     }
 
     collectableObject.emplace_back(ObjectDropped);

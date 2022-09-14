@@ -12,7 +12,7 @@
 
 class LifeBars {
 public:
-    LifeBars(float x, float y);
+    LifeBars(float x, float y, const TextureHolder &textures);
 
     const sf::Sprite &getSprite() const;
 
