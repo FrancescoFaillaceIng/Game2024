@@ -18,6 +18,7 @@ private:
     void render();
     void processEvents(sf::Clock &shootingClock);
     void Update(sf::Clock &damageClock);
+    void LifeBarUpdate();
     void loadTextures();
 
 

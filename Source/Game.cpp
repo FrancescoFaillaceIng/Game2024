@@ -78,7 +78,15 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 void Game::Update(sf::Clock &damageClock) {
     world->Update(damageClock);
     view->setCenter(world->hero->rect.getPosition());
-    hero_lifebar->update(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - (view->getSize().y)/2, world->hero->getHp());
+    LifeBarUpdate();
+}
+
+void Game::LifeBarUpdate() {
+    hero_lifebar->update(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - (view->getSize().y)/2,
+                                                                                            world->hero->getHp());
+    if (world->hero->getHp() <= 0){
+        free(&hero_lifebar);
+    }
 }
 
 void Game::loadTextures() {
