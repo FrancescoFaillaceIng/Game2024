@@ -16,7 +16,7 @@ protected:
     std::shared_ptr<Projectile> tProjectile_left;
     std::shared_ptr<Projectile> tProjectile_down;
     std::shared_ptr<Projectile> tProjectile_right;
-
+    
     sf::Vector2u windowSize;
 };
 
@@ -142,7 +142,7 @@ TEST_F(Movements, ProjectileMovement) {
 
     //load textures
     textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
-    textures.load(Textures::StProjectile, "../../Resources/tProjectile.png");
+    textures.load(Textures::StProjectile, "../../Resources/StProjectile.png");
 
     //costruttori
     tHero = std::make_shared<Hero>(Hero::StRanged, textures);

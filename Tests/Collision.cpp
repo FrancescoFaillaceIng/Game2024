@@ -31,16 +31,21 @@ TEST_F(Collision, Hero_Enemy){
                                                  "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
+    tEnemy = tWorld->enemyArray.front();
 
     //vita eroe prima collisione
-    EXPECT_EQ(tWorld->hero->getHp(), 200);
+    EXPECT_EQ(tWorld->hero->getHp(), 100);
+    EXPECT_EQ(tEnemy->getAttackDamage(),20 );
 
     //collisione
-    tWorld->enemyArray.front()->rect.setPosition(100, 100);
+    tWorld->hero->rect.setPosition(100, 100);
+    tEnemy->rect.setPosition(100, 100);
+
+    //TODO set damageclock a 3
     tWorld->CollisionsHeroEnemies(damageClock);
 
     //vita eroe dopo collisione
-    EXPECT_EQ(tWorld->hero->getHp(), 180);
+    EXPECT_EQ(tWorld->hero->getHp(), 80);
 }
 
 TEST_F(Collision, Hero_Map){

@@ -17,7 +17,6 @@
 #include "Random.h"
 #include "Observer/Subject.h"
 #include "Observer/mObserver.h"
-#include "TextDisplay.h"
 
 #include <memory>
 #include <list>

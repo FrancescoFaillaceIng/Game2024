@@ -6,7 +6,7 @@
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
 
-Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1500, 850),
+Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
                                             "Typical journey", sf::Style::Default)) {
 
     loadTextures();
