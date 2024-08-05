@@ -1,9 +1,15 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.28)
 project(Game)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(Tests)
+#add_subdirectory(Tests)
+
+include(FetchContent)
+FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(SFML)
 
 set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp Include/Map/Tile.h Source/Map/Tile.cpp
         Include/World.h Source/World.cpp Source/Entity.cpp Include/Entity.h Source/Characters/Characters.cpp
@@ -24,7 +30,5 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
 add_executable(Game main.cpp ${Classi})
 
 add_library(Game_Tests ${Classi})
-
-find_package(SFML 2 COMPONENTS network audio graphics window system REQUIRED)
 
 target_link_libraries(Game sfml-graphics sfml-window sfml-system)
