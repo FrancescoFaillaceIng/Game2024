@@ -93,8 +93,8 @@ void Game::loadTextures() {
     //characters
     textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
     textureHolder.load(Textures::bull_fighter,"../Resources/minotaur.png");
-    textureHolder.load(Textures::flying_fighter,"C:\\Users\\franc\\CLionProjects\\Game\\Resources\\bat.png");
-    textureHolder.load(Textures::ghost_fighter,"C:\\Users\\franc\\CLionProjects\\Game\\Resources\\ghost.png");
+    textureHolder.load(Textures::flying_fighter,"D:\\Users\\franc\\CLionProjects\\Game\\Resources\\bat.png");
+    textureHolder.load(Textures::ghost_fighter,"D:\\Users\\franc\\CLionProjects\\Game\\Resources\\ghost.png");
 
     //objects
     textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
