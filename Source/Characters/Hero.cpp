@@ -64,10 +64,10 @@ bool Hero::PickUpObject(std::shared_ptr<Object> object) {
 
 void Hero::ChangeWeapon(std::shared_ptr<Weapon> newWeapon) {
     if(newWeapon) {
-        if(inventory->addItem(this->weapon)) {
+        //if(inventory->addItem(this->weapon)) {
             this->weapon = newWeapon;
             this->weapon->equipped = true;
-        }
+        //}
     }
 }
 
