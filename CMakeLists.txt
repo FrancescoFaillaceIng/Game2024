@@ -3,12 +3,11 @@ project(Game)
 
 include(FetchContent)
 set(BUILD_SHARED_LIBS OFF)
-FetchContent_Declare(SFML GIT_REPOSITORY https://github.com/SFML/SFML.git GIT_TAG 2.5.1)
+FetchContent_Declare(SFML GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 2.5.1)
 FetchContent_MakeAvailable(SFML)
 
 set(CMAKE_CXX_STANDARD 17)
-
-#add_subdirectory(Tests)
 
 set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp Include/Map/Tile.h Source/Map/Tile.cpp
         Include/World.h Source/World.cpp Source/Entity.cpp Include/Entity.h Source/Characters/Characters.cpp
@@ -30,4 +29,7 @@ add_executable(Game main.cpp ${Classi})
 
 add_library(Game_Tests ${Classi})
 
-target_link_libraries(Game sfml-graphics sfml-window sfml-system)
+target_link_libraries(Game Game_Tests sfml-graphics sfml-window sfml-system)
+
+include_directories(${SFML_INCLUDE_DIR})
+add_subdirectory(Tests)

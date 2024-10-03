@@ -111,7 +111,7 @@ TEST_F(Collision, Projectile_Enemy){
     textures.load(Textures::bull_fighter, "../../Resources/minotaur.png");
     textures.load(Textures::ghost_fighter, "../../Resources/ghost.png");
     textures.load(Textures::flying_fighter, "../../Resources/bat.png");
-    textures.load(Textures::StProjectile, "C:\\Users\\franc\\CLionProjects\\Game\\Resources\\StProjectile.png");
+    textures.load(Textures::StProjectile, "../../Resources/StProjectile.png");
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
