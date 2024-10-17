@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(GOOGLETEST_VERSION 1.11.0)
+set(GOOGLETEST_VERSION 1.15.2)
 
 add_subdirectory(googletest/)
 
