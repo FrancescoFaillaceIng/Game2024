@@ -27,9 +27,9 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
 
 add_executable(Game main.cpp ${Classi})
 
-add_library(Game_Tests ${Classi})
+add_library(Game_Tests ${Classi} )
 
-target_link_libraries(Game Game_Tests sfml-graphics sfml-window sfml-system)
+target_link_libraries(Game sfml-graphics sfml-window sfml-system)
 
 include_directories(${SFML_INCLUDE_DIR})
 add_subdirectory(Tests)

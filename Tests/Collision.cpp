@@ -19,13 +19,6 @@ protected:
 };
 
 TEST_F(Collision, Hero_Enemy){
-
-    //load textures
-    textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
-    textures.load(Textures::bull_fighter, "../../Resources/minotaur.png");
-    textures.load(Textures::ghost_fighter, "../../Resources/ghost.png");
-    textures.load(Textures::flying_fighter, "../../Resources/bat.png");
-
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
                                                  "world test", sf::Style::Default);
