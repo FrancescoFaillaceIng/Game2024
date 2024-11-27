@@ -116,12 +116,7 @@ void Game::Update(sf::Clock &damageClock) {
         for(auto& button : powerupMenu->buttons){
             button->handleMouse(mWindow);
             if(button->isClicked(mWindow)){
-                if(button->text.getString() == "Upgrade MaxHp" && powerupMenu->counterPowerUp <= world->coins_counter){
-                    world->hero->setHpMax(world->hero->getHpMax() + 10);
-                    world->coins_counter -= powerupMenu->counterPowerUp;
-                    powerupMenu->counterPowerUp++;
-                }
-                else if (button->text.getString() == "Upgrade Attack" && powerupMenu->counterPowerUp <= world->coins_counter){
+                if (button->text.getString() == "Upgrade Attack" && powerupMenu->counterPowerUp <= world->coins_counter){
                     world->hero->setAttackDamage(world->hero->getAttackDamage() + 2);
                     world->coins_counter -= powerupMenu->counterPowerUp;
                     powerupMenu->counterPowerUp++;

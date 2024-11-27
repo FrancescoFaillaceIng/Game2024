@@ -25,7 +25,6 @@ public:
     std::shared_ptr<Button> button1;
     std::shared_ptr<Button> button2;
     std::shared_ptr<Button> button3;
-    std::shared_ptr<Button> button4;
 
     explicit PowerupMenu(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::View> view);
 
