@@ -18,7 +18,7 @@ Textures::ID toTextureID(Hero::HeroType heroType) {
 
 Hero::Hero(Hero::HeroType heroType, const TextureHolder& textures): textures(textures) {
 
-    rect.setPosition(100, 100);
+    rect.setPosition(64, 64);
     rect.setSize(sf::Vector2f(32, 32));
 
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));

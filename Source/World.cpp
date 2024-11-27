@@ -6,6 +6,7 @@
 
 World::World(std::shared_ptr<sf::RenderWindow> window, const TextureHolder &textures): window(window),
                                                                                        textures(textures){
+    isRunning = true;
 
     createMap();
     createHero();
@@ -42,8 +43,9 @@ void World::PlayerInput(sf::Keyboard::Key key, bool isPressed, sf::Clock& shooti
             shootingClock.restart();
         }
     }
-    else if (key == sf::Keyboard::Escape && isPressed)
-        window->close();
+    else if (key == sf::Keyboard::Escape)
+        if (isRunning)
+            isRunning = false;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //collisions

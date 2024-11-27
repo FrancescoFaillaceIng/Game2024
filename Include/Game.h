@@ -8,6 +8,7 @@
 #include <memory>
 #include "LifeBars/BarsFactory.h"
 #include "World.h"
+#include "Menus/Game_menu.h"
 
 class Game {
 public:
@@ -23,6 +24,8 @@ private:
 
 
     TextureHolder textureHolder;
+
+    std::shared_ptr<Game_menu> game_menu;
 
     std::shared_ptr<sf::RenderWindow> mWindow;
     std::shared_ptr<World> world;

@@ -25,7 +25,15 @@ set(Classi Include/Game.h Source/Game.cpp Include/Map/Map.h Source/Map/Map.cpp I
         Include/Objects/Potion.h Source/LifeBars/LifeBars.cpp Include/LifeBars/LifeBars.h Source/LifeBars/BarsFactory.cpp
         Include/LifeBars/BarsFactory.h)
 
-add_executable(Game main.cpp ${Classi})
+add_executable(Game main.cpp ${Classi}
+        Source/Menus/Game_menu.cpp
+        Include/Menus/Game_menu.h
+        Include/Menus/Game_menu.h
+        Source/Menus/Button.cpp
+        Include/Menus/Button.h
+        Include/Menus/Button.h
+        Source/Menus/PowerupMenu.cpp
+        Include/Menus/PowerupMenu.h)
 
 add_library(Game_Tests ${Classi} )
 

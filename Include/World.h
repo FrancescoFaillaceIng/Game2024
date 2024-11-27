@@ -78,6 +78,7 @@ public:
     ProjectileFactory projectileFactory;
 
     int coins_counter = 0;
+    bool isRunning;
 };
 
 

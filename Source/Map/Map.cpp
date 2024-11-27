@@ -38,7 +38,7 @@ void Map::createMap(const TextureHolder& textures) {
 }
 
 void Map::createMatrix() {
-    std::ifstream ReadFile("../Resources/Map.txt");
+    std::ifstream ReadFile("./Resources/Map.txt");
 
     //read the file and make a vector of string
     while (getline(ReadFile, line)){

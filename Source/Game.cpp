@@ -15,10 +15,12 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
     //sets the view
     view = std::make_shared<sf::View>(sf::Vector2f(world->hero->rect.getPosition()), sf::Vector2f(1500, 850));
     mWindow->setView(*view);
+    game_menu = std::make_shared<Game_menu>(mWindow, view);
+    game_menu->initButtons();
 
     //sets the icon
     sf::Image icon;
-    if ( !icon.loadFromFile("../Resources/role-playing-game.png"))
+    if ( !icon.loadFromFile("./Resources/role-playing-game.png"))
         throw std::runtime_error("icon not loaded");
     mWindow->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
@@ -52,6 +54,12 @@ void Game::render() {
     mWindow->setView(*view);
     world->draw();
     mWindow->draw(hero_lifebar->getSprite());
+    if (!world->isRunning){
+        game_menu->render(mWindow);
+        for(auto& button : game_menu->buttons)
+            button->render(mWindow);
+    }
+
     mWindow->display();
 }
 
@@ -76,9 +84,28 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 }
 
 void Game::Update(sf::Clock &damageClock) {
-    world->Update(damageClock);
+    if(world->isRunning)
+        world->Update(damageClock);
+    else{
+        game_menu->update(mWindow, sf::Vector2i(view->getCenter().x-400, view->getCenter().y-300));
+        for(auto& button : game_menu->buttons){
+            button->handleMouse(mWindow);
+            if(button->isClicked(mWindow)){
+                if(button->text.getString() == "Resume"){
+                    world->isRunning = true;
+                }
+                else if (button->text.getString() == "Upgrade"){
+                    //upgrade
+                }
+                else if(button->text.getString() == "Exit") {
+                    mWindow->close();
+                }
+            }
+        }
+    }
     view->setCenter(world->hero->rect.getPosition());
     LifeBarUpdate();
+
 }
 
 void Game::LifeBarUpdate() {
@@ -91,21 +118,21 @@ void Game::LifeBarUpdate() {
 
 void Game::loadTextures() {
     //characters
-    textureHolder.load(Textures::StHero, "../Resources/HeroSprite.png");
-    textureHolder.load(Textures::bull_fighter,"../Resources/minotaur.png");
-    textureHolder.load(Textures::flying_fighter,"../Resources/bat.png");
-    textureHolder.load(Textures::ghost_fighter,"../Resources/ghost.png");
+    textureHolder.load(Textures::StHero, "./Resources/HeroSprite.png");
+    textureHolder.load(Textures::bull_fighter,"./Resources/minotaur.png");
+    textureHolder.load(Textures::flying_fighter,"./Resources/bat.png");
+    textureHolder.load(Textures::ghost_fighter,"./Resources/ghost.png");
 
     //objects
-    textureHolder.load(Textures::StWeapon, "../Resources/StWeapon.png");
-    textureHolder.load(Textures::StProjectile,"../Resources/StProjectile.png");
-    textureHolder.load(Textures::CoinText, "../Resources/Coins.png");
-    textureHolder.load(Textures::PotionText, "../Resources/Potion.png");
+    textureHolder.load(Textures::StWeapon, "./Resources/StWeapon.png");
+    textureHolder.load(Textures::StProjectile,"./Resources/StProjectile.png");
+    textureHolder.load(Textures::CoinText, "./Resources/Coins.png");
+    textureHolder.load(Textures::PotionText, "./Resources/Potion.png");
 
     //map
-    textureHolder.load(Textures::FloorText, "../Resources/Floor.png");
-    textureHolder.load(Textures::WallText, "../Resources/Wall.png");
+    textureHolder.load(Textures::FloorText, "./Resources/Floor.png");
+    textureHolder.load(Textures::WallText, "./Resources/Wall.png");
 
     //lifebar
-    textureHolder.load(Textures::LifeBarText, "../Resources/LifeBar.png");
+    textureHolder.load(Textures::LifeBarText, "./Resources/LifeBar.png");
 }
