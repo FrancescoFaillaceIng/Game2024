@@ -9,6 +9,7 @@
 #include "LifeBars/BarsFactory.h"
 #include "World.h"
 #include "Menus/Game_menu.h"
+#include "Menus/PowerupMenu.h"
 
 class Game {
 public:
@@ -26,6 +27,7 @@ private:
     TextureHolder textureHolder;
 
     std::shared_ptr<Game_menu> game_menu;
+    std::shared_ptr<PowerupMenu> powerupMenu;
 
     std::shared_ptr<sf::RenderWindow> mWindow;
     std::shared_ptr<World> world;
@@ -36,6 +38,8 @@ private:
     BarsFactory barsFactory;
 
     static const sf::Time TimePerFrame;
+
+    bool isPowerUpMenuActive;
 
 };
 #endif //GAME_GAME_H

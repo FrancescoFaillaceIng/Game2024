@@ -2,7 +2,6 @@
 // Created by franc on 19/11/2024.
 //
 
-#include <iostream>
 #include "../../Include/Menus/Game_menu.h"
 
 // Constructor to initialize font

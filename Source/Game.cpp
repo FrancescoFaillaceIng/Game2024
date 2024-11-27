@@ -8,6 +8,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
 
 Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
                                             "Typical journey", sf::Style::Default)) {
+    isPowerUpMenuActive = false;
 
     loadTextures();
     world = std::make_shared<World>(mWindow, textureHolder);
@@ -15,8 +16,12 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
     //sets the view
     view = std::make_shared<sf::View>(sf::Vector2f(world->hero->rect.getPosition()), sf::Vector2f(1500, 850));
     mWindow->setView(*view);
+
     game_menu = std::make_shared<Game_menu>(mWindow, view);
     game_menu->initButtons();
+
+    powerupMenu = std::make_shared<PowerupMenu>(mWindow, view);
+    powerupMenu->initButtons();
 
     //sets the icon
     sf::Image icon;
@@ -54,9 +59,13 @@ void Game::render() {
     mWindow->setView(*view);
     world->draw();
     mWindow->draw(hero_lifebar->getSprite());
-    if (!world->isRunning){
+    if (!world->isRunning && !isPowerUpMenuActive){
         game_menu->render(mWindow);
         for(auto& button : game_menu->buttons)
+            button->render(mWindow);
+    } else if(isPowerUpMenuActive && !world->isRunning){
+        powerupMenu->render(mWindow);
+        for(auto& button : powerupMenu->buttons)
             button->render(mWindow);
     }
 
@@ -86,7 +95,7 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 void Game::Update(sf::Clock &damageClock) {
     if(world->isRunning)
         world->Update(damageClock);
-    else{
+    else if (!world->isRunning && !isPowerUpMenuActive){
         game_menu->update(mWindow, sf::Vector2i(view->getCenter().x-400, view->getCenter().y-300));
         for(auto& button : game_menu->buttons){
             button->handleMouse(mWindow);
@@ -95,10 +104,35 @@ void Game::Update(sf::Clock &damageClock) {
                     world->isRunning = true;
                 }
                 else if (button->text.getString() == "Upgrade"){
-                    //upgrade
+                    isPowerUpMenuActive = true;
                 }
                 else if(button->text.getString() == "Exit") {
                     mWindow->close();
+                }
+            }
+        }
+    } else if (!world->isRunning && isPowerUpMenuActive){
+        powerupMenu->update(mWindow, sf::Vector2i(view->getCenter().x-400, view->getCenter().y-300));
+        for(auto& button : powerupMenu->buttons){
+            button->handleMouse(mWindow);
+            if(button->isClicked(mWindow)){
+                if(button->text.getString() == "Upgrade MaxHp" && powerupMenu->counterPowerUp <= world->coins_counter){
+                    world->hero->setHpMax(world->hero->getHpMax() + 10);
+                    world->coins_counter -= powerupMenu->counterPowerUp;
+                    powerupMenu->counterPowerUp++;
+                }
+                else if (button->text.getString() == "Upgrade Attack" && powerupMenu->counterPowerUp <= world->coins_counter){
+                    world->hero->setAttackDamage(world->hero->getAttackDamage() + 2);
+                    world->coins_counter -= powerupMenu->counterPowerUp;
+                    powerupMenu->counterPowerUp++;
+                }
+                else if (button->text.getString() == "Upgrade Speed" && powerupMenu->counterPowerUp <= world->coins_counter){
+                    world->hero->setSpeedBasic(world->hero->getSpeedBasic() + 1);
+                    world->coins_counter -= powerupMenu->counterPowerUp;
+                    powerupMenu->counterPowerUp++;
+                }
+                else if (button->text.getString() == "Back"){
+                    isPowerUpMenuActive = false;
                 }
             }
         }

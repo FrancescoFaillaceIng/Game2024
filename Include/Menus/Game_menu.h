@@ -7,6 +7,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <vector>
+#include "iostream"
 #include "Button.h"
 
 class Game_menu {
