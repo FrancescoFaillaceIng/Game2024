@@ -360,9 +360,6 @@ void World::addObserver(std::shared_ptr<mObserver> observer) {
     coin_observer.emplace_back(observer);
 }
 
-void World::removeObserver(std::shared_ptr<mObserver> observer) {
-}
-
 void World::notify() {
     for(auto iter = coin_observer.begin(); iter != coin_observer.end(); iter++){
         (*iter)->update(this->hero);

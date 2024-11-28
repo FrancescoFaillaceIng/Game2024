@@ -61,9 +61,6 @@ void Button::handleMouse(std::shared_ptr<sf::RenderWindow> window) {
 
 void Button::setPosition(float x, float y) {
     shape.setPosition(x, y);
-
-    // Update the text position to stay centered
-    sf::FloatRect textBounds = text.getLocalBounds();
     text.setPosition(x + shape.getSize().x / 2.0f, y + shape.getSize().y / 2.0f);
 }
 

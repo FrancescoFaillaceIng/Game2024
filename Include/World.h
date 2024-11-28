@@ -53,7 +53,6 @@ public:
     void UpdateProjectiles();
 
     void addObserver(std::shared_ptr<mObserver> observer);
-    void removeObserver(std::shared_ptr<mObserver> observer);
     void notify() override;
 
     void collectObjects();

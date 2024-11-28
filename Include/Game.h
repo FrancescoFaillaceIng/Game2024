@@ -19,10 +19,21 @@ public:
 private:
     void render();
     void processEvents(sf::Clock &shootingClock);
-    void Update(sf::Clock &damageClock);
+    void Update(sf::Clock &damageClock, sf::Clock &menuClock);
     void LifeBarUpdate();
+    void UpdateSpeedText();
+    void UpdateAttackDamageText();
+    void UpdateCoinsText();
     void loadTextures();
 
+    sf::Font font;
+    sf::Text speedText;
+    sf::Text attackDamageText;
+    sf::Text coinsText;
+
+    sf::RectangleShape speedTextBackground;
+    sf::RectangleShape attackDamageTextBackground;
+    sf::RectangleShape coinsTextBackground;
 
     TextureHolder textureHolder;
 

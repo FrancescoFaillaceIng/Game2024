@@ -25,10 +25,9 @@ class Button {
 
         void setPosition(float x, float y);
         void update(std::shared_ptr<sf::RenderWindow> window, int x, int y);
-
         void render(std::shared_ptr<sf::RenderWindow> window);
-        bool isClicked(std::shared_ptr<sf::RenderWindow> window);
 
+        bool isClicked(std::shared_ptr<sf::RenderWindow> window);
         void handleMouse(std::shared_ptr<sf::RenderWindow> window);
 };
 

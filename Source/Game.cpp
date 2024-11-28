@@ -10,6 +10,10 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
                                             "Typical journey", sf::Style::Default)) {
     isPowerUpMenuActive = false;
 
+    speedTextBackground.setFillColor(sf::Color::Black);
+    attackDamageTextBackground.setFillColor(sf::Color::Black);
+    coinsTextBackground.setFillColor(sf::Color::Black);
+
     loadTextures();
     world = std::make_shared<World>(mWindow, textureHolder);
 
@@ -29,6 +33,10 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
         throw std::runtime_error("icon not loaded");
     mWindow->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
+    //sets the font
+    if(!font.loadFromFile("BRADHITC.TTF"))
+        std::cerr << "Error: font not found.";
+
     hero_lifebar = barsFactory.createBars(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y -
                                                                                 (view->getSize().y)/2, world->textures);
 }
@@ -37,8 +45,10 @@ void Game::play() {
     sf::Clock clock;
     sf::Clock shootingClock;
     sf::Clock damageClock;
+    sf::Clock menuClock;
     sf::Time shootingTime = shootingClock.restart();
     sf::Time damageTime = damageClock.restart();
+    sf::Time menuTime = menuClock.restart();
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
     while (mWindow->isOpen()) {
@@ -47,7 +57,7 @@ void Game::play() {
         while (timeSinceLastUpdate > TimePerFrame) {
             timeSinceLastUpdate -= TimePerFrame;
             processEvents(shootingClock);
-            Update(damageClock);
+            Update(damageClock, menuClock);
         }
         render();
     }
@@ -68,6 +78,13 @@ void Game::render() {
         for(auto& button : powerupMenu->buttons)
             button->render(mWindow);
     }
+    mWindow->draw(speedTextBackground);
+    mWindow->draw(attackDamageTextBackground);
+    mWindow->draw(coinsTextBackground);
+
+    mWindow->draw(speedText);
+    mWindow->draw(attackDamageText);
+    mWindow->draw(coinsText);
 
     mWindow->display();
 }
@@ -92,14 +109,14 @@ void  Game::processEvents(sf::Clock &shootingClock) {
     }
 }
 
-void Game::Update(sf::Clock &damageClock) {
+void Game::Update(sf::Clock &damageClock, sf::Clock &menuClock) {
     if(world->isRunning)
         world->Update(damageClock);
     else if (!world->isRunning && !isPowerUpMenuActive){
         game_menu->update(mWindow, sf::Vector2i(view->getCenter().x-400, view->getCenter().y-300));
         for(auto& button : game_menu->buttons){
             button->handleMouse(mWindow);
-            if(button->isClicked(mWindow)){
+            if(button->isClicked(mWindow) && menuClock.getElapsedTime().asSeconds() >= 1){
                 if(button->text.getString() == "Resume"){
                     world->isRunning = true;
                 }
@@ -109,13 +126,14 @@ void Game::Update(sf::Clock &damageClock) {
                 else if(button->text.getString() == "Exit") {
                     mWindow->close();
                 }
+            menuClock.restart();
             }
         }
     } else if (!world->isRunning && isPowerUpMenuActive){
         powerupMenu->update(mWindow, sf::Vector2i(view->getCenter().x-400, view->getCenter().y-300));
         for(auto& button : powerupMenu->buttons){
             button->handleMouse(mWindow);
-            if(button->isClicked(mWindow)){
+            if(button->isClicked(mWindow)  && menuClock.getElapsedTime().asSeconds() >= 1){
                 if (button->text.getString() == "Upgrade Attack" && powerupMenu->counterPowerUp <= world->coins_counter){
                     world->hero->setAttackDamage(world->hero->getAttackDamage() + 2);
                     world->coins_counter -= powerupMenu->counterPowerUp;
@@ -129,20 +147,57 @@ void Game::Update(sf::Clock &damageClock) {
                 else if (button->text.getString() == "Back"){
                     isPowerUpMenuActive = false;
                 }
+            menuClock.restart();
             }
         }
     }
     view->setCenter(world->hero->rect.getPosition());
     LifeBarUpdate();
-
+    UpdateSpeedText();
+    UpdateAttackDamageText();
+    UpdateCoinsText();
 }
 
 void Game::LifeBarUpdate() {
     hero_lifebar->update(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - (view->getSize().y)/2,
                                                                                             world->hero->getHp());
     if (world->hero->getHp() <= 0){
+        //TODO game over
         free(&hero_lifebar);
     }
+}
+
+void Game::UpdateSpeedText() {
+    speedText.setFont(font);
+    speedText.setCharacterSize(20);
+    speedText.setFillColor(sf::Color::White);
+    speedText.setPosition(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - ((view->getSize().y)/2) + 100);
+    speedText.setString("Speed: " + std::to_string(world->hero->getSpeedBasic()));
+
+    speedTextBackground.setSize(sf::Vector2f(speedText.getLocalBounds().width + 10,speedText.getLocalBounds().height + 15));
+    speedTextBackground.setPosition(speedText.getPosition().x - 5, speedText.getPosition().y - 5);
+}
+
+void Game::UpdateAttackDamageText() {
+    attackDamageText.setFont(font);
+    attackDamageText.setCharacterSize(20);
+    attackDamageText.setFillColor(sf::Color::White);
+    attackDamageText.setPosition(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - ((view->getSize().y)/2) + 150);
+    attackDamageText.setString("Attack Damage: " + std::to_string(world->hero->getAttackDamage()));
+
+    attackDamageTextBackground.setSize(sf::Vector2f(attackDamageText.getLocalBounds().width + 10,attackDamageText.getLocalBounds().height + 15));
+    attackDamageTextBackground.setPosition(attackDamageText.getPosition().x - 5, attackDamageText.getPosition().y - 5);
+}
+
+void Game::UpdateCoinsText() {
+    coinsText.setFont(font);
+    coinsText.setCharacterSize(20);
+    coinsText.setFillColor(sf::Color::White);
+    coinsText.setPosition(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - ((view->getSize().y)/2) + 200);
+    coinsText.setString("Coins: " + std::to_string(world->coins_counter));
+
+    coinsTextBackground.setSize(sf::Vector2f(coinsText.getLocalBounds().width + 10,coinsText.getLocalBounds().height + 15));
+    coinsTextBackground.setPosition(coinsText.getPosition().x - 5, coinsText.getPosition().y - 5);
 }
 
 void Game::loadTextures() {

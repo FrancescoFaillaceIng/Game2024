@@ -29,7 +29,7 @@ public:
     void initButtons();
 
     void render(std::shared_ptr<sf::RenderWindow> window);
-    void update(std::shared_ptr<sf::RenderWindow> window, sf::Vector2i pos); // Handles hover states
+    void update(std::shared_ptr<sf::RenderWindow> window, sf::Vector2i pos);
 
 };
 
