@@ -193,7 +193,7 @@ void World::UpdateEnemies() {
             (*iter)->Update();
             if ((*iter)->getHp()<=0){
                 Drop((*iter)->rect.getPosition().x, (*iter)->rect.getPosition().y);
-                (*iter)->active = false;
+                iter = enemyArray.erase(iter);
             }
             if ( !(*iter)->active ) {
                 iter = enemyArray.erase(iter);
@@ -201,8 +201,6 @@ void World::UpdateEnemies() {
                     createEnemies();
             }
         }
-    } else {
-        createEnemies();
     }
 }
 
