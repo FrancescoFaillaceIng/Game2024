@@ -14,6 +14,7 @@ Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
     speedTextBackground.setFillColor(sf::Color::Black);
     attackDamageTextBackground.setFillColor(sf::Color::Black);
     coinsTextBackground.setFillColor(sf::Color::Black);
+    coinsNeededTextBackground.setFillColor(sf::Color::Black);
     gameOverTextBackground.setFillColor(sf::Color::Black);
 
     loadTextures();
@@ -82,10 +83,12 @@ void Game::render() {
         mWindow->draw(speedTextBackground);
         mWindow->draw(attackDamageTextBackground);
         mWindow->draw(coinsTextBackground);
+        mWindow->draw(coinsNeededTextBackground);
 
         mWindow->draw(speedText);
         mWindow->draw(attackDamageText);
         mWindow->draw(coinsText);
+        mWindow->draw(coinsNeededText);
     }
 
     if (!world->isRunning && !isPowerUpMenuActive){
@@ -172,6 +175,7 @@ void Game::Update(sf::Clock &damageClock, sf::Clock &menuClock) {
     UpdateSpeedText();
     UpdateAttackDamageText();
     UpdateCoinsText();
+    UpdateCoinsNeededText();
 
 }
 
@@ -214,6 +218,17 @@ void Game::UpdateCoinsText() {
 
     coinsTextBackground.setSize(sf::Vector2f(coinsText.getLocalBounds().width + 10,coinsText.getLocalBounds().height + 15));
     coinsTextBackground.setPosition(coinsText.getPosition().x - 5, coinsText.getPosition().y - 5);
+}
+
+void Game::UpdateCoinsNeededText() {
+    coinsNeededText.setFont(font);
+    coinsNeededText.setCharacterSize(20);
+    coinsNeededText.setFillColor(sf::Color::White);
+    coinsNeededText.setPosition(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - ((view->getSize().y)/2) + 250);
+    coinsNeededText.setString("Upgrade Cost: " + std::to_string(powerupMenu->counterPowerUp));
+
+    coinsNeededTextBackground.setSize(sf::Vector2f(coinsNeededText.getLocalBounds().width + 10,coinsNeededText.getLocalBounds().height + 15));
+    coinsNeededTextBackground.setPosition(coinsNeededText.getPosition().x - 5, coinsNeededText.getPosition().y - 5);
 }
 
 void Game::UpdateGameOverText() {

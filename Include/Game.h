@@ -24,6 +24,7 @@ private:
     void UpdateSpeedText();
     void UpdateAttackDamageText();
     void UpdateCoinsText();
+    void UpdateCoinsNeededText();
     void UpdateGameOverText();
     void loadTextures();
 
@@ -31,11 +32,13 @@ private:
     sf::Text speedText;
     sf::Text attackDamageText;
     sf::Text coinsText;
+    sf::Text coinsNeededText;
     sf::Text gameOverText;
 
     sf::RectangleShape speedTextBackground;
     sf::RectangleShape attackDamageTextBackground;
     sf::RectangleShape coinsTextBackground;
+    sf::RectangleShape coinsNeededTextBackground;
     sf::RectangleShape gameOverTextBackground;
 
     TextureHolder textureHolder;
