@@ -201,6 +201,8 @@ void World::UpdateEnemies() {
                     createEnemies();
             }
         }
+    } else {
+        createEnemies();
     }
 }
 

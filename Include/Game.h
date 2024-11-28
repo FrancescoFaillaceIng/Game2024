@@ -24,16 +24,19 @@ private:
     void UpdateSpeedText();
     void UpdateAttackDamageText();
     void UpdateCoinsText();
+    void UpdateGameOverText();
     void loadTextures();
 
     sf::Font font;
     sf::Text speedText;
     sf::Text attackDamageText;
     sf::Text coinsText;
+    sf::Text gameOverText;
 
     sf::RectangleShape speedTextBackground;
     sf::RectangleShape attackDamageTextBackground;
     sf::RectangleShape coinsTextBackground;
+    sf::RectangleShape gameOverTextBackground;
 
     TextureHolder textureHolder;
 
@@ -51,6 +54,7 @@ private:
     static const sf::Time TimePerFrame;
 
     bool isPowerUpMenuActive;
+    bool isGameOver;
 
 };
 #endif //GAME_GAME_H

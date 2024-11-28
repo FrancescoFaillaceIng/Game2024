@@ -8,11 +8,13 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 80.f);
 
 Game::Game() : mWindow(new sf::RenderWindow(sf::VideoMode(1725 , 978),
                                             "Typical journey", sf::Style::Default)) {
+    isGameOver = false;
     isPowerUpMenuActive = false;
 
     speedTextBackground.setFillColor(sf::Color::Black);
     attackDamageTextBackground.setFillColor(sf::Color::Black);
     coinsTextBackground.setFillColor(sf::Color::Black);
+    gameOverTextBackground.setFillColor(sf::Color::Black);
 
     loadTextures();
     world = std::make_shared<World>(mWindow, textureHolder);
@@ -46,6 +48,7 @@ void Game::play() {
     sf::Clock shootingClock;
     sf::Clock damageClock;
     sf::Clock menuClock;
+
     sf::Time shootingTime = shootingClock.restart();
     sf::Time damageTime = damageClock.restart();
     sf::Time menuTime = menuClock.restart();
@@ -67,8 +70,24 @@ void Game::play() {
 void Game::render() {
     mWindow->clear();
     mWindow->setView(*view);
-    world->draw();
-    mWindow->draw(hero_lifebar->getSprite());
+
+    if (isGameOver){
+        mWindow->draw(gameOverTextBackground);
+        mWindow->draw(gameOverText);
+    } else {
+        world->draw();
+
+        mWindow->draw(hero_lifebar->getSprite());
+
+        mWindow->draw(speedTextBackground);
+        mWindow->draw(attackDamageTextBackground);
+        mWindow->draw(coinsTextBackground);
+
+        mWindow->draw(speedText);
+        mWindow->draw(attackDamageText);
+        mWindow->draw(coinsText);
+    }
+
     if (!world->isRunning && !isPowerUpMenuActive){
         game_menu->render(mWindow);
         for(auto& button : game_menu->buttons)
@@ -78,13 +97,6 @@ void Game::render() {
         for(auto& button : powerupMenu->buttons)
             button->render(mWindow);
     }
-    mWindow->draw(speedTextBackground);
-    mWindow->draw(attackDamageTextBackground);
-    mWindow->draw(coinsTextBackground);
-
-    mWindow->draw(speedText);
-    mWindow->draw(attackDamageText);
-    mWindow->draw(coinsText);
 
     mWindow->display();
 }
@@ -110,7 +122,7 @@ void  Game::processEvents(sf::Clock &shootingClock) {
 }
 
 void Game::Update(sf::Clock &damageClock, sf::Clock &menuClock) {
-    if(world->isRunning)
+    if(world->isRunning && !isGameOver)
         world->Update(damageClock);
     else if (!world->isRunning && !isPowerUpMenuActive){
         game_menu->update(mWindow, sf::Vector2i(view->getCenter().x-400, view->getCenter().y-300));
@@ -150,20 +162,24 @@ void Game::Update(sf::Clock &damageClock, sf::Clock &menuClock) {
             menuClock.restart();
             }
         }
+    } else if (isGameOver){
+        UpdateGameOverText();
     }
+
     view->setCenter(world->hero->rect.getPosition());
+
     LifeBarUpdate();
     UpdateSpeedText();
     UpdateAttackDamageText();
     UpdateCoinsText();
+
 }
 
 void Game::LifeBarUpdate() {
     hero_lifebar->update(view->getCenter().x - (view->getSize().x)/2, view->getCenter().y - (view->getSize().y)/2,
                                                                                             world->hero->getHp());
     if (world->hero->getHp() <= 0){
-        //TODO game over
-        free(&hero_lifebar);
+        isGameOver = true;
     }
 }
 
@@ -198,6 +214,17 @@ void Game::UpdateCoinsText() {
 
     coinsTextBackground.setSize(sf::Vector2f(coinsText.getLocalBounds().width + 10,coinsText.getLocalBounds().height + 15));
     coinsTextBackground.setPosition(coinsText.getPosition().x - 5, coinsText.getPosition().y - 5);
+}
+
+void Game::UpdateGameOverText() {
+    gameOverText.setFont(font);
+    gameOverText.setCharacterSize(150);
+    gameOverText.setFillColor(sf::Color::Red);
+    gameOverText.setPosition(view->getCenter().x - 400, view->getCenter().y - 200);
+    gameOverText.setString("GAME OVER");
+
+    gameOverTextBackground.setSize(sf::Vector2f(gameOverText.getLocalBounds().width + 10,gameOverText.getLocalBounds().height + 75));
+    gameOverTextBackground.setPosition(gameOverText.getPosition().x - 5, gameOverText.getPosition().y - 5);
 }
 
 void Game::loadTextures() {
