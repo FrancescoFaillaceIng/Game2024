@@ -20,6 +20,11 @@ protected:
 
 TEST_F(Collision, Hero_Enemy){
     //costruttori
+    textures.load(Textures::StHero, "./Resources/HeroSprite.png");
+    textures.load(Textures::bull_fighter,"./Resources/minotaur.png");
+    textures.load(Textures::flying_fighter,"./Resources/bat.png");
+    textures.load(Textures::ghost_fighter,"./Resources/ghost.png");
+
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
                                                  "world test", sf::Style::Default);
 
@@ -34,7 +39,7 @@ TEST_F(Collision, Hero_Enemy){
     tWorld->hero->rect.setPosition(100, 100);
     tEnemy->rect.setPosition(100, 100);
 
-    //TODO set damageclock a 3
+    while(damageClock.getElapsedTime() < sf::seconds(3));
     tWorld->CollisionsHeroEnemies(damageClock);
 
     //vita eroe dopo collisione
@@ -44,9 +49,9 @@ TEST_F(Collision, Hero_Enemy){
 TEST_F(Collision, Hero_Map){
 
     //load textures
-    textures.load(Textures::StHero,"../../Resources/HeroSprite.png");
-    textures.load(Textures::WallText,"../../Resources/Wall.png");
-    textures.load(Textures::FloorText, "../../Resources/Floor.png");
+    textures.load(Textures::StHero,"./Resources/HeroSprite.png");
+    textures.load(Textures::WallText,"./Resources/Wall.png");
+    textures.load(Textures::FloorText, "./Resources/Floor.png");
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
@@ -54,27 +59,71 @@ TEST_F(Collision, Hero_Map){
 
     tWorld = std::make_shared<World>(tWindow, textures);
 
+    //posizione iniziale eroe
+    EXPECT_EQ(tWorld->hero->rect.getPosition().x, 64);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().y, 64);
+
     //condizioni muro sopra all' eroe
-    tWorld->hero->rect.setPosition(64, 64);
+    tWorld->hero->setDirection(Characters::up);
     tWorld->hero->setIsMovingLeft(false);
     tWorld->hero->setIsMovingUp(true);
     tWorld->hero->setIsMovingDown(false);
     tWorld->hero->setIsMovingRight(false);
 
     //posizione eroe invariata
-    tWorld->UpdateHero();
-    tWorld->CollisionsHeroMap();
+    tWorld->Update(damageClock);
     EXPECT_EQ(tWorld->hero->rect.getPosition().x, 64);
     EXPECT_EQ(tWorld->hero->rect.getPosition().y, 64);
+
+    //condizioni muro a sinistra dell' eroe
+    tWorld->hero->setDirection(Characters::left);
+    tWorld->hero->setIsMovingLeft(true);
+    tWorld->hero->setIsMovingUp(false);
+    tWorld->hero->setIsMovingDown(false);
+    tWorld->hero->setIsMovingRight(false);
+
+    //posizione eroe invariata
+    tWorld->Update(damageClock);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().x, 64);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().y, 64);
+
+    tWorld->hero->rect.setPosition((64*3)+32,(64*21)+32);
+
+    //condizioni muro a destra dell' eroe
+    tWorld->hero->setDirection(Characters::right);
+    tWorld->hero->setIsMovingLeft(false);
+    tWorld->hero->setIsMovingUp(false);
+    tWorld->hero->setIsMovingDown(false);
+    tWorld->hero->setIsMovingRight(true);
+
+    //posizione eroe invariata
+    tWorld->Update(damageClock);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().x, (64*3)+32);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().y, (64*21)+32);
+
+    //condizioni muro a sotto all' eroe
+    tWorld->hero->setDirection(Characters::down);
+    tWorld->hero->setIsMovingLeft(false);
+    tWorld->hero->setIsMovingUp(false);
+    tWorld->hero->setIsMovingDown(true);
+    tWorld->hero->setIsMovingRight(false);
+
+    //posizione eroe invariata
+    tWorld->Update(damageClock);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().x, (64*3)+32);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().y, (64*21)+32);
+
+
+
 }
 
 TEST_F(Collision, Enemy_Map){
     //load textures
-    textures.load(Textures::ghost_fighter,"../../Resources/ghost.png");
-    textures.load(Textures::bull_fighter,"../../Resources/minotaur.png");
-    textures.load(Textures::flying_fighter,"../../Resources/bat.png");
-    textures.load(Textures::WallText,"../../Resources/Wall.png");
-    textures.load(Textures::FloorText, "../../Resources/Floor.png");
+    textures.load(Textures::ghost_fighter,"./Resources/ghost.png");
+    textures.load(Textures::bull_fighter,"./Resources/minotaur.png");
+    textures.load(Textures::flying_fighter,"./Resources/bat.png");
+    textures.load(Textures::WallText,"./Resources/Wall.png");
+    textures.load(Textures::FloorText, "./Resources/Floor.png");
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
@@ -100,11 +149,11 @@ TEST_F(Collision, Enemy_Map){
 TEST_F(Collision, Projectile_Enemy){
 
     //load textures
-    textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
-    textures.load(Textures::bull_fighter, "../../Resources/minotaur.png");
-    textures.load(Textures::ghost_fighter, "../../Resources/ghost.png");
-    textures.load(Textures::flying_fighter, "../../Resources/bat.png");
-    textures.load(Textures::StProjectile, "../../Resources/StProjectile.png");
+    textures.load(Textures::StHero, "./Resources/HeroSprite.png");
+    textures.load(Textures::bull_fighter, "./Resources/minotaur.png");
+    textures.load(Textures::ghost_fighter, "./Resources/ghost.png");
+    textures.load(Textures::flying_fighter, "./Resources/bat.png");
+    textures.load(Textures::StProjectile, "./Resources/StProjectile.png");
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),
@@ -131,10 +180,10 @@ TEST_F(Collision, Projectile_Enemy){
 TEST_F(Collision, Projectile_Map){
 
     //load textures
-    textures.load(Textures::WallText, "../../Resources/Wall.png");
-    textures.load(Textures::FloorText, "../../Resources/Floor.png");
-    textures.load(Textures::StProjectile,"../../Resources/StProjectile.png");
-    textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
+    textures.load(Textures::WallText, "./Resources/Wall.png");
+    textures.load(Textures::FloorText, "./Resources/Floor.png");
+    textures.load(Textures::StProjectile,"./Resources/StProjectile.png");
+    textures.load(Textures::StHero, "./Resources/HeroSprite.png");
 
     //costruttori
     tWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(1500, 850),

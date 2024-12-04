@@ -23,14 +23,14 @@ protected:
 TEST_F(Movements, HeroMovement) {
 
 //load textures
-    textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
+    textures.load(Textures::StHero, "./Resources/HeroSprite.png");
 
 //costruttori
     tHero = std::make_shared<Hero>(Hero::StRanged, textures);
 
 //test posizone iniziale
-    EXPECT_EQ(tHero->rect.getPosition().x, 100);
-    EXPECT_EQ(tHero->rect.getPosition().y, 100);
+    EXPECT_EQ(tHero->rect.getPosition().x, 64);
+    EXPECT_EQ(tHero->rect.getPosition().y, 64);
     tHero->setIsMovingRight(false);
     tHero->setIsMovingLeft(false);
     tHero->setIsMovingDown(false);
@@ -44,8 +44,8 @@ TEST_F(Movements, HeroMovement) {
     tHero->setDirection(Entity::right);
     tHero->Update();
 
-    EXPECT_EQ(tHero->rect.getPosition().x, 104);
-    EXPECT_EQ(tHero->rect.getPosition().y, 100);
+    EXPECT_EQ(tHero->rect.getPosition().x, 68);
+    EXPECT_EQ(tHero->rect.getPosition().y, 64);
 
     tHero->setIsMovingRight(false);
 
@@ -54,8 +54,8 @@ TEST_F(Movements, HeroMovement) {
     tHero->setDirection(Entity::down);
     tHero->Update();
 
-    EXPECT_EQ(tHero->rect.getPosition().x, 104);
-    EXPECT_EQ(tHero->rect.getPosition().y, 104);
+    EXPECT_EQ(tHero->rect.getPosition().x, 68);
+    EXPECT_EQ(tHero->rect.getPosition().y, 68);
 
     tHero->setIsMovingDown(false);
 
@@ -64,8 +64,8 @@ TEST_F(Movements, HeroMovement) {
     tHero->setDirection(Entity::left);
     tHero->Update();
 
-    EXPECT_EQ(tHero->rect.getPosition().x, 100);
-    EXPECT_EQ(tHero->rect.getPosition().y, 104);
+    EXPECT_EQ(tHero->rect.getPosition().x, 64);
+    EXPECT_EQ(tHero->rect.getPosition().y, 68);
 
     tHero->setIsMovingLeft(false);
 
@@ -74,8 +74,8 @@ TEST_F(Movements, HeroMovement) {
     tHero->setDirection(Entity::up);
     tHero->Update();
 
-    EXPECT_EQ(tHero->rect.getPosition().x, 100);
-    EXPECT_EQ(tHero->rect.getPosition().y, 100);
+    EXPECT_EQ(tHero->rect.getPosition().x, 64);
+    EXPECT_EQ(tHero->rect.getPosition().y, 64);
 
     tHero->setIsMovingDown(false);
 }
@@ -83,9 +83,9 @@ TEST_F(Movements, HeroMovement) {
 TEST_F(Movements, EnemyMovement) {
 
     //load textures
-    textures.load(Textures::bull_fighter, "../../Resources/minotaur.png");
-    textures.load(Textures::ghost_fighter, "../../Resources/ghost.png");
-    textures.load(Textures::flying_fighter, "../../Resources/bat.png");
+    textures.load(Textures::bull_fighter, "./Resources/minotaur.png");
+    textures.load(Textures::ghost_fighter, "./Resources/ghost.png");
+    textures.load(Textures::flying_fighter, "./Resources/bat.png");
 
     //costruttori
     strategy = std::make_shared<PatrolStrategy>(windowSize);
@@ -141,11 +141,12 @@ TEST_F(Movements, EnemyMovement) {
 TEST_F(Movements, ProjectileMovement) {
 
     //load textures
-    textures.load(Textures::StHero, "../../Resources/HeroSprite.png");
-    textures.load(Textures::StProjectile, "../../Resources/StProjectile.png");
+    textures.load(Textures::StHero, "./Resources/HeroSprite.png");
+    textures.load(Textures::StProjectile, "./Resources/StProjectile.png");
 
     //costruttori
     tHero = std::make_shared<Hero>(Hero::StRanged, textures);
+    tHero->rect.setPosition(100,100);
     tProjectile_up = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());
     tProjectile_right = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());
     tProjectile_down = std::make_shared<StProjectile>(textures, tHero->rect.getPosition());

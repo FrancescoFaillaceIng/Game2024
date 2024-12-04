@@ -61,7 +61,7 @@ void World::CollisionsHeroEnemies(sf::Clock &damageClock) {
     for (auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++){
 
         // if an enemy touches the hero, hero's life decrease
-        if(damageClock.getElapsedTime().asSeconds() >= 3){
+        if(damageClock.getElapsedTime().asSeconds() >= 1){
             if (hero->rect.getGlobalBounds().intersects((*iter)->rect.getGlobalBounds())){
                 hero->setHp(hero->getHp()-(*iter)->getAttackDamage());
                 std::cout << "hero's life is:" << hero->getHp() << std::endl;
