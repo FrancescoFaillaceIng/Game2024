@@ -128,6 +128,7 @@ TEST_F(Collision, Enemy_Map){
 
     tWorld = std::make_shared<World>(tWindow, textures);
     tEnemy = tWorld->enemyArray[0];
+    tEnemy->strategy = nullptr;
 
     tEnemy->rect.setPosition(64, 64);
 
@@ -142,6 +143,44 @@ TEST_F(Collision, Enemy_Map){
     tWorld->CollisionsEnemiesMap();
     EXPECT_EQ(tEnemy->rect.getPosition().x, 64);
     EXPECT_EQ(tEnemy->rect.getPosition().y, 64);
+
+    //condizioni muro sopra al nemico
+    tEnemy->setIsMovingUp(true);
+    tEnemy->setIsMovingDown(false);
+    tEnemy->setIsMovingRight(false);
+    tEnemy->setIsMovingLeft(false);
+
+    //posizione nemico invariata
+    tWorld->UpdateEnemies();
+    tWorld->CollisionsEnemiesMap();
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 64);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 64);
+
+    tEnemy->rect.setPosition(352,352);
+
+    //condizioni muro a destra del nemico
+    tEnemy->setIsMovingUp(false);
+    tEnemy->setIsMovingDown(false);
+    tEnemy->setIsMovingRight(true);
+    tEnemy->setIsMovingLeft(false);
+
+    //posizione nemico invariata
+    tWorld->UpdateEnemies();
+    tWorld->CollisionsEnemiesMap();
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 352);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 352);
+
+    //condizioni muro sotto al nemico
+    tEnemy->setIsMovingUp(false);
+    tEnemy->setIsMovingDown(true);
+    tEnemy->setIsMovingRight(false);
+    tEnemy->setIsMovingLeft(false);
+
+    //posizione nemico invariata
+    tWorld->UpdateEnemies();
+    tWorld->CollisionsEnemiesMap();
+    EXPECT_EQ(tEnemy->rect.getPosition().x, 352);
+    EXPECT_EQ(tEnemy->rect.getPosition().y, 352);
 }
 
 TEST_F(Collision, Projectile_Enemy){

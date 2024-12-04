@@ -183,7 +183,7 @@ void World::UpdateEnemies() {
 
             //set hero position to the strategy
             auto seekStrategy = std::dynamic_pointer_cast<SeekStrategy>((*iter)->strategy);
-            if(seekStrategy != nullptr) {
+            if(seekStrategy) {
                 seekStrategy->heroPosition = hero->rect.getPosition();
                 seekStrategy->enemyPos = (*iter)->rect.getPosition();
             }
