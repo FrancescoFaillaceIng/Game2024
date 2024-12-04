@@ -87,7 +87,7 @@ TEST_F(Collision, Hero_Map){
     EXPECT_EQ(tWorld->hero->rect.getPosition().x, 64);
     EXPECT_EQ(tWorld->hero->rect.getPosition().y, 64);
 
-    tWorld->hero->rect.setPosition((64*3)+32,(64*21)+32);
+    tWorld->hero->rect.setPosition(352,352);
 
     //condizioni muro a destra dell' eroe
     tWorld->hero->setDirection(Characters::right);
@@ -98,8 +98,8 @@ TEST_F(Collision, Hero_Map){
 
     //posizione eroe invariata
     tWorld->Update(damageClock);
-    EXPECT_EQ(tWorld->hero->rect.getPosition().x, (64*3)+32);
-    EXPECT_EQ(tWorld->hero->rect.getPosition().y, (64*21)+32);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().x, 352);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().y, 352);
 
     //condizioni muro a sotto all' eroe
     tWorld->hero->setDirection(Characters::down);
@@ -110,11 +110,8 @@ TEST_F(Collision, Hero_Map){
 
     //posizione eroe invariata
     tWorld->Update(damageClock);
-    EXPECT_EQ(tWorld->hero->rect.getPosition().x, (64*3)+32);
-    EXPECT_EQ(tWorld->hero->rect.getPosition().y, (64*21)+32);
-
-
-
+    EXPECT_EQ(tWorld->hero->rect.getPosition().x, 352);
+    EXPECT_EQ(tWorld->hero->rect.getPosition().y, 352);
 }
 
 TEST_F(Collision, Enemy_Map){
@@ -130,14 +127,15 @@ TEST_F(Collision, Enemy_Map){
                                                  "world test", sf::Style::Default);
 
     tWorld = std::make_shared<World>(tWindow, textures);
-    tEnemy = tWorld->enemyArray.front();
+    tEnemy = tWorld->enemyArray[0];
+
+    tEnemy->rect.setPosition(64, 64);
 
     //condizioni muro a sinistra del nemico
-    tEnemy->rect.setPosition(64, 64);
-    tEnemy->setIsMovingUp(true);
+    tEnemy->setIsMovingUp(false);
     tEnemy->setIsMovingDown(false);
     tEnemy->setIsMovingRight(false);
-    tEnemy->setIsMovingLeft(false);
+    tEnemy->setIsMovingLeft(true);
 
     //posizione nemico invariata
     tWorld->UpdateEnemies();

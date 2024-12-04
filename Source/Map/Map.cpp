@@ -5,7 +5,6 @@
 #include "../../Include/Map/Map.h"
 
 Map::Map(const TextureHolder& textures) {
-    //TODO togliere create map?
     createMap(textures);
 }
 

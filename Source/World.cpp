@@ -175,9 +175,6 @@ void World::UpdateHero() {
     if (hero->getHp() <= 0){
         hero->active = false;
     }
-    if (!hero->active){
-       //free(&hero);
-    }
 }
 
 void World::UpdateEnemies() {

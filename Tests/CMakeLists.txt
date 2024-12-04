@@ -21,7 +21,8 @@ set(Classi2 ../Include/Game.h ../Source/Game.cpp ../Include/Map/Map.h ../Source/
         ../Include/Projectiles/ProjectileFactory.h ../Include/Observer/Observer.h ../Include/Observer/Subject.h ../Source/Observer/mObserver.cpp
         ../Include/Observer/mObserver.h ../Source/Objects/Coins.cpp ../Include/Objects/Coins.h ../Source/Objects/Potion.cpp
         ../Include/Objects/Potion.h ../Source/LifeBars/LifeBars.cpp ../Include/LifeBars/LifeBars.h ../Source/LifeBars/BarsFactory.cpp
-        ../Include/LifeBars/BarsFactory.h)
+        ../Include/LifeBars/BarsFactory.h ../Include/Menus/Button.h ../Source/Menus/Button.cpp ../Include/Menus/Game_menu.h
+        ../Source/Menus/Game_menu.cpp ../Include/Menus/PowerupMenu.h ../Source/Menus/PowerupMenu.cpp)
 
 include_directories(${gtest_DIR}/include)
 include_directories(${SFML_INCLUDE_DIR})
