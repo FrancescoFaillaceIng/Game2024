@@ -27,7 +27,7 @@ set(Classi2 ../Include/Game.h ../Source/Game.cpp ../Include/Map/Map.h ../Source/
 include_directories(${gtest_DIR}/include)
 include_directories(${SFML_INCLUDE_DIR})
 
-set(SOURCES_TESTS mainTest.cpp Movements.cpp Collision.cpp)
+set(SOURCES_TESTS mainTest.cpp Movements.cpp Collision.cpp Objects.cpp)
 
 add_executable(test ${Classi2} ${SOURCES_TESTS})
 

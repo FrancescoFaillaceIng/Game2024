@@ -64,7 +64,6 @@ void World::CollisionsHeroEnemies(sf::Clock &damageClock) {
         if(damageClock.getElapsedTime().asSeconds() >= 1){
             if (hero->rect.getGlobalBounds().intersects((*iter)->rect.getGlobalBounds())){
                 hero->setHp(hero->getHp()-(*iter)->getAttackDamage());
-                std::cout << "hero's life is:" << hero->getHp() << std::endl;
                 damageClock.restart();
             }
         }
@@ -311,7 +310,6 @@ void World::collectObjects() {
                         if(hero->getHp() < hero->getHpMax()){
                             hero->setHp(hero->getHp() + 20);
                         }
-                        std::cout << "hero's life is:" << hero->getHp() << std::endl;
                         break;
                 }
                 iter = collectableObject.erase(iter);
