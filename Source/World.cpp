@@ -112,6 +112,7 @@ void World::CollisionsHeroMap() {
 }
 
 void World::CollisionsEnemiesMap() {
+    std::shared_ptr<Strategy> newStrategy = std::make_shared<PatrolStrategy>(window->getSize());
     for (auto i = map->tileArray.begin(); i != map->tileArray.end(); i++){
         for (auto j = enemyArray.begin(); j != enemyArray.end(); j++){
             if ((*j)->rect.getGlobalBounds().intersects((*i)->rect.getGlobalBounds())){
@@ -130,7 +131,7 @@ void World::CollisionsEnemiesMap() {
                             (*j)->rect.move((*j)->getSpeedBasic(), 0);
                             break;
                     }
-                    (*j)->changeDirection();
+                    (*j)->strategy = newStrategy;
                 }
             }
         }
