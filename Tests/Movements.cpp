@@ -91,11 +91,6 @@ TEST_F(Movements, EnemyMovement) {
     strategy = std::make_shared<PatrolStrategy>(windowSize);
     tEnemy = std::make_shared<MeleeEnemy>(Enemy::meleeEnemy, windowSize,  textures, strategy);
 
-    tEnemy->setIsMovingRight(false);
-    tEnemy->setIsMovingLeft(false);
-    tEnemy->setIsMovingDown(false);
-    tEnemy->setIsMovingUp(false);
-
     //test speed
     EXPECT_EQ(tEnemy->getSpeedBasic(), 1);
 
@@ -103,39 +98,35 @@ TEST_F(Movements, EnemyMovement) {
     tEnemy->rect.setPosition(100, 100);
 
     tEnemy->setIsMovingLeft(true);
-    tEnemy->Update();
+    tEnemy->Update(3);
 
     EXPECT_EQ(tEnemy->rect.getPosition().x, 99);
     EXPECT_EQ(tEnemy->rect.getPosition().y, 100);
-
     tEnemy->setIsMovingLeft(false);
 
-    //test movimento down
+    //test movimento
     tEnemy->setIsMovingDown(true);
-    tEnemy->Update();
+    tEnemy->Update(2);
 
     EXPECT_EQ(tEnemy->rect.getPosition().x, 99);
     EXPECT_EQ(tEnemy->rect.getPosition().y, 101);
-
     tEnemy->setIsMovingDown(false);
 
     //test movimento right
     tEnemy->setIsMovingRight(true);
-    tEnemy->Update();
+    tEnemy->Update(4);
 
     EXPECT_EQ(tEnemy->rect.getPosition().x, 100);
     EXPECT_EQ(tEnemy->rect.getPosition().y, 101);
-
     tEnemy->setIsMovingRight(false);
 
     //test movimento up
     tEnemy->setIsMovingUp(true);
-    tEnemy->Update();
+    tEnemy->Update(1);
 
     EXPECT_EQ(tEnemy->rect.getPosition().x, 100);
     EXPECT_EQ(tEnemy->rect.getPosition().y, 100);
-
-    tEnemy->setIsMovingDown(false);
+    tEnemy->setIsMovingUp(false);
 }
 
 TEST_F(Movements, ProjectileMovement) {

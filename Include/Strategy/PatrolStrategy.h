@@ -13,7 +13,7 @@ public:
     PatrolStrategy(sf::Vector2u windowSize);
 
     //change direction every x frames
-    void update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,
+    void update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection,
                 sf::RectangleShape &rect) override;
 
     void animation(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, bool &delayWalk,
@@ -24,7 +24,8 @@ public:
     Type type;
 
 private:
-    void changeDirection(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight);
+    void changeDirection(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection);
+    int randDirection = 0;
 
     int speed;
     sf::Vector2u windowSize;

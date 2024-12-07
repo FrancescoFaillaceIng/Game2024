@@ -10,7 +10,7 @@ SeekStrategy::SeekStrategy(sf::Vector2u windowSize) {
     type = seek;
 }
 
-void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,
+void SeekStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection,
                           sf::RectangleShape &rect) {
 
     sf::Vector2f target(heroPosition.x - enemyPos.x, heroPosition.y - enemyPos.y);

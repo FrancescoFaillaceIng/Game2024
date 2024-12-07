@@ -9,11 +9,11 @@ PatrolStrategy::PatrolStrategy(sf::Vector2u windowSize) {
     type = patrol;
 }
 
-void PatrolStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,
+void PatrolStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection,
                             sf::RectangleShape& rect) {
 
     if(counterDirection==0) {
-        changeDirection(isMovingUp, isMovingDown, isMovingLeft, isMovingRight);
+        changeDirection(isMovingUp, isMovingDown, isMovingLeft, isMovingRight, randDirection);
         changeDirectionTime = GenerateRandom(200);
     }
     counterDirection = (counterDirection+1)%changeDirectionTime;
@@ -36,16 +36,25 @@ void PatrolStrategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMoving
 
 }
 
-void PatrolStrategy::changeDirection(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight) {
+void PatrolStrategy::changeDirection(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection) {
     isMovingUp= false;
     isMovingDown= false;
     isMovingLeft= false;
     isMovingRight= false;
-    int randDirection = GenerateRandom(4);
-    if(randDirection==1) isMovingUp=true;
-    if(randDirection==2) isMovingDown=true;
-    if(randDirection==3) isMovingLeft=true;
-    if(randDirection==4) isMovingRight=true;
+    switch (randDirection) {
+        case 1:
+            isMovingUp = true;
+            break;
+        case 2:
+            isMovingDown = true;
+            break;
+        case 3:
+            isMovingLeft = true;
+            break;
+        case 4:
+            isMovingRight = true;
+            break;
+    }
 }
 
 void PatrolStrategy::animation(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,

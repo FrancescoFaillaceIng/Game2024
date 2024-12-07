@@ -8,11 +8,11 @@ Enemy::Enemy() {
 
 }
 
-void Enemy::Update() {
+void Enemy::Update(int randDirection) {
     strategy->animation(isMovingUp,isMovingDown,isMovingLeft,isMovingRight,delayMoreWalk,
                         delayMoreWalk,counterWalk);
 
-    strategy->update(isMovingUp, isMovingDown, isMovingLeft, isMovingRight, rect);
+    strategy->update(isMovingUp, isMovingDown, isMovingLeft, isMovingRight, randDirection, rect);
     sprite.setPosition(rect.getPosition());
     position = sprite.getPosition();
 
@@ -46,15 +46,4 @@ void Enemy::setDirection() {
     }
 }
 
-void Enemy::changeDirection() {
-    isMovingUp= false;
-    isMovingDown= false;
-    isMovingLeft= false;
-    isMovingRight= false;
-    int randDirection = GenerateRandom(4);
-    if(randDirection==1) isMovingUp=true;
-    if(randDirection==2) isMovingDown=true;
-    if(randDirection==3) isMovingLeft=true;
-    if(randDirection==4) isMovingRight=true;
-}
 

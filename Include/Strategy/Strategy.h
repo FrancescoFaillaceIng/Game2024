@@ -21,7 +21,7 @@ public:
 
     Strategy();
 
-    virtual void update(bool& isMovingUp,bool& isMovingDown,bool& isMovingLeft,bool& isMovingRight, sf::RectangleShape& rect);
+    virtual void update(bool& isMovingUp,bool& isMovingDown,bool& isMovingLeft,bool& isMovingRight, int randDirection, sf::RectangleShape& rect);
     virtual void animation(bool& isMovingUp,bool& isMovingDown,bool& isMovingLeft,bool& isMovingRight, bool&
     delayWalk, bool& delayMoreWalk, int& counterWalk);
 };

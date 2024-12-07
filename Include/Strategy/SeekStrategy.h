@@ -17,7 +17,7 @@ public:
 
     SeekStrategy(sf::Vector2u windowSize);
 
-    void update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,
+    void update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection,
                 sf::RectangleShape &rect) override;
 
     void animation(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, bool &delayWalk,

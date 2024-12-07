@@ -49,7 +49,7 @@ public:
 
     void UpdateMap();
     void UpdateHero();
-    void UpdateEnemies();
+    void UpdateEnemies(int randDirection);
     void UpdateProjectiles();
 
     void addObserver(std::shared_ptr<mObserver> observer);

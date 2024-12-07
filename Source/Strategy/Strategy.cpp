@@ -8,7 +8,7 @@ Strategy::Strategy() {
 
 }
 
-void Strategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight,
+void Strategy::update(bool &isMovingUp, bool &isMovingDown, bool &isMovingLeft, bool &isMovingRight, int randDirection,
                       sf::RectangleShape &rect) {
 
 }

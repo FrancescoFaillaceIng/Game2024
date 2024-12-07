@@ -20,9 +20,8 @@ public:
 
     Enemy();
 
-    void Update() override;
+    void Update(int randDirection);
     void setDirection();
-    void changeDirection() override;
     void die() override;
 
     std::shared_ptr<Strategy> strategy;

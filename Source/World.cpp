@@ -158,7 +158,7 @@ void World::CollisionsProjectilesMap() {
 void World::Update(sf::Clock &damageClock) {
     UpdateMap();
     UpdateHero();
-    UpdateEnemies();
+    UpdateEnemies(GenerateRandom(4));
     UpdateProjectiles();
     CheckGlobalBounds(damageClock);
 }
@@ -176,7 +176,7 @@ void World::UpdateHero() {
     }
 }
 
-void World::UpdateEnemies() {
+void World::UpdateEnemies(int randDirection) {
     if(!enemyArray.empty()) {
         for ( auto iter = enemyArray.begin(); iter != enemyArray.end(); iter++ ) {
 
@@ -186,7 +186,7 @@ void World::UpdateEnemies() {
                 seekStrategy->heroPosition = hero->rect.getPosition();
                 seekStrategy->enemyPos = (*iter)->rect.getPosition();
             }
-            (*iter)->Update();
+            (*iter)->Update(randDirection);
             if ((*iter)->getHp()<=0){
                 Drop((*iter)->rect.getPosition().x, (*iter)->rect.getPosition().y);
                 iter = enemyArray.erase(iter);
