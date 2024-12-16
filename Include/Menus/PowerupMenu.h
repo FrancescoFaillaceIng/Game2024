@@ -22,9 +22,9 @@ public:
     int counterPowerUp;
 
     std::vector<std::shared_ptr<Button>> buttons;
-    std::shared_ptr<Button> button1;
-    std::shared_ptr<Button> button2;
-    std::shared_ptr<Button> button3;
+    std::shared_ptr<Button> upgradeAttackButton;
+    std::shared_ptr<Button> upgradeSpeedButton;
+    std::shared_ptr<Button> backButton;
 
     explicit PowerupMenu(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::View> view);
 

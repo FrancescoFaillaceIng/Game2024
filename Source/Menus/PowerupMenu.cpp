@@ -28,17 +28,17 @@ void PowerupMenu::addButton(std::shared_ptr<Button> button) {
 }
 
 void PowerupMenu::initButtons() {
-    button1 = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Upgrade Attack", font);
-    button2 = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Upgrade Speed", font);
-    button3 = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Back", font);
+    upgradeAttackButton = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Upgrade Attack", font);
+    upgradeSpeedButton = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Upgrade Speed", font);
+    backButton = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Back", font);
 
-    addButton(button1);
-    addButton(button2);
-    addButton(button3);
+    addButton(upgradeAttackButton);
+    addButton(upgradeSpeedButton);
+    addButton(backButton);
 
-    button1->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 20);
-    button2->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 100);
-    button3->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 180);
+    upgradeAttackButton->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 20);
+    upgradeSpeedButton->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 100);
+    backButton->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 180);
 }
 
 // Render all buttons
@@ -53,7 +53,7 @@ void PowerupMenu::render(std::shared_ptr<sf::RenderWindow> window) {
 // Update button hover and click effects
 void PowerupMenu::update(std::shared_ptr<sf::RenderWindow> window, sf::Vector2i pos) {
     popupBackground.setPosition(sf::Vector2f(pos.x, pos.y));
-    button1->update(window, pos.x+225, pos.y+50);
-    button2->update(window, pos.x+225, pos.y+150);
-    button3->update(window, pos.x+225, pos.y+250);
+    upgradeAttackButton->update(window, pos.x+225, pos.y+50);
+    upgradeSpeedButton->update(window, pos.x+225, pos.y+150);
+    backButton->update(window, pos.x+225, pos.y+250);
 }

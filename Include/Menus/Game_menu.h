@@ -19,9 +19,9 @@ private:
 
 public:
     std::vector<std::shared_ptr<Button>> buttons;
-    std::shared_ptr<Button> button1;
-    std::shared_ptr<Button> button2;
-    std::shared_ptr<Button> button3;
+    std::shared_ptr<Button> resumeButton;
+    std::shared_ptr<Button> upgradeButton;
+    std::shared_ptr<Button> exitButton;
 
     explicit Game_menu(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::View> view);
 

@@ -26,17 +26,17 @@ void Game_menu::addButton(std::shared_ptr<Button> button) {
 }
 
 void Game_menu::initButtons() {
-    button1 = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Resume", font);
-    button2 = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Upgrade", font);
-    button3 = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Exit", font);
+    resumeButton = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Resume", font);
+    upgradeButton = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Upgrade", font);
+    exitButton = std::make_shared<Button>(static_cast<float>(popupBackground.getSize().x),static_cast<float>(popupBackground.getSize().y), "Exit", font);
 
-    addButton(button1);
-    addButton(button2);
-    addButton(button3);
+    addButton(resumeButton);
+    addButton(upgradeButton);
+    addButton(exitButton);
 
-    button1->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 50);
-    button2->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 150);
-    button3->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 250);
+    resumeButton->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 50);
+    upgradeButton->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 150);
+    exitButton->setPosition(popupBackground.getPosition().x + 225, popupBackground.getPosition().y + 250);
 }
 
 // Render all buttons
@@ -51,7 +51,7 @@ void Game_menu::render(std::shared_ptr<sf::RenderWindow> window) {
 // Update button hover and click effects
 void Game_menu::update(std::shared_ptr<sf::RenderWindow> window, sf::Vector2i pos) {
     popupBackground.setPosition(sf::Vector2f(pos.x, pos.y));
-    button1->update(window, pos.x+225, pos.y+50);
-    button2->update(window, pos.x+225, pos.y+150);
-    button3->update(window, pos.x+225, pos.y+250);
+    resumeButton->update(window, pos.x+225, pos.y+50);
+    upgradeButton->update(window, pos.x+225, pos.y+150);
+    exitButton->update(window, pos.x+225, pos.y+250);
 }

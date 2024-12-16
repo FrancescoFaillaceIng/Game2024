@@ -192,11 +192,8 @@ void World::UpdateEnemies(int randDirection) {
                 Drop((*iter)->rect.getPosition().x, (*iter)->rect.getPosition().y);
                 iter = enemyArray.erase(iter);
             }
-            if ( !(*iter)->active ) {
-                iter = enemyArray.erase(iter);
-                if( iter == enemyArray.end())
-                    createEnemies();
-            }
+            if (enemyArray.empty())
+                createEnemies();
         }
     }
 }
@@ -302,7 +299,7 @@ void World::collectObjects() {
                     case Object::coins:
                         coins_counter++;
                         if (coins_counter >= 2){
-                            notify();
+                            //notify();
                             coins_counter = 0;
                             std::cout << hero->getAttackDamage();
                         }
@@ -325,7 +322,7 @@ void World::Drop(float x, float y) {
     int t = GenerateRandom(3);
     std::shared_ptr<Object> ObjectDropped;
     switch (t) {
-        case 1 || 2:
+        case 1 || 2 :
             ObjectDropped = objectFactory.createObject(Object::ObjectType::coins, x, y, textures);
             break;
         case 3:
